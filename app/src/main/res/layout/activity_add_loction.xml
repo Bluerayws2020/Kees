@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.activities.AddLocationActivity"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/included_tap"
+            layout="@layout/home_inner_app_bar"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addLocationBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:layout_constraintTop_toBottomOf="@id/included_tap"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cornerRadius="30dp"
+            android:backgroundTint="@color/darkPurple"
+            app:icon="@drawable/add_plus"
+            android:text="Add New Location"
+            app:iconGravity="textEnd"
+            android:fontFamily="@font/cairo_medium"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="30dp"
+            android:id="@+id/addressesRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/addLocationBtn"
+            tools:itemCount="4"
+            tools:listitem="@layout/address_item"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

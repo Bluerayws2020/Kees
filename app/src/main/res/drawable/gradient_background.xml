@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Define the gradient colors and direction -->
+    <gradient
+        android:startColor="@color/teal_700"
+    android:endColor="#0C648E"
+    android:type="linear"
+    android:angle="45" />
+
+    <!-- Define the shape corners -->
+    <corners android:radius="5dp" />
+</shape>

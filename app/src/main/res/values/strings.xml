@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Kees</string>
+    <array name="genders">
+        <item>
+            Male
+        </item>
+        <item>
+            Female
+        </item>
+    </array>
+    <array name="cities">
+        <item>Amman</item>
+
+    </array>
+    <string name="title_activity_maps">MapsActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_name">Please Enter Your Name</string>
+    <string name="email_please">Please enter your email</string>
+    <string name="choose_dob">Please choose date of birth</string>
+    <string name="create_accounttt">Create New Account</string>
+    <string name="chooseLocation">Please choose Location</string>
+    <string name="enter_area">Please Enter Area</string>
+    <string name="passwordMatch">Passwords Dose not Match</string>
+    <string name="enter_confirm">Please Enter Confirm Password</string>
+    <string name="enter_pass">Please Enter Password</string>
+    <string name="Error">Error Occurred</string>
+</resources>

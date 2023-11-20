@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+
+    >
+    <shape
+        android:shape="rectangle">
+        <solid
+            android:color="@color/white"/>
+    </shape>
+
+</item>
+    <item
+
+        >
+        <shape android:shape="rectangle">
+            <gradient
+                android:centerColor="#00A1A1A1"
+                android:endColor="#00FFFFFF"
+                android:gradientRadius="1000"
+                android:startColor="@color/black"
+                android:type="radial"
+                />
+            <corners
+                android:bottomLeftRadius="30dp"
+                android:bottomRightRadius="30dp"/>
+
+        </shape>
+    </item>
+
+
+<!--     Foreground color layer-->
+    <item
+        android:bottom="5dp"
+        >
+
+        <shape android:shape="rectangle">
+            <solid android:color="#E1D3E9F5"/> <!-- Background color: can be changed -->
+            <corners
+                android:bottomLeftRadius="30dp"
+                android:bottomRightRadius="30dp"/>
+        </shape>
+    </item>
+
+</layer-list>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Shadow layer -->
+    <item
+        android:right="2dp" android:bottom="2dp">
+    <shape>
+        <solid android:color="#BDBDBD"/> <!-- Shadow color -->
+        <corners android:radius="160dp"/>
+    </shape>
+</item>
+
+    <!-- Foreground layer -->
+<item>
+<selector>
+    <!-- Focused state -->
+    <item android:state_focused="true">
+        <shape>
+            <solid android:color="@android:color/white"/>
+            <corners android:radius="160dp"/>
+            <stroke android:width="5dp" android:color="#BDBDBD"/> <!-- You can adjust the color as needed -->
+            <padding android:top="10dp" android:bottom="10dp" android:start="10dp"/>
+        </shape>
+    </item>
+
+    <!-- Default state -->
+    <item>
+        <shape>
+            <solid android:color="@android:color/white"/>
+            <corners android:radius="160dp"/>
+            <stroke android:width="5dp" android:color="#E0E0E0"/> <!-- You can adjust the color as needed -->
+            <padding android:top="10dp" android:bottom="10dp" android:start="10dp"/>
+        </shape>
+    </item>
+</selector>
+</item>
+
+    </layer-list>

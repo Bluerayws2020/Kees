@@ -1,0 +1,23 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Kees" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purpleColor</item>
+        <item name="colorPrimaryVariant">@color/purpleColor</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/darkPurple</item>
+        <item name="colorSecondaryVariant">@color/darkPurple</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:windowContentTransitions">true</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="NavigationDrawerTextAppearance2" parent="@android:style/TextAppearance">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/cairo_medium</item>
+    </style>
+
+</resources>

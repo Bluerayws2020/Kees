@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.activities.MyProfileActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/included_tap"
+            layout="@layout/home_inner_app_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="@color/darkPurple"
+            app:cardCornerRadius="25dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintTop_toTopOf="@+id/profileCard">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/wallet"
+                android:layout_gravity="bottom|end"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="30dp"
+                app:tint="#7F3D92"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wallet"
+                android:layout_gravity="bottom|start"
+                android:layout_margin="30dp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:fontFamily="@font/cairo_bold"
+                />
+            <TextView
+                android:id="@+id/walletBalence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5.00 JOD"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="30dp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:fontFamily="@font/cairo_bold"
+                />
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/profileCard"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:layout_constraintTop_toBottomOf="@id/included_tap"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="25dp"
+            android:layout_marginTop="50dp"
+            >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="22dp"
+                android:paddingEnd="22dp"
+                android:paddingTop="43dp"
+                android:paddingBottom="43dp"
+                >
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/logo"
+                    />
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="عمر دراوشة"
+                    android:textColor="@color/darkPurple"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/cairo_medium"
+                    app:layout_constraintStart_toEndOf="@id/profileImage"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="15dp"
+                    />
+                <View
+                    android:id="@+id/placeHolder"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toEndOf="@id/name"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:background="#97474747"
+                    android:layout_marginStart="15dp"
+                    />
+                <View
+                    android:id="@+id/centerSaver"
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/establishmentNameLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/cairo_bold"
+                    android:text="Establishment Name: "
+                    android:textSize="9sp"
+                    app:layout_constraintStart_toStartOf="@id/placeHolder"
+                    app:layout_constraintTop_toTopOf="@+id/placeHolder" />
+
+                <TextView
+                    android:id="@+id/establishmentNameTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Lurim iposem"
+                    android:textSize="9sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/establishmentNameLabel"
+                    app:layout_constraintTop_toTopOf="@+id/establishmentNameLabel"
+                    android:fontFamily="@font/cairo_bold"
+                    />
+
+                <TextView
+                    android:id="@+id/phoneNumberTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="078977777"
+                    app:layout_constraintStart_toStartOf="@+id/placeHolder"
+                    app:layout_constraintTop_toBottomOf="@+id/establishmentNameLabel"
+                    android:layout_marginStart="15dp"
+
+                    android:textSize="13sp"
+                    android:fontFamily="@font/cairo_bold"
+                    />
+
+                <ImageView
+                    android:id="@+id/changeNumber"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/pin"
+                    app:layout_constraintBottom_toBottomOf="@+id/phoneNumberTV"
+                    app:layout_constraintStart_toEndOf="@+id/phoneNumberTV"
+                    app:layout_constraintTop_toTopOf="@+id/phoneNumberTV"
+                    android:layout_marginStart="15dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/personalDataBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="25dp"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="20dp"
+            >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="20dp"
+                android:src="#F5F5F5" />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="start"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:padding="15dp"
+                android:src="@drawable/profile"
+                app:tint="@color/darkPurple" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="90dp"
+                android:fontFamily="@font/cairo_bold"
+                android:text="Personal Data"
+                android:textColor="@color/textGrey47" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/forword" />
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/paymentMethodBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/personalDataBtn"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="25dp"
+            android:layout_marginTop="18dp"
+            >
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="#F5F5F5"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="20dp"
+                />
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/credit_card"
+                android:padding="15dp"
+                app:tint="@color/darkPurple"
+                android:layout_gravity="start"
+                android:layout_marginStart="20dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="90dp"
+                android:text="Payment Ways"
+                android:textColor="@color/textGrey47"
+                android:fontFamily="@font/cairo_bold"
+                />
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="end|center_vertical"
+                android:src="@drawable/forword"
+                android:layout_marginEnd="30dp"
+                />
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/addressBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/paymentMethodBtn"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="25dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="18sp"
+            >
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="#F5F5F5"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="20dp"
+                />
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/placeholder"
+                android:padding="15dp"
+                app:tint="@color/darkPurple"
+                android:layout_gravity="start"
+                android:layout_marginStart="20dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="90dp"
+                android:text="Address"
+                android:textColor="@color/textGrey47"
+                android:fontFamily="@font/cairo_bold"
+                />
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="end|center_vertical"
+                android:src="@drawable/forword"
+                android:layout_marginEnd="30dp"
+                />
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/walletBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/addressBtn"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="25dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="#F5F5F5"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="20dp"
+                />
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/wallet"
+                android:padding="15dp"
+                app:tint="@color/darkPurple"
+                android:layout_gravity="start"
+                android:layout_marginStart="20dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="90dp"
+                android:text="Wallet"
+                android:textColor="@color/textGrey47"
+                android:fontFamily="@font/cairo_bold"
+                />
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="end|center_vertical"
+                android:src="@drawable/forword"
+                android:layout_marginEnd="30dp"
+                />
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

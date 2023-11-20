@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/collector_navigation"
+    app:startDestination="@id/collectorHomeFragment">
+
+    <fragment
+        android:id="@+id/collectorHomeFragment"
+        android:name="com.blueray.kees.ui.collector.fragments.CollectorHomeFragment"
+        android:label="fragment_collector_home"
+        tools:layout="@layout/fragment_collector_home" />
+</navigation>

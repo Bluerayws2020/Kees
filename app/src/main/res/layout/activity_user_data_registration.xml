@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.LoginActivity"
+    android:background="@color/purpleColor"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:tint="@color/back_circle_color"
+            android:src="@drawable/background"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="-90dp"
+            android:layout_marginBottom="-90dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="40dp"
+            />
+        <include
+            android:id="@+id/included_tap"
+            layout="@layout/login_app_bar"
+            />
+
+        <TextView
+            android:id="@+id/signInLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create New Account"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/included_tap"
+            android:textSize="20sp"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="25dp"
+            android:fontFamily="@font/cairo_bold"
+            />
+        <androidx.cardview.widget.CardView
+            app:layout_constraintTop_toBottomOf="@id/signInLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="40dp"
+            app:cardCornerRadius="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="50dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Personal Information"
+                    android:textColor="@color/darkPurple"
+                    android:textSize="19sp"
+                    android:fontFamily="@font/cairo_bold"
+                    android:layout_marginTop="45dp"
+                    android:layout_marginStart="25dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Client Name"
+                    android:textColor="@color/purpleColor"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/cairo_bold"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginStart="25dp"
+                    />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_edit_text"
+                    >
+
+                    <EditText
+                        app:layoutDescription="@id/clientName"
+                        android:id="@+id/clientName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/empty_edit_text"
+                        android:textSize="16sp"
+                        android:textColor="#7F7F7F"
+                        android:fontFamily="@font/cairo_bold"
+                        android:paddingStart="15sp"
+                        android:singleLine="true"
+                        android:paddingEnd="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Birth Date"
+                    android:textColor="@color/purpleColor"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/cairo_bold"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginStart="25dp"
+                    />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_edit_text"
+                    >
+
+                    <TextView
+                        android:id="@+id/birthDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/empty_edit_text"
+                        android:fontFamily="@font/cairo_bold"
+                        android:paddingStart="15sp"
+                        android:paddingEnd="15sp"
+                        android:singleLine="true"
+                        android:textColor="#7F7F7F"
+                        android:textSize="16sp"
+                        app:layoutDescription="@id/birthDate"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/date_icon"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/date_icon"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/date"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender"
+                android:textColor="@color/purpleColor"
+                android:textSize="17sp"
+                android:fontFamily="@font/cairo_bold"
+                android:layout_marginTop="22dp"
+                android:layout_marginStart="25dp"
+                />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_edit_text"
+                    >
+
+                    <Spinner
+                        app:layoutDescription="@id/emailEt"
+                        android:id="@+id/genderSpinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/empty_edit_text"
+                        android:textSize="16sp"
+                        android:entries="@array/genders"
+                        android:fontFamily="@font/cairo_bold"
+                        android:paddingStart="15sp"
+                        android:inputType="textEmailAddress"
+                        android:singleLine="true"
+                        android:paddingEnd="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textColor="@color/purpleColor"
+                android:textSize="17sp"
+                android:fontFamily="@font/cairo_bold"
+                android:layout_marginTop="22dp"
+                android:layout_marginStart="25dp"
+                />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_edit_text"
+                    >
+
+                    <EditText
+                        app:layoutDescription="@id/emailEt"
+                        android:id="@+id/emailEt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/empty_edit_text"
+                        android:textSize="16sp"
+                        android:textColor="#7F7F7F"
+                        android:fontFamily="@font/cairo_bold"
+                        android:paddingStart="15sp"
+                        android:inputType="textEmailAddress"
+                        android:singleLine="true"
+                        android:paddingEnd="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:textColor="@color/purpleColor"
+                android:textSize="17sp"
+                android:fontFamily="@font/cairo_bold"
+                android:layout_marginTop="22dp"
+                android:layout_marginStart="25dp"
+                />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_edit_text"
+                    >
+
+                    <EditText
+                        app:layoutDescription="@id/passwordEt"
+                        android:id="@+id/passwordEt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/empty_edit_text"
+                        android:textSize="16sp"
+                        android:textColor="#7F7F7F"
+                        android:fontFamily="@font/cairo_bold"
+                        android:paddingStart="15sp"
+                        android:inputType="textPassword"
+                        android:singleLine="true"
+                        android:paddingEnd="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirm Password"
+                android:textColor="@color/purpleColor"
+                android:textSize="17sp"
+                android:fontFamily="@font/cairo_bold"
+                android:layout_marginTop="22dp"
+                android:layout_marginStart="25dp"
+                />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_edit_text"
+                    >
+
+                    <EditText
+                        app:layoutDescription="@id/confirmPasswordEt"
+                        android:id="@+id/confirmPasswordEt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/empty_edit_text"
+                        android:textSize="16sp"
+                        android:textColor="#7F7F7F"
+                        android:fontFamily="@font/cairo_bold"
+                        android:paddingStart="15sp"
+                        android:inputType="textPassword"
+                        android:singleLine="true"
+                        android:paddingEnd="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/continueBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    app:cornerRadius="25dp"
+                    android:text="Send"
+                    android:backgroundTint="@color/darkPurple"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/cairo_bold"
+                    android:textAllCaps="false"
+                    android:layout_margin="25dp"
+                    />
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

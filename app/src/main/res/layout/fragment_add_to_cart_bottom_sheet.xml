@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragments.AddToCartBottomSheetFragment"
+    android:layoutDirection="ltr"
+    >
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#1E474747"
+        android:clickable="false"
+        android:layout_gravity="center"
+        app:rippleColor="#00FFFFFF" />
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/cairo_bold"
+        android:text="Choose the Cart of the Week"
+        android:textColor="@color/darkPurple"
+        android:textSize="14sp"
+        android:layout_marginStart="20dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dayRv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        tools:listitem="@layout/day_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:id="@+id/chooseItemCountLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/cairo_bold"
+        android:text="Choose the Cart of the Week"
+        android:textColor="@color/darkPurple"
+        android:textSize="14sp"
+        android:layout_marginStart="20dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/itemCountLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="90"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productName"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/addItem"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/otp_back_background"
+            android:src="@drawable/add_plus"
+
+            />
+
+        <TextView
+            android:id="@+id/itemCount"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/cairo_regular"
+            android:text="1"
+            android:textAlignment="center"
+            android:textColor="@color/black_200"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/removeItem"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:alpha="0.5"
+            android:background="@drawable/otp_back_background"
+            android:paddingStart="5dp"
+            android:paddingTop="14sp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="14dp"
+            android:src="@drawable/minus" />
+    </LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/continueBtn2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/purpleColor"
+        android:fontFamily="@font/cairo_bold"
+        android:text="Add to Cart"
+        android:textColor="@color/white"
+        app:iconTint="@color/white"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:cornerRadius="25dp"
+        app:icon="@drawable/cart"
+        app:iconSize="20dp"
+        app:iconGravity="textEnd"
+        app:layout_constraintBottom_toBottomOf="@+id/per"
+        app:layout_constraintEnd_toEndOf="@id/per"
+        app:layout_constraintStart_toStartOf="@+id/per"
+        app:layout_constraintTop_toTopOf="@id/per" />
+</LinearLayout>

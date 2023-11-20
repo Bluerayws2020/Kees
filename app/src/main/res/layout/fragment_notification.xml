@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragments.NotificationFragment">
+
+    <include
+        android:id="@+id/included_tap"
+        layout="@layout/home_inner_app_bar"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/included_tap"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="20dp"
+        android:text="Delete All"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:backgroundTint="@color/darkPurple"
+        app:cornerRadius="25dp"
+        android:textAllCaps="false"
+        android:id="@+id/deleteAll"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notificationRv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deleteAll"
+        tools:listitem="@layout/notifictaion_item" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
