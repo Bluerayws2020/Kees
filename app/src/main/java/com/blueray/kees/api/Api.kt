@@ -4,10 +4,7 @@ import com.blueray.kees.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.Header
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.Part
+import retrofit2.http.*
 
 interface Api {
 
@@ -21,12 +18,14 @@ interface Api {
         @Part("latitude") latitude : RequestBody,
         @Part("longitude") longitude : RequestBody,
         @Part("city_id") city_id : RequestBody,
+        @Part("area") area : RequestBody,
         @Part("address") address : RequestBody,
         @Part("password") password : RequestBody,
         @Part("password_confirmation") password_confirmation : RequestBody,
         @Part image : MultipartBody.Part? = null,
-        @Part house_image : MultipartBody.Part? = null,
-        @Part("email") email : RequestBody? = null
+        @Part("email") email : RequestBody? = null,
+        @Part("phone") phone : RequestBody? = null,
+        @Part house_image : MultipartBody.Part? = null
     ) : Response<RegistrationModel>
 
     @Multipart
@@ -62,5 +61,47 @@ interface Api {
         @Part("category_id") category_id : RequestBody?,
         @Part("text_search") text_search: RequestBody?
     ):Response<GetProductsModel>
+    @POST("customer/chooseNumberOfWeeklyBasketsAfterRegister")
+    @Headers("Content-Type: application/json","Accept: application/json")
+    suspend fun chooseNumberOfWeeklyBasketsAfterRegister(
+        @Header("Authorization") auth: String,
+        @Body chooseNumberOfWeeks : NumberOfWeeksModel
+    ):Response<ErrorResponse>
 
+    @Multipart
+    @POST("frontend/getShifts")
+    suspend fun getShifts(
+        @Part("lang") lang : RequestBody
+    ):Response<ShiftsModel>
+    @Multipart
+    @POST("customer/getWeeklyBaskets")
+    suspend fun getWeeklyCart(
+        @Part("lang") lang : RequestBody,
+        @Header("Authorization") auth: String
+    ):Response<GetWeeklyCartModel>
+
+    @POST("customer/addProductToWeeklyBaskets")
+    @Headers("Content-Type: application/json","Accept: application/json")
+    suspend fun addProductToWeeklyBaskets(
+        @Header("Authorization") auth: String,
+        @Body data : AddToBasketRequestBody
+    ):Response<ErrorResponse>
+
+    @Multipart
+    @POST("frontend/getProductDetails")
+    suspend fun getProductDetails(
+        @Part("lang") lang : RequestBody,
+        @Part("product_id") productId : RequestBody
+    ):Response<GetProductDetailsResponse>
+    @Multipart
+    @POST("customer/addRemoveWishlistProduct")
+    suspend fun addRemoveWishlistProduct(
+        @Header("Authorization") auth: String,
+        @Part("product_id") productId: RequestBody,
+        @Part("lang") lang: RequestBody,
+    ):Response<ErrorResponse>
+    @POST("customer/getWishlistProducts")
+    suspend fun getWishlistProducts(
+        @Header("Authorization") auth: String
+    ):Response<GetProductsModel>
 }

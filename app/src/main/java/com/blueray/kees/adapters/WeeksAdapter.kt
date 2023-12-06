@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blueray.kees.R
 import com.blueray.kees.databinding.DayItemBinding
 import com.blueray.kees.model.Days
+import com.blueray.kees.model.WeeklyBasketData
 
-class DayOfTheWeekAdapter(
-    var list: List<Days>,
-    var onClickListener: (id: String, position: Int) -> Unit
-) : RecyclerView.Adapter<DayOfTheWeekAdapter.MyViewHolder>() {
+class WeeksAdapter (
+    var list: List<WeeklyBasketData>,
+    var onClickListener: (data :WeeklyBasketData, position: Int) -> Unit
+) : RecyclerView.Adapter<WeeksAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: DayItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -28,10 +29,10 @@ class DayOfTheWeekAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val data = list[position]
         holder.itemView.setOnClickListener {
-            onClickListener(data.dayWeek.day_number,position)
+            onClickListener(data,position)
         }
         holder.apply {
-            binding.dayText.text = list[position].dayWeek.day_name
+            binding.dayText.text = binding.root.context.getString(R.string.week) +list[position].week_number
 
             if (list[position].selected) {
                 (binding.root as CardView).background.setTint(
@@ -62,5 +63,4 @@ class DayOfTheWeekAdapter(
             }
         }
     }
-
 }

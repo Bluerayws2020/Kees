@@ -16,9 +16,9 @@
             app:cnb_iconColor="@color/purpleColor"
             />
         <item
-            android:id="@+id/cartPageFragment"
-            android:icon="@drawable/product_icon"
-            android:title="Products"
+            android:id="@+id/favorite"
+            android:icon="@drawable/baseline_favorite"
+            android:title="Favorite"
             app:cnb_iconColor="@color/purpleColor"
             />
         <item

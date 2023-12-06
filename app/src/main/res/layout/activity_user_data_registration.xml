@@ -228,6 +228,43 @@
                 <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Phone"
+                android:textColor="@color/purpleColor"
+                android:textSize="17sp"
+                android:fontFamily="@font/cairo_bold"
+                android:layout_marginTop="22dp"
+                android:layout_marginStart="25dp"
+                />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_edit_text"
+                    >
+
+                    <EditText
+                        app:layoutDescription="@id/emailEt"
+                        android:id="@+id/phoneEt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/empty_edit_text"
+                        android:textSize="16sp"
+                        android:textColor="#7F7F7F"
+                        android:fontFamily="@font/cairo_bold"
+                        android:paddingStart="15sp"
+                        android:inputType="phone"
+                        android:singleLine="true"
+                        android:paddingEnd="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Password"
                 android:textColor="@color/purpleColor"
                 android:textSize="17sp"

@@ -18,29 +18,31 @@
     >
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My Profile"
-        android:textSize="18sp"
-        android:textColor="@color/white"
-        android:fontFamily="@font/cairo_bold"
         android:layout_gravity="center"
-        />
+        android:fontFamily="@font/cairo_bold"
+        android:text="My Profile"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
     <ImageView
+        android:id="@+id/menu"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/menu"
         android:layout_gravity="start|center_vertical"
         android:layout_marginStart="20dp"
-        app:tint="@color/white"
-        />
+        android:src="@drawable/menu"
+        app:tint="@color/white" />
+
     <ImageView
+        android:id="@+id/back"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/back_button"
         android:layout_gravity="end|center_vertical"
         android:layout_marginEnd="20dp"
-        />
+        android:src="@drawable/back_button" />
 
 </androidx.cardview.widget.CardView>
 </FrameLayout>

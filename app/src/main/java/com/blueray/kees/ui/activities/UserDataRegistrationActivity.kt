@@ -118,6 +118,11 @@ class UserDataRegistrationActivity : BaseActivity() {
             showMessage(this, getString(R.string.enter_pass))
             return
         }
+        if (binding.phoneEt.isInputEmpty()) {
+            binding.phoneEt.requestFocus()
+            showMessage(this, getString(R.string.enter_phone))
+            return
+        }
         if (binding.confirmPasswordEt.isInputEmpty()) {
             binding.passwordEt.requestFocus()
             showMessage(this, getString(R.string.enter_confirm))
@@ -133,6 +138,7 @@ class UserDataRegistrationActivity : BaseActivity() {
         GENDER = gender
         DATE_OF_BIRTH = dateOfBirth
         EMAIL = binding.emailEt.text.toString()
+        val phone = binding.phoneEt.text.toString()
         PASSWORD = binding.passwordEt.text.toString()
         CONFIRM_PASSWORD = binding.confirmPasswordEt.text.toString()
 
@@ -143,12 +149,14 @@ class UserDataRegistrationActivity : BaseActivity() {
             LAT,
             LONG,
             "5",
+            "Amman",// Todo change this once the api is ok
             AREA,
             PASSWORD,
             CONFIRM_PASSWORD,
             null,
             IMAGE,
-            EMAIL
+            EMAIL,
+            phone
         )
 
 
@@ -163,7 +171,7 @@ class UserDataRegistrationActivity : BaseActivity() {
                         saveUserData(this,result.data.customer_data)
                         saveUserToken(this,result.data.token)
                         OTP = result.data.customer_data.otp_code.toString()
-                        startActivity(Intent(this, ChooseOrderReceiveTime::class.java))
+                        startActivity(Intent(this, OtpActivity::class.java))
                     } else {
                         showMessage(this, getString(R.string.Error))
                     }

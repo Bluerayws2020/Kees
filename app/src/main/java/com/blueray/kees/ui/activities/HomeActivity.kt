@@ -42,6 +42,9 @@ class HomeActivity : BaseActivity() {
                     navController!!.navigate(R.id.searchFragment)
 
                 }
+                R.id.favorite->{
+                    navController!!.navigate(R.id.favoriteFragment)
+                }
                 R.id.notificationFragment ->{
                     navController!!.navigate(R.id.notificationFragment)
                 }

@@ -44,16 +44,25 @@ class ProductsFragment : Fragment() {
         )
         // observe to live data
         getProducts()
+        addRemoveFromWishList()
 
     }
 
     private fun setAdapter() {
-        adapter = ProductsAdapter(listOf()){
+        adapter = ProductsAdapter(listOf(),{},{})
+        adapter.onClickListener =
+        {
             val productDetails = ProductInnerBottomSheet()
+            productDetails.productId = it
             productDetails.show(parentFragmentManager,"bottomSheet")
+        }
+        adapter.onLikeClickListener = {
+            // call API
+            viewModel.retrieveAddRemoveWishlistProduct(it)
         }
         adapter.addToCartClickListener {
             val addToCart = AddToCartBottomSheetFragment()
+            addToCart.productId = it
             addToCart.show(parentFragmentManager,"bottomShow")
         }
         val lm  = LinearLayoutManager(requireContext())
@@ -83,4 +92,27 @@ class ProductsFragment : Fragment() {
             }
         }
     }
+
+    private fun addRemoveFromWishList(){
+        viewModel.getAddRemoveWishlistProduct().observe(viewLifecycleOwner){
+                result ->
+            when(result){
+                is NetworkResults.Success -> {
+                    if (result.data.status == 200) {
+                        HelperUtils.showMessage(requireContext(), result.data.message)
+                    } else {
+                        HelperUtils.showMessage(requireContext(), getString(R.string.Error))
+                    }
+                }
+                is NetworkResults.ErrorMessage -> {
+                    HelperUtils.showMessage(requireContext(), result.data?.message ?: getString(R.string.Error))
+                }
+                is NetworkResults.Error -> {
+                    result.exception.printStackTrace()
+                    HelperUtils.showMessage(requireContext(), getString(R.string.Error))
+                }
+            }
+        }
+    }
+
 }

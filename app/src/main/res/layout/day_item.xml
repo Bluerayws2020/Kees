@@ -5,8 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="#F5F5F5"
     app:cardCornerRadius="30sp"
-    android:layout_marginStart="10dp"
-    android:layout_marginBottom="10dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginBottom="5dp"
     >
     <TextView
         android:id="@+id/dayText"
@@ -18,7 +18,7 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:gravity="center"
-        android:textColor="#7F7F7F"
+        android:textColor="@color/dark_grey"
         android:textSize="15sp"
         android:fontFamily="@font/cairo_regular"
         />

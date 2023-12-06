@@ -25,4 +25,21 @@
     <string name="enter_confirm">Please Enter Confirm Password</string>
     <string name="enter_pass">Please Enter Password</string>
     <string name="Error">Error Occurred</string>
+    <string name="search">Search</string>
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="Thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="enter_phone">Please Enter Phone Number</string>
+    <string name="week">Week</string>
+    <string name="weeklyCart">Weekly Cart</string>
+    <string name="checkOut">Checkout</string>
+    <string name="all_categories">All Categories</string>
+    <string name="addedToCartSuccessfully">Added to Cart Successfully</string>
+    <string name="PleaseSpecifyTheWeekToArrive">Please Specify The Week To Arrive</string>
+    <string name="SpecifyTheNuberOFItems">Please Specify The Number of Items You Want to Add to Cart</string>
+    <string name="favorite">Favorite</string>
 </resources>

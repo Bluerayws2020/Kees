@@ -11,7 +11,8 @@ import com.bumptech.glide.Glide
 
 class ProductsAdapter (
     var list: List<GetProductsData>,
-    var onClickListener : (id :String) -> Unit
+    var onClickListener : (id :String) -> Unit,
+    var onLikeClickListener : (id : String) -> Unit
 ):RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ProductsItemBinding) :
@@ -43,6 +44,10 @@ class ProductsAdapter (
         // button click listener to add to cart
             binding.addToCart.setOnClickListener {
                 addToCartClick?.invoke(data.id.toString())
+            }
+
+            binding.likeBtn.setOnClickListener{
+                onLikeClickListener(data.id.toString())
             }
         }
 

@@ -15,6 +15,7 @@ import com.blueray.kees.adapters.AllCategoriesAdapter
 import com.blueray.kees.adapters.HomeCategoryAdapter
 import com.blueray.kees.databinding.FragmentAllCategroiesBinding
 import com.blueray.kees.helpers.HelperUtils
+import com.blueray.kees.helpers.ViewUtils.hide
 import com.blueray.kees.model.GetMainCategoriesData
 import com.blueray.kees.model.NetworkResults
 import com.blueray.kees.ui.AppViewModel
@@ -34,6 +35,12 @@ class AllCategoriesFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentAllCategroiesBinding.inflate(layoutInflater)
+        binding.includedTap.menu.setImageResource(R.drawable.back_button)
+        binding.includedTap.menu.setOnClickListener {
+            activity?.onBackPressed()
+        }
+        binding.includedTap.back.hide()
+        binding.includedTap.title.text = getString(R.string.all_categories)
         return binding.root
     }
 

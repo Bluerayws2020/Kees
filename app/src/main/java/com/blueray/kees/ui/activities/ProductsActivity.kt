@@ -5,7 +5,9 @@ import androidx.activity.viewModels
 import com.blueray.kees.R
 import com.blueray.kees.adapters.CategoryPagerAdapter
 import com.blueray.kees.databinding.ActivityProductsBinding
+import com.blueray.kees.databinding.FragmentAllCategroiesBinding
 import com.blueray.kees.helpers.HelperUtils
+import com.blueray.kees.helpers.ViewUtils.hide
 import com.blueray.kees.model.GetMainCategoriesData
 import com.blueray.kees.model.NetworkResults
 import com.blueray.kees.ui.AppViewModel
@@ -23,6 +25,13 @@ class ProductsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProductsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.includedTap.menu.setImageResource(R.drawable.back_button)
+        binding.includedTap.menu.setOnClickListener {
+            onBackPressed()
+        }
+        binding.includedTap.back.hide()
+        binding.includedTap.title.text = getString(R.string.all_categories)
 
         id = intent.getStringExtra("cat_id") ?: ""
 

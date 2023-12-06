@@ -53,9 +53,8 @@ class HomeFragment : Fragment() {
             (activity as HomeActivity).openDrawer()
         }
         binding.includedTap.cartLabel.setOnClickListener {
-            startActivity(Intent(requireContext(),CartActivity::class.java)).apply {
-                // add extras
-            }
+            val dialog = CartsBottomSheetFragment()
+            dialog.show(parentFragmentManager,"show cart")
         }
         viewModel.retrieveMainCategories()
         getData()

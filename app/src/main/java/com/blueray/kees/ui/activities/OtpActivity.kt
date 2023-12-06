@@ -33,7 +33,7 @@ class OtpActivity : BaseActivity() {
             if (binding.otpView.text.isNullOrEmpty()) {
                 showMessage(this, "Please Enter Otp")
             }
-            viewModel.retrieveSendOtp(OTP)
+            viewModel.retrieveSendOtp(OTP)// todo add validation for otp
         }
 
         val delayTime = 3000L * 60
@@ -64,7 +64,7 @@ class OtpActivity : BaseActivity() {
             when (result) {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
-                        startActivity(Intent(this, HomeActivity::class.java))
+                        startActivity(Intent(this, ChooseOrderReceiveTime::class.java))
                     } else {
                         showMessage(this, getString(R.string.Error))
                     }

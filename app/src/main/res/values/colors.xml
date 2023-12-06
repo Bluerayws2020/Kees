@@ -16,5 +16,6 @@
     <color name="tab_grey">#F0F0F2</color>
     <color name="back_circle_color">#F10E8D</color>
     <color name="add_color">#2AD800</color>
+    <color name="dark_grey">#7F7F7F</color>
 
 </resources>

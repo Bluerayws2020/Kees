@@ -32,4 +32,9 @@
         android:id="@+id/cartPageFragment"
         android:name="com.blueray.kees.ui.fragments.CartPageFragment"
         android:label="CartPageFragment" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.blueray.kees.ui.fragments.FavoriteFragment"
+        android:label="fragment_favorite_fargment"
+        tools:layout="@layout/fragment_favorite_fargment" />
 </navigation>
