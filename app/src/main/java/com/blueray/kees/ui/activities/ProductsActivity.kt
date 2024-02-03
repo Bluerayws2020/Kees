@@ -1,11 +1,15 @@
 package com.blueray.kees.ui.activities
 
 import android.os.Bundle
+import android.util.Log.e
+import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.blueray.kees.R
 import com.blueray.kees.adapters.CategoryPagerAdapter
 import com.blueray.kees.databinding.ActivityProductsBinding
-import com.blueray.kees.databinding.FragmentAllCategroiesBinding
+import com.blueray.kees.databinding.DayItemBinding
 import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.helpers.ViewUtils.hide
 import com.blueray.kees.model.GetMainCategoriesData
@@ -55,16 +59,46 @@ class ProductsActivity : BaseActivity() {
         }
         binding.viewPager.adapter = adapter
 
+
         for (item in tabListTitle) {
-            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(item))
+            // Set the custom view for the tab
+            val tab = binding.tabLayout.newTab()
+            binding.tabLayout.addTab(tab)
+            e("ayham", "tab added")
         }
+
 
         TabLayoutMediator(
             binding.tabLayout,
             binding.viewPager
         ) { tab: TabLayout.Tab, position: Int ->
-            tab.text = tabListTitle[position]
+            val tabBinding = DayItemBinding.inflate(layoutInflater)
+            tabBinding.dayText.text = tabListTitle[position]
+            tab.setCustomView(tabBinding.root)
+            if(position == 0){
+                tab.view.findViewById<CardView>(R.id.card).setCardBackgroundColor(ContextCompat.getColor(this@ProductsActivity,R.color.purpleColor))
+                tab.view.findViewById<TextView>(R.id.dayText).setTextColor(ContextCompat.getColor(this@ProductsActivity,R.color.white))
+            }
+//            binding.tabLayout.getTabAt(position)!!.view.findViewById<TextView>(R.id.dayText).text = tabListTitle[position]
         }.attach()
+
+        binding.tabLayout.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab!!.view.findViewById<CardView>(R.id.card).setCardBackgroundColor(ContextCompat.getColor(this@ProductsActivity,R.color.purpleColor))
+                tab.view.findViewById<TextView>(R.id.dayText).setTextColor(ContextCompat.getColor(this@ProductsActivity,R.color.white))
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                tab!!.view.findViewById<CardView>(R.id.card).setCardBackgroundColor(ContextCompat.getColor(this@ProductsActivity,R.color.lightGrey))
+                tab.view.findViewById<TextView>(R.id.dayText).setTextColor(ContextCompat.getColor(this@ProductsActivity,R.color.dark_grey))
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                tab!!.view.findViewById<CardView>(R.id.card).setCardBackgroundColor(ContextCompat.getColor(this@ProductsActivity,R.color.purpleColor))
+                tab.view.findViewById<TextView>(R.id.dayText).setTextColor(ContextCompat.getColor(this@ProductsActivity,R.color.white))
+            }
+
+        })
 
     }
 

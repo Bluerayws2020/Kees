@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'kotlin-parcelize'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -34,7 +35,6 @@ android {
     }
     buildFeatures {
         viewBinding true
-        dataBinding true
     }
 }
 
@@ -94,7 +94,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
 
-
     // Api - Retrofit  -  Okhttp
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2'
@@ -105,7 +104,6 @@ dependencies {
 
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-
 
 
     // circle image
@@ -123,5 +121,14 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
+    // OTP view 
+    implementation 'com.github.aabhasr1:OtpView:v1.1.2-ktx' // kotlin
+
+    // firebase
+    implementation platform('com.google.firebase:firebase-bom:32.7.1')
+    implementation 'com.google.firebase:firebase-analytics'
+
+    // ONE Signal
+    implementation 'com.onesignal:OneSignal:[5.0.0, 5.99.99]'
 
 }

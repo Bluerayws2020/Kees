@@ -177,15 +177,16 @@
                         android:textSize="15sp"
                         android:textColor="@color/black_200"
                         />
+
                     <TextView
+                        android:id="@+id/contactSupport"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Contact Support"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/cairo_bold"
-                        android:textColor="@color/purpleColor"
                         android:layout_marginStart="5dp"
-                        />
+                        android:fontFamily="@font/cairo_bold"
+                        android:text="Contact Support"
+                        android:textColor="@color/purpleColor"
+                        android:textSize="15sp" />
                 </LinearLayout>
 
             </LinearLayout>

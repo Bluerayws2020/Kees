@@ -98,7 +98,7 @@ class SearchFragment : Fragment() {
             viewModel.retrieveAddRemoveWishlistProduct(productId = it)
         }
         productAdapter.addToCartClickListener {
-            val addToCart = AddToCartBottomSheetFragment()
+            val addToCart = ProductInnerBottomSheet()
             addToCart.productId = it
             addToCart.show(parentFragmentManager, "bottomShow")
         }

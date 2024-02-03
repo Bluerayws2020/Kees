@@ -3,12 +3,23 @@ package com.blueray.kees.ui
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.blueray.kees.helpers.HelperUtils.FULL_NAME
 import com.blueray.kees.helpers.HelperUtils.LANG
 import com.blueray.kees.helpers.HelperUtils.getToken
-import com.blueray.kees.model.*
+import com.blueray.kees.model.AboutUsModel
+import com.blueray.kees.model.CustomerGetAddressesModel
+import com.blueray.kees.model.CustomerProfileModel
+import com.blueray.kees.model.ErrorResponse
+import com.blueray.kees.model.GetMainCategories
+import com.blueray.kees.model.GetMyProfileModel
+import com.blueray.kees.model.GetProductDetailsResponse
+import com.blueray.kees.model.GetProductsModel
+import com.blueray.kees.model.GetWeeklyCartModel
+import com.blueray.kees.model.LoginResponse
+import com.blueray.kees.model.NetworkResults
+import com.blueray.kees.model.PrivacyPolicyModel
+import com.blueray.kees.model.RegistrationModel
+import com.blueray.kees.model.ShiftsModel
 import com.blueray.kees.repository.Repository
 import kotlinx.coroutines.launch
 import java.io.File
@@ -27,9 +38,20 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     private val weeksAfterRegistrationLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
     private val getWeeklyCartLiveData = MutableLiveData<NetworkResults<GetWeeklyCartModel>>()
     private val addToCartLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
-    private val getProductDetailsLiveData = MutableLiveData<NetworkResults<GetProductDetailsResponse>>()
+    private val getProductDetailsLiveData =
+        MutableLiveData<NetworkResults<GetProductDetailsResponse>>()
     private val addRemoveWishlistProductLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
     private val getFavoriteProductsLiveData = MutableLiveData<NetworkResults<GetProductsModel>>()
+    private val getCustomerProfileLiveData = MutableLiveData<NetworkResults<CustomerProfileModel>>()
+    private val changePhoneNumberLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
+    private val customerAddressesLiveData = MutableLiveData<NetworkResults<CustomerGetAddressesModel>>()
+    private val customerUpdateAddressLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
+    private val customerAddNewAddressLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
+    private val customerDeleteAddressLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
+    private val getAboutUsLiveData = MutableLiveData<NetworkResults<AboutUsModel>>()
+    private val getPrivacyPoliciesLiveData = MutableLiveData<NetworkResults<PrivacyPolicyModel>>()
+    private val retrieveMyProfileLiveData = MutableLiveData<NetworkResults<GetMyProfileModel>>()
+    private val changePasswordLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
 
     fun retrieveRegistration(
         fullName: String,
@@ -187,12 +209,13 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         size_id: String,
         unit_id: String,
         weight_id: String,
+        feature_ids :List<String>? = null
     ) {
         viewModelScope.launch {
             addToCartLiveData.postValue(
                 repo.addProductToWeeklyBaskets(
                     LANG, weeks, productId, quantity, color_id, size_id, unit_id, weight_id,
-                    getToken(context)
+                    getToken(context),feature_ids
                 )
             )
         }
@@ -220,7 +243,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     ) {
         viewModelScope.launch {
             addRemoveWishlistProductLiveData.postValue(
-                repo.addRemoveWishlistProduct(LANG, getToken(context),productId)
+                repo.addRemoveWishlistProduct(LANG, getToken(context), productId)
             )
         }
     }
@@ -236,5 +259,162 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getFavoriteProducts() = getFavoriteProductsLiveData
+
+    fun retrieveCustomerProfile(
+    ) {
+        viewModelScope.launch {
+            getCustomerProfileLiveData.postValue(
+                repo.getCustomerProfile(getToken(context))
+            )
+        }
+    }
+
+    fun getCustomerProfile() = getCustomerProfileLiveData
+
+    fun retrieveChangePhoneNumber(
+        newPhone: String
+    ) {
+        viewModelScope.launch {
+            changePhoneNumberLiveData.postValue(
+                repo.changePhoneNumber(getToken(context), newPhone)
+            )
+        }
+    }
+
+    fun getChangePhoneNumber() = changePhoneNumberLiveData
+
+    fun retrieveCustomerAddresses(
+    ) {
+        viewModelScope.launch {
+            customerAddressesLiveData.postValue(
+                repo.customerGetMyAddresses(getToken(context), LANG)
+            )
+        }
+    }
+
+    fun getCustomerAddresses() = customerAddressesLiveData
+
+    fun retrieveCustomerUpdateAddress(
+        addressId: String,
+        title: String,
+        lat: String,
+        long: String,
+        cityId: String,
+        area: String,
+        address: String
+    ) {
+        viewModelScope.launch {
+            customerUpdateAddressLiveData.postValue(
+                repo.customerUpdateMyAddress(
+                    getToken(context),
+                    LANG,
+                    addressId,
+                    title,
+                    lat,
+                    long,
+                    cityId,
+                    area,
+                    address
+                )
+            )
+        }
+    }
+
+    fun getCustomerUpdateAddress() = customerUpdateAddressLiveData
+
+    fun retrieveCustomerAddNewAddress(
+        title: String,
+        lat: String,
+        long: String,
+        cityId: String,
+        area: String,
+        address: String
+    ) {
+        viewModelScope.launch {
+            customerAddNewAddressLiveData.postValue(
+                repo.customerAddNewAddress(
+                    getToken(context),
+                    LANG,
+                    title,
+                    lat,
+                    long,
+                    cityId,
+                    area,
+                    address
+                )
+            )
+        }
+    }
+
+    fun getCustomerAddNewAddress() = customerAddNewAddressLiveData
+    fun retrieveCustomerDeleteAddress(
+        addressId: String,
+    ) {
+        viewModelScope.launch {
+            customerDeleteAddressLiveData.postValue(
+                repo.customerDeleteMyAddress(
+                    getToken(context),
+                    LANG, addressId
+                )
+            )
+        }
+    }
+
+    fun getCustomerDeleteAddress() = customerDeleteAddressLiveData
+
+    fun retrieveAboutUs(
+    ) {
+        viewModelScope.launch {
+            getAboutUsLiveData.postValue(
+                repo.getAboutUs(
+                    LANG
+                )
+            )
+        }
+    }
+
+    fun getAboutUs() = getAboutUsLiveData
+    fun retrievePrivacyPolicies(
+    ) {
+        viewModelScope.launch {
+            getPrivacyPoliciesLiveData.postValue(
+                repo.getPrivacyPolicies(
+                    LANG
+                )
+            )
+        }
+    }
+
+    fun getPrivacyPolicies() = getPrivacyPoliciesLiveData
+    fun retrieveMyProfile(
+    ) {
+        viewModelScope.launch {
+            retrieveMyProfileLiveData.postValue(
+                repo.getMyProfile(
+                    getToken(context),
+                    LANG
+                )
+            )
+        }
+    }
+
+    fun getMyProfile() = retrieveMyProfileLiveData
+    fun retrieveChangePassword(
+    old : String,
+    new: String,
+    confirm  :String
+    ){
+        viewModelScope.launch {
+            changePasswordLiveData.postValue(
+                repo.changePassword(
+                    getToken(context),
+                    LANG,
+                    old, new, confirm
+                )
+            )
+        }
+    }
+
+    fun getChangePassword() = changePasswordLiveData
 
 }

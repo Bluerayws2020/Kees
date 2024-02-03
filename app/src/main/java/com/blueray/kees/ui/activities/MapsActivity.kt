@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat
 import com.blueray.kees.R
 import com.blueray.kees.databinding.ActivityMapsBinding
 import com.blueray.kees.helpers.HelperUtils.LAT
+import com.blueray.kees.helpers.HelperUtils.LOCATION_IN_STRING
 import com.blueray.kees.helpers.HelperUtils.LONG
 import com.blueray.kees.helpers.HelperUtils.showMessage
 import com.github.florent37.runtimepermission.kotlin.askPermission
@@ -88,6 +89,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, LocationListener,
         binding.confirmLocationButton.setOnClickListener {
             LAT = mMap!!.cameraPosition.target.latitude.toString()
             LONG = mMap!!.cameraPosition.target.longitude.toString()
+            LOCATION_IN_STRING = binding.locationTv.text.toString()
             // go back
             onBackPressedDispatcher.onBackPressed()
         }

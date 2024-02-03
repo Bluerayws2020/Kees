@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
@@ -19,10 +18,9 @@ import com.blueray.kees.helpers.HelperUtils.AREA
 import com.blueray.kees.helpers.HelperUtils.CITY
 import com.blueray.kees.helpers.HelperUtils.IMAGE
 import com.blueray.kees.helpers.HelperUtils.LAT
+import com.blueray.kees.helpers.HelperUtils.LOCATION_IN_STRING
 import com.blueray.kees.helpers.HelperUtils.showMessage
 import com.blueray.kees.helpers.ViewUtils.isInputEmpty
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.io.File
 
 class ChooseLocationActivity : BaseActivity() {
@@ -42,7 +40,10 @@ class ChooseLocationActivity : BaseActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
         
-        binding.mapIcon.setOnClickListener { 
+        binding.mapIcon.setOnClickListener {
+            startActivity(Intent(this,MapsActivity::class.java))
+        }
+        binding.ownerNameET.setOnClickListener {
             startActivity(Intent(this,MapsActivity::class.java))
         }
         
@@ -160,5 +161,10 @@ class ChooseLocationActivity : BaseActivity() {
         } else {
             uri.path ?: ""
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.ownerNameET.text = LOCATION_IN_STRING
     }
 }

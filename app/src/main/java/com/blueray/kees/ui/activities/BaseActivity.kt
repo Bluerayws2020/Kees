@@ -3,12 +3,11 @@ package com.blueray.kees.ui.activities
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.blueray.kees.helpers.ContextWrapper
 import com.blueray.kees.helpers.HelperUtils.getLang
-import java.util.*
+import java.util.Locale
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -38,7 +37,6 @@ abstract class BaseActivity : AppCompatActivity() {
         configuration.locale = locale
         resources.updateConfiguration(configuration, resources.displayMetrics)
     }
-
 
 
 

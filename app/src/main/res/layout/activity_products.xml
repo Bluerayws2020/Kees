@@ -64,6 +64,7 @@
                 app:layout_constraintTop_toBottomOf="@id/search"
                 app:tabIndicatorHeight="0dp"
                 app:tabMode="scrollable"
+                app:tabRippleColor="@color/transparent"
                 app:tabGravity="fill"
                 app:tabSelectedTextAppearance="@color/white" />
 

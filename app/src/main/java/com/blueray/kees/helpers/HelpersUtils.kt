@@ -8,7 +8,6 @@ import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import android.os.Message
 import android.provider.Settings
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -39,6 +38,8 @@ const val PHONENUMEBR = "PHONE"
     var PASSWORD = ""
     var CONFIRM_PASSWORD = ""
     var OTP = ""
+    var FromLogin = false
+    var LOCATION_IN_STRING = ""
 
     fun String.toStringRequestBody():RequestBody{
         return toRequestBody("multipart/form-data".toMediaTypeOrNull())

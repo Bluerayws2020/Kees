@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    app:cardCornerRadius="25dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cairo_bold"
+            android:text="Are you sure you would like to change the phone number?"
+            android:textColor="@color/dark_grey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100"
+            android:layout_marginTop="10dp"
+            >
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/yesBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:backgroundTint="@color/darkPurple"
+                app:cornerRadius="15dp"
+                android:text="Yes"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/white"
+                app:strokeColor="@color/darkPurple"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/noBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_weight="50"
+                android:backgroundTint="@color/white"
+                app:cornerRadius="15dp"
+                android:text="No"
+                android:textSize="12sp"
+                android:layout_marginEnd="10dp"
+                android:textAllCaps="false"
+                app:strokeColor="@color/darkPurple"
+                android:textColor="@color/darkPurple"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

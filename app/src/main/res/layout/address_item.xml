@@ -9,7 +9,7 @@
     android:layout_marginEnd="20dp"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
-    app:cardElevation="@dimen/elevation"
+    app:cardElevation="5.dp"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -48,6 +48,7 @@
             android:layout_marginStart="15dp"
             >
             <TextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Om Othaina"
@@ -57,6 +58,7 @@
                 android:fontFamily="@font/cairo_medium"
                 />
             <TextView
+                android:id="@+id/addressArea"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Amman - Om Othaina"
@@ -66,6 +68,7 @@
                 android:layout_marginTop="-3dp"
                 />
             <TextView
+                android:id="@+id/details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Address Details"

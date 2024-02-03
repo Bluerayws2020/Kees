@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.blueray.kees.R
 import com.blueray.kees.databinding.ActivityLoginActivtiyBinding
 import com.blueray.kees.helpers.HelperUtils
+import com.blueray.kees.helpers.HelperUtils.FromLogin
 import com.blueray.kees.helpers.ViewUtils.hide
 import com.blueray.kees.helpers.ViewUtils.show
 import com.blueray.kees.model.NetworkResults
@@ -16,14 +17,14 @@ import com.blueray.kees.ui.AppViewModel
 class LoginActivity : BaseActivity() {
 
     private lateinit var binding: ActivityLoginActivtiyBinding
-    private val viewModel : AppViewModel by viewModels()
+    private val viewModel: AppViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginActivtiyBinding.inflate(layoutInflater)
         setContentView(binding.root)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        HelperUtils.setDefaultLanguage(this,"ar")
+        HelperUtils.setDefaultLanguage(this, "ar")
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
@@ -54,28 +55,39 @@ class LoginActivity : BaseActivity() {
         binding.createNewAccountBtn.show()
         binding.progressBar.hide()
     }
+
     private fun showProgress() {
         binding.continueBtn.hide()
         binding.progressBar.show()
     }
 
-    private fun getData(){
-        viewModel.getLogin().observe(this){
-                result ->
+    private fun getData() {
+        viewModel.getLogin().observe(this) { result ->
             when (result) {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
+                        if (result.data.isAuth != null && !result.data.isAuth) {
+                            HelperUtils.saveUserToken(this, result.data.token)
+                            startActivity(Intent(this, OtpActivity::class.java).apply {
+                                putExtra("phoneNumber",binding.phoneNumberET.text.toString())
+                            })
+                            FromLogin = true
+                            return@observe
+                        }
                         HelperUtils.saveUserData(this, result.data.customer_data)
                         HelperUtils.saveUserToken(this, result.data.token)
-                        HelperUtils.OTP = result.data.customer_data.otp_code.toString()
                         startActivity(Intent(this, HomeActivity::class.java))
+//                            HelperUtils.OTP = result.data.customer_data.otp_code.toString()
+
                     } else {
                         HelperUtils.showMessage(this, getString(R.string.Error))
                     }
                 }
+
                 is NetworkResults.ErrorMessage -> {
                     HelperUtils.showMessage(this, result.data?.message ?: getString(R.string.Error))
                 }
+
                 is NetworkResults.Error -> {
                     result.exception.printStackTrace()
                     HelperUtils.showMessage(this, getString(R.string.Error))
@@ -83,9 +95,6 @@ class LoginActivity : BaseActivity() {
             }
         }
     }
-
-
-
 
 
 }

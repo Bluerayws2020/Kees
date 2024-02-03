@@ -29,4 +29,5 @@ class CategoryPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycl
         productFragment.arguments = bundle
         return productFragment
     }
+
 }

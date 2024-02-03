@@ -17,5 +17,6 @@
     <color name="back_circle_color">#F10E8D</color>
     <color name="add_color">#2AD800</color>
     <color name="dark_grey">#7F7F7F</color>
+    <color name="lightGrey">#F5F5F5</color>
 
 </resources>

@@ -104,4 +104,79 @@ interface Api {
     suspend fun getWishlistProducts(
         @Header("Authorization") auth: String
     ):Response<GetProductsModel>
+    @POST("customer/getMyProfile")
+    suspend fun getCustomerProfile(
+        @Header("Authorization") auth: String
+    ):Response<CustomerProfileModel>
+    @Multipart
+    @POST("customer/changeMyPhoneNumber")
+    suspend fun customerChangePhoneNumber(
+        @Header("Authorization") auth: String,
+        @Part("new_phone") newPhone:RequestBody
+    ):Response<ErrorResponse>
+    @Multipart
+    @POST("customer/getMyAddresses")
+    suspend fun customerGetMyAddresses(
+        @Header("Authorization") auth: String,
+        @Part("lang") lang: RequestBody
+    ):Response<CustomerGetAddressesModel>
+    @Multipart
+    @POST("customer/updateMyAddress")
+    suspend fun customerUpdateMyAddress(
+        @Header("Authorization") auth: String,
+        @Part("lang") lang:RequestBody,
+        @Part("address_id") addressId:RequestBody,
+        @Part("title") title:RequestBody,
+        @Part("latitude") latitude:RequestBody,
+        @Part("longitude") longitude:RequestBody,
+        @Part("city_id") cityId:RequestBody,
+        @Part("area") area:RequestBody,
+        @Part("address") address:RequestBody,
+    ):Response<ErrorResponse>
+    @Multipart
+    @POST("customer/addNewAddress")
+    suspend fun customerAddNewAddress(
+        @Header("Authorization") auth: String,
+        @Part("lang") lang:RequestBody,
+        @Part("title") title:RequestBody,
+        @Part("latitude") latitude:RequestBody,
+        @Part("longitude") longitude:RequestBody,
+        @Part("city_id") cityId:RequestBody,
+        @Part("area") area:RequestBody,
+        @Part("address") address:RequestBody,
+    ):Response<ErrorResponse>
+
+    @Multipart
+    @POST("customer/deleteMyAddress")
+    suspend fun customerDeleteMyAddress(
+        @Header("Authorization") auth: String,
+        @Part("lang") lang:RequestBody,
+        @Part("address_id") addressId:RequestBody
+    ):Response<ErrorResponse>
+
+    @Multipart
+    @POST("frontend/getAboutUs")
+    suspend fun getAboutUs(
+        @Part("lang") lang:RequestBody
+    ):Response<AboutUsModel>
+    @Multipart
+    @POST("frontend/getPrivacyAndPolicy")
+    suspend fun getPrivacyPolicy(
+        @Part("lang") lang:RequestBody
+    ):Response<PrivacyPolicyModel>
+    @Multipart
+    @POST("customer/getMyProfile")
+    suspend fun getMyProfile(
+        @Header("Authorization") auth: String,
+        @Part("lang") lang:RequestBody,
+    ):Response<GetMyProfileModel>
+    @Multipart
+    @POST("customer/changeMyPassword")
+    suspend fun changeMyPassword(
+        @Header("Authorization") auth: String,
+        @Part("lang") lang:RequestBody,
+        @Part("old_password") old_password:RequestBody,
+        @Part("password") password:RequestBody,
+        @Part("password_confirmation") password_confirmation:RequestBody,
+    ):Response<ErrorResponse>
 }

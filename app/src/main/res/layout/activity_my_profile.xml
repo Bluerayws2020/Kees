@@ -75,8 +75,9 @@
             android:layout_marginTop="50dp"
             >
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:paddingStart="22dp"
                 android:paddingEnd="22dp"
                 android:paddingTop="43dp"
@@ -84,8 +85,8 @@
                 >
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profileImage"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -97,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:text="عمر دراوشة"
                     android:textColor="@color/darkPurple"
-                    android:textSize="15sp"
+                    android:textSize="11sp"
                     android:textStyle="bold"
                     android:fontFamily="@font/cairo_medium"
                     app:layout_constraintStart_toEndOf="@id/profileImage"
@@ -125,6 +126,7 @@
                     />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/establishmentNameLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -136,6 +138,7 @@
                     app:layout_constraintTop_toTopOf="@+id/placeHolder" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/establishmentNameTv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -151,14 +154,14 @@
                     android:id="@+id/phoneNumberTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="078977777"
-                    app:layout_constraintStart_toStartOf="@+id/placeHolder"
-                    app:layout_constraintTop_toBottomOf="@+id/establishmentNameLabel"
                     android:layout_marginStart="15dp"
-
-                    android:textSize="13sp"
                     android:fontFamily="@font/cairo_bold"
-                    />
+                    android:text="078977777"
+                    android:textSize="13sp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/placeHolder"
+                    app:layout_constraintStart_toStartOf="@+id/placeHolder"
+                    app:layout_constraintTop_toTopOf="@+id/placeHolder" />
 
                 <ImageView
                     android:id="@+id/changeNumber"
@@ -218,50 +221,50 @@
                 android:src="@drawable/forword" />
 
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/paymentMethodBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/personalDataBtn"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="25dp"
             android:layout_marginTop="18dp"
-            >
+            android:visibility="gone"
+            app:cardCornerRadius="25dp"
+            app:layout_constraintTop_toBottomOf="@id/personalDataBtn"
+            tools:layout_editor_absoluteX="20dp">
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="#F5F5F5"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="20dp"
-                />
+                android:src="#F5F5F5" />
+
             <ImageView
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/credit_card"
-                android:padding="15dp"
-                app:tint="@color/darkPurple"
                 android:layout_gravity="start"
                 android:layout_marginStart="20dp"
-                />
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:padding="15dp"
+                android:src="@drawable/credit_card"
+                app:tint="@color/darkPurple" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="90dp"
-                android:text="Payment Ways"
-                android:textColor="@color/textGrey47"
                 android:fontFamily="@font/cairo_bold"
-                />
+                android:text="Payment Ways"
+                android:textColor="@color/textGrey47" />
+
             <ImageView
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_gravity="end|center_vertical"
-                android:src="@drawable/forword"
                 android:layout_marginEnd="30dp"
-                />
+                android:src="@drawable/forword" />
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView

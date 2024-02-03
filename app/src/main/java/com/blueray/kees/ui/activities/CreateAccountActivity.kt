@@ -2,7 +2,6 @@ package com.blueray.kees.ui.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import android.widget.ArrayAdapter
 import com.blueray.kees.R
 import com.blueray.kees.databinding.ActivityCreateAccountBinding
 import com.blueray.kees.databinding.SpinnerItemBinding
-import com.blueray.kees.helpers.ViewUtils.hide
 
 class CreateAccountActivity : BaseActivity() {
 
@@ -46,6 +44,9 @@ class CreateAccountActivity : BaseActivity() {
                 startActivity(Intent(this, ChooseLocationActivity::class.java))
             }
 
+        }
+        binding.contactSupport.setOnClickListener{
+            startActivity(Intent(this,ContactUsActivity::class.java))
         }
     }
 

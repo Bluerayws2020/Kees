@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.blueray.kees.R
-import com.blueray.kees.databinding.HomeSliderItemBinding
 import com.blueray.kees.databinding.ProductsItemBinding
 import com.blueray.kees.model.GetProductsData
 import com.bumptech.glide.Glide
@@ -45,7 +44,6 @@ class ProductsAdapter (
             binding.addToCart.setOnClickListener {
                 addToCartClick?.invoke(data.id.toString())
             }
-
             binding.likeBtn.setOnClickListener{
                 onLikeClickListener(data.id.toString())
             }

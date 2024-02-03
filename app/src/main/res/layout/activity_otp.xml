@@ -54,15 +54,13 @@
             android:layout_marginTop="20dp"
             >
             <TextView
-                android:id="@+id/phoneNumberET"
+                android:id="@+id/phoneNumberTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+962781111111"
                 android:textColor="@color/textGrey47"
                 android:fontFamily="@font/cairo_medium"
                 android:textStyle="bold"
                 android:textSize="21sp"
-
                 />
             <ImageView
                 android:layout_marginStart="10dp"
@@ -74,24 +72,18 @@
                 />
         </LinearLayout>
 
-
-        <com.mukeshsolanki.OtpView
-            android:layout_margin="20dp"
+        <in.aabhasjindal.otptextview.OtpTextView
             android:id="@+id/otp_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:itemBackground="@drawable/otpview"
-            android:textAllCaps="true"
-            android:textColor="@android:color/black"
-            android:text="123456"
-            app:OtpHideLineWhenFilled="true"
-            app:OtpItemCount="6"
-            app:OtpItemSpacing="6dp"
-            app:OtpState_filled="true"
-            />
+            android:textColor="@color/dark_grey"
+            app:height="40dp"
+            app:width="40dp"
+            app:bar_enabled="true"
+            app:bar_height="2dp"
+            app:length="6"
+            app:otp_text_size="24dp"/>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/continueBtn"
             android:layout_width="match_parent"

@@ -6,11 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blueray.kees.R
+import com.blueray.kees.adapters.ProductFeaturesAdapter
 import com.blueray.kees.adapters.WeeksAdapter
 import com.blueray.kees.databinding.FragmentProductInnerBottomSheetBinding
 import com.blueray.kees.helpers.HelperUtils.showMessage
+import com.blueray.kees.helpers.ViewUtils.hide
+import com.blueray.kees.helpers.ViewUtils.show
 import com.blueray.kees.model.NetworkResults
 import com.blueray.kees.model.WeeklyBasketData
 import com.blueray.kees.ui.AppViewModel
@@ -22,6 +26,7 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentProductInnerBottomSheetBinding
     private lateinit var adapter: WeeksAdapter
+    private lateinit var featureAdapter: ProductFeaturesAdapter
     private val viewModel: AppViewModel by viewModels()
     private var weeksList: List<WeeklyBasketData> = listOf()
     var productId: String? = null
@@ -56,6 +61,10 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
             }
         }
 
+        // init features Adapter if existed
+        initFeaturesAdapter()
+
+
         // addToCart
         binding.addToCart.setOnClickListener {
             if (binding.itemCount.text.toString().toInt() > 0) {
@@ -70,7 +79,8 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
                         colorId,
                         sizeId,
                         unitId,
-                        weightId
+                        weightId,
+                        featureAdapter.selectedItems
                     )
                 } else {
                     showMessage(requireContext(), getString(R.string.PleaseSpecifyTheWeekToArrive))
@@ -86,11 +96,21 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
         viewModel.retrieveWeeklyCart()
 
 
+
+
         // call Observers
         getData()
         getWeeklyBasket()
         addToCart()
     }
+
+    private fun initFeaturesAdapter() {
+        featureAdapter = ProductFeaturesAdapter(listOf())
+        val lm = GridLayoutManager(requireContext(),2)
+        binding.featuresRv.layoutManager = lm
+        binding.featuresRv.adapter = featureAdapter
+    }
+
 
     private fun initAdapter() {
         adapter = WeeksAdapter(weeksList) { data, position ->
@@ -126,6 +146,14 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
                         sizeId = data.size_id.toString()
                         unitId = data.unit_id.toString()
                         weightId = data.weight_id.toString()
+                        if(!data.features.isNullOrEmpty()){
+                            binding.featuresRv.show()
+                            featureAdapter.list = data.features
+                            featureAdapter.notifyDataSetChanged()
+                        }else{
+                            binding.featuresRv.hide()
+                        }
+
                     } else {
                         showMessage(requireContext(), getString(R.string.Error))
                     }

@@ -80,7 +80,7 @@ class FavoriteFragment : Fragment() {
             viewModel.retrieveAddRemoveWishlistProduct(it)
         }
         adapter.addToCartClickListener {
-            val addToCart = AddToCartBottomSheetFragment()
+            val addToCart = ProductInnerBottomSheet()
             addToCart.productId = it
             addToCart.show(parentFragmentManager, "bottomShow")
         }

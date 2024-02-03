@@ -5,12 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.blueray.kees.R
 import com.blueray.kees.databinding.CategoryHomeRvItemBinding
-import com.blueray.kees.databinding.HomeSliderItemBinding
 import com.blueray.kees.model.GetMainCategoriesData
 import com.bumptech.glide.Glide
 
 class HomeCategoryAdapter (
-    // todo change model
     var list: List<GetMainCategoriesData>,
     var onClickListener : (id : String)->Unit
 ): RecyclerView.Adapter<HomeCategoryAdapter.MyViewHolder>() {

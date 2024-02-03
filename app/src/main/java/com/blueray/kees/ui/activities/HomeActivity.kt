@@ -70,7 +70,8 @@ class HomeActivity : BaseActivity() {
                         true
                     }
                     R.id.favorite->{
-//                        navController.navigate(R.id.favFragment)
+                        navController!!.navigate(R.id.favoriteFragment)
+                        binding.bottomNavigationView.setItemSelected(R.id.favorite,true)
                         closeDrawer()
                         true
                     }
@@ -95,7 +96,7 @@ class HomeActivity : BaseActivity() {
                         true
                     }
                     R.id.privacyPolicy ->{
-                        startActivity(Intent(this,TermsAndConditions::class.java).apply {
+                        startActivity(Intent(this,PrivacyPoliciesActivity::class.java).apply {
                             // todo add extras
                         })
                         closeDrawer()
@@ -105,11 +106,16 @@ class HomeActivity : BaseActivity() {
                         true
                     }
                     R.id.changeLanguage->{
-                        startActivity(Intent(this@HomeActivity,ChooseLanguageActivity::class.java))
+                        startActivity(Intent(this@HomeActivity,ChooseLanguageActivity::class.java).apply {
+                            putExtra("fromHome",true)
+                        })
                         closeDrawer()
                         true
                     }
                     R.id.exit->{
+                        val intent = Intent(this, LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
                         finish()
                         true
                     }
