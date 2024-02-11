@@ -20,12 +20,17 @@ class OnBoardingActivity : BaseActivity() {
 
         // add fake swipe
         binding.next.setOnClickListener {
-            if(binding.viewPager.currentItem == 2){
+            if(binding.viewPager.currentItem == 0 || binding.viewPager.currentItem == 1){
             binding.viewPager.setCurrentItem(binding.viewPager.currentItem+1, true)
             }else{
-//                start LogIn Activity
-                startActivity(Intent(this,LoginActivity::class.java))
+//                start the user type Activity
+                startActivity(Intent(this,UserTypeLoginActivity::class.java))
+
             }
+        }
+        //skipping the view pager and starting the activity
+        binding.skip.setOnClickListener {
+            startActivity(Intent(this,UserTypeLoginActivity::class.java))
         }
 
     }

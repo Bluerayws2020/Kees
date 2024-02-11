@@ -28,6 +28,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.DriverHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.DriverLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.UserTypeLoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.MyProfileDataActivity"
             android:exported="false" />
         <activity

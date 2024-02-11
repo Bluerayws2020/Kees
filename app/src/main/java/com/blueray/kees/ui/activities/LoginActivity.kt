@@ -34,6 +34,10 @@ class LoginActivity : BaseActivity() {
         //observe to live data
         getData()
 
+        binding.includedTap.back.setOnClickListener {
+            onBackPressed()
+        }
+
         binding.createNewAccount.setOnClickListener {
             val intentHome = Intent(this, CreateAccountActivity::class.java)
             startActivity(intentHome)

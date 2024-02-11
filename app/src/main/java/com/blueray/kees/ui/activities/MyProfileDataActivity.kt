@@ -31,7 +31,7 @@ class MyProfileDataActivity : BaseActivity() {
          viewModel.retrieveMyProfile()
 
         binding.changePassword.setOnClickListener{
-            startActivity(Intent(this,UpdateProfileActivity::class.java))
+           // startActivity(Intent(this,UpdateProfileActivity::class.java))
         }
     }
 

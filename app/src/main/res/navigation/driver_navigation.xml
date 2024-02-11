@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/driver_navigation"
+    app:startDestination="@id/driverHomeFragment">
+
+    <fragment
+        android:id="@+id/driverHomeFragment"
+        android:name="com.blueray.kees.ui.driver.fragments.DriverHomeFragment"
+        android:label="fragment_driver_home"
+        tools:layout="@layout/fragment_driver_home" />
+    <fragment
+        android:id="@+id/driverOrdersFragment"
+        android:name="com.blueray.kees.ui.driver.fragments.DriverOrdersFragment"
+        android:label="fragment_driver_orders"
+        tools:layout="@layout/fragment_driver_orders" />
+</navigation>

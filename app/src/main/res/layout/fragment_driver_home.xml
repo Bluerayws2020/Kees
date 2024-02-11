@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.driver.fragments.DriverHomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/darkPurple">
+
+            <include
+                android:id="@+id/include"
+                layout="@layout/driver_home_app_bar_background" />
+
+            <include
+                android:id="@+id/included_tap"
+                layout="@layout/home_action_barr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/darkPurple"
+            android:orientation="vertical"
+            android:paddingHorizontal="25dp"
+            android:paddingTop="25dp">
+
+            <TextView
+                android:id="@+id/driverNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cairo_bold"
+                android:text="Waleed Khater"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/driverNumberTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/cairo_bold"
+                android:text="0462023"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/grey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/darkPurple"
+            android:orientation="vertical"
+            android:padding="25dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cairo_bold"
+                android:text="Start working now"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cairo_bold"
+                android:text="When you click on Start Working Now, you will be available to receive immediate requests from customers"
+                android:textColor="@color/white"
+                android:textSize="11sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/startWorkingBtn"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/cairo_bold"
+                android:text="Start Working Now"
+                android:textAllCaps="false"
+                android:textColor="@color/purpleColor"
+                android:textSize="16sp"
+                app:cornerRadius="25dp" />
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="50dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="24sp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="25dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cairo_bold"
+                    android:text="Notes"
+                    android:textColor="@color/darkPurple"
+                    android:textSize="18sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/notesRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/notes_list_item" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="4dp"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="30dp"
+            app:cardCornerRadius="24sp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="25dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cairo_bold"
+                    android:text="Notifications"
+                    android:textColor="@color/darkPurple"
+                    android:textSize="18sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/NotificationsRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/notes_list_item" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
