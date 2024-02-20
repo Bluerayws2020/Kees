@@ -15,4 +15,24 @@
         android:name="com.blueray.kees.ui.driver.fragments.DriverOrdersFragment"
         android:label="fragment_driver_orders"
         tools:layout="@layout/fragment_driver_orders" />
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.blueray.kees.ui.driver.fragments.OrderDetailsFragment"
+        android:label="fragment_order_details2"
+        tools:layout="@layout/fragment_order_details2" />
+    <fragment
+        android:id="@+id/driversLastOrder"
+        android:name="com.blueray.kees.ui.driver.fragments.DriversLastOrder"
+        android:label="fragment_drivers_last_order"
+        tools:layout="@layout/fragment_drivers_last_order" />
+    <fragment
+        android:id="@+id/driverProfileFragment"
+        android:name="com.blueray.kees.ui.driver.fragments.DriverProfileFragment"
+        android:label="fragment_driver_profile"
+        tools:layout="@layout/fragment_driver_profile" />
+    <fragment
+        android:id="@+id/orderProductsFragment"
+        android:name="com.blueray.kees.ui.driver.fragments.OrderProductsFragment"
+        android:label="fragment_order_products"
+        tools:layout="@layout/fragment_order_products" />
 </navigation>

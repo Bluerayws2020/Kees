@@ -18,5 +18,7 @@
     <color name="add_color">#2AD800</color>
     <color name="dark_grey">#7F7F7F</color>
     <color name="lightGrey">#F5F5F5</color>
+    <color name="DarkGreyTextColor">#3D3D3D</color>
+    <color name="LightGreyTextColor">#646464</color>
 
 </resources>

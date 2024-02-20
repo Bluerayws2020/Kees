@@ -19,20 +19,20 @@
 
         <TextView
             android:id="@+id/driverNameTv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/cairo_bold"
-            android:text="Waleed Khater"
+            android:text="Ayham Hammad"
             android:textColor="#474747"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/driverNumberTv"
-            android:layout_width="wrap_content"
+            android:id="@+id/driverLocationTv"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/cairo_bold"
-            android:text="0462023"
+            android:text="Amman"
             android:textColor="#474747"
             android:textSize="20sp" />
 
@@ -42,9 +42,12 @@
         android:id="@+id/deliveringOrdersRv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/driverInfo"
         tools:itemCount="3"
-        tools:listitem="@layout/delivering_rv_item"/>
+        tools:listitem="@layout/delivering_rv_item" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

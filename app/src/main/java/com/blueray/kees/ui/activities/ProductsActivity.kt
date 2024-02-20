@@ -21,6 +21,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class ProductsActivity : BaseActivity() {
 
     private lateinit var binding: ActivityProductsBinding
+
     private lateinit var id: String
     private val viewModel: AppViewModel by viewModels()
 //    private var categoriesList = mutableListOf<GetMainCategoriesData>()

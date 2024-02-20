@@ -15,7 +15,7 @@ class DriverLoginActivity : AppCompatActivity() {
         binding = ActivityDriverLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        HelperUtils.setDefaultLanguage(this, "ar")
+//        HelperUtils.setDefaultLanguage(this, "ar")
 //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.includedTap.title.text = "Driver Portal"

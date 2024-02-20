@@ -95,4 +95,8 @@
     <string name="notifications">Notifications</string>
     <string name="title_activity_update_profile">UpdateProfileActivity</string>
     <string name="change_password">Change Password</string>
+    <string name="orders">Orders</string>
+    <string name="orderdetails">Order Details</string>
+    <string name="past_orders">Past Orders</string>
+    <string name="products">Products</string>
 </resources>
