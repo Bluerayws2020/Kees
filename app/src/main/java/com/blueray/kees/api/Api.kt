@@ -179,4 +179,10 @@ interface Api {
         @Part("password") password:RequestBody,
         @Part("password_confirmation") password_confirmation:RequestBody,
     ):Response<ErrorResponse>
+    @Multipart
+    @POST("customer/checkoutSingleWeeklyBasket")
+    suspend fun checkOutSingleItem(
+        @Header("Authorization") auth: String,
+        @Body data : CheckoutSingleCartRequestBody,
+    ):Response<ErrorResponse>
 }

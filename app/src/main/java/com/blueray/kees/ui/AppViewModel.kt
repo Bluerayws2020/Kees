@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.blueray.kees.helpers.HelperUtils.LANG
 import com.blueray.kees.helpers.HelperUtils.getToken
 import com.blueray.kees.model.AboutUsModel
+import com.blueray.kees.model.CheckoutSingleCartRequestBody
 import com.blueray.kees.model.CustomerGetAddressesModel
 import com.blueray.kees.model.CustomerProfileModel
 import com.blueray.kees.model.ErrorResponse
@@ -26,9 +27,10 @@ import java.io.File
 
 class AppViewModel(application: Application) : AndroidViewModel(application) {
 
+
     val repo = Repository
     val context = application.applicationContext
-    private val registrationLiveData = MutableLiveData<NetworkResults<RegistrationModel>>()
+        private val registrationLiveData = MutableLiveData<NetworkResults<RegistrationModel>>()
     private val sendOtpLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
     private val loginLiveData = MutableLiveData<NetworkResults<LoginResponse>>()
     private val getMainCategoriesLiveData = MutableLiveData<NetworkResults<GetMainCategories>>()
@@ -52,6 +54,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     private val getPrivacyPoliciesLiveData = MutableLiveData<NetworkResults<PrivacyPolicyModel>>()
     private val retrieveMyProfileLiveData = MutableLiveData<NetworkResults<GetMyProfileModel>>()
     private val changePasswordLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
+    private val changeCheckoutSingleCart = MutableLiveData<NetworkResults<ErrorResponse>>()
 
     fun retrieveRegistration(
         fullName: String,
@@ -416,5 +419,34 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getChangePassword() = changePasswordLiveData
+
+    fun retrieveCheckoutSingleCart(
+        lang :String,
+        weekly_basket_id :String,
+        coupon_code : String? = null,
+        address_id : String? =null,
+        title: String,
+        latitude: String,
+        longitude: String,
+        city_id: String,
+        area: String,
+        address: String,
+    ){
+        viewModelScope.launch {
+            changeCheckoutSingleCart.postValue(
+                repo.checkOutSingleItem(
+                    getToken(context),
+                    CheckoutSingleCartRequestBody(lang, weekly_basket_id, coupon_code, address_id, title, latitude, longitude, city_id, area, address)
+                )
+            )
+        }
+    }
+
+    fun getCheckoutSingleCart() = changeCheckoutSingleCart
+
+
+
+
+
 
 }

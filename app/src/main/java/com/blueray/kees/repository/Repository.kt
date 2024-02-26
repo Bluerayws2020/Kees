@@ -5,6 +5,7 @@ import com.blueray.kees.api.ApiClient
 import com.blueray.kees.helpers.HelperUtils.toStringRequestBody
 import com.blueray.kees.model.AboutUsModel
 import com.blueray.kees.model.AddToBasketRequestBody
+import com.blueray.kees.model.CheckoutSingleCartRequestBody
 import com.blueray.kees.model.CustomerGetAddressesModel
 import com.blueray.kees.model.CustomerProfileModel
 import com.blueray.kees.model.ErrorResponse
@@ -904,6 +905,40 @@ suspend fun changePassword(
                 oldBody,
                 newBody,
                 confirmBody
+            )
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
+
+    suspend fun checkOutSingleItem(
+        token : String,
+        data :CheckoutSingleCartRequestBody
+    ): NetworkResults<ErrorResponse> {
+        try {
+
+            val result = ApiClient.retrofitService.checkOutSingleItem(
+                "Bearer $token",
+                data
             )
             return if (result.isSuccessful) {
                 NetworkResults.Success(result.body()!!)

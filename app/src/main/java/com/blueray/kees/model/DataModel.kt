@@ -254,7 +254,8 @@ data class CustomerGetAddressesData(
     val latitude: String,
     val longitude: String,
     val title: String,
-    val user_id: Int
+    val user_id: Int,
+    var selected: Boolean = false
 )
 
 data class CustomerGetAddressesModel(
@@ -311,4 +312,17 @@ data class GetMyProfileData(
     val phone: String,
     val two_factor_confirmed_at: Any,
     val wallet_balance: String
+)
+data class CheckoutSingleCartRequestBody(
+    val lang :String,
+    val weekly_basket_id :String,
+    val coupon_code : String? = null,
+    val address_id : String? =null,
+    val title: String,
+    val latitude: String,
+    val longitude: String,
+    val city_id: String,
+    val area: String,
+    val address: String,
+
 )

@@ -1,5 +1,6 @@
 package com.blueray.kees.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -7,16 +8,21 @@ import com.blueray.kees.R
 import com.blueray.kees.adapters.CheckOutWeekAdapter
 import com.blueray.kees.databinding.ActivityCheckOutFragmentBinding
 import com.blueray.kees.helpers.HelperUtils
+import com.blueray.kees.helpers.HelperUtils.ADDRESSES_LIST
+import com.blueray.kees.helpers.HelperUtils.SELECTED_ADDRESS
 import com.blueray.kees.helpers.ViewUtils.hide
 import com.blueray.kees.helpers.ViewUtils.show
+import com.blueray.kees.model.CustomerGetAddressesData
 import com.blueray.kees.model.NetworkResults
 import com.blueray.kees.ui.AppViewModel
 
 class CheckOutActivity : BaseActivity() {
 
+    private var addressesList: List<CustomerGetAddressesData> = listOf()
     private lateinit var binding: ActivityCheckOutFragmentBinding
     private val viewModel: AppViewModel by viewModels()
     private lateinit var adapter: CheckOutWeekAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCheckOutFragmentBinding.inflate(layoutInflater)
@@ -34,7 +40,18 @@ class CheckOutActivity : BaseActivity() {
 
         // getCart Data
         viewModel.retrieveWeeklyCart()
+        getMyAddresses()
         getCarts()
+        binding.chooseAddressBtn.setOnClickListener{
+            startActivity(Intent(this,ChooseLocationActivity::class.java))
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // call API When ever You come back to this Activity
+        viewModel.retrieveCustomerAddresses()
 
     }
 
@@ -51,6 +68,35 @@ class CheckOutActivity : BaseActivity() {
         binding.weeksOrdersRv.layoutManager = lm
     }
 
+    private fun getMyAddresses(){
+        viewModel.getCustomerAddresses().observe(this){
+            result ->
+            when (result) {
+                is NetworkResults.Success -> {
+                    if (result.data.status == 200) {
+                       addressesList = result.data.data
+                        if(SELECTED_ADDRESS == null){
+                            SELECTED_ADDRESS= addressesList.first()
+                        }
+                        binding.addressLine.text = SELECTED_ADDRESS?.address
+                        binding.city.text = SELECTED_ADDRESS?.city_name
+                    } else {
+                        HelperUtils.showMessage(this, getString(R.string.Error))
+                    }
+                }
+                is NetworkResults.ErrorMessage -> {
+                    HelperUtils.showMessage(
+                        this,
+                        result.data?.message ?: getString(R.string.Error)
+                    )
+                }
+                is NetworkResults.Error -> {
+                    result.exception.printStackTrace()
+                    HelperUtils.showMessage(this, getString(R.string.Error))
+                }
+            }
+        }
+    }
     private fun getCarts() {
         viewModel.getWeeklyCart().observe(this) { result ->
             when (result) {

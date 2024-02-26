@@ -13,12 +13,14 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.blueray.kees.model.CustomerData
+import com.blueray.kees.model.CustomerGetAddressesData
 import com.blueray.kees.ui.activities.MainActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.util.*
+import kotlin.collections.List
 
 object HelperUtils {
 const val PHONENUMEBR = "PHONE"
@@ -40,6 +42,8 @@ const val PHONENUMEBR = "PHONE"
     var OTP = ""
     var FromLogin = false
     var LOCATION_IN_STRING = ""
+    var SELECTED_ADDRESS : CustomerGetAddressesData? = null
+    var ADDRESSES_LIST: List<CustomerGetAddressesData>? = listOf()
 
     fun String.toStringRequestBody():RequestBody{
         return toRequestBody("multipart/form-data".toMediaTypeOrNull())
