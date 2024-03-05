@@ -16,6 +16,7 @@ import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.model.NetworkResults
 import com.blueray.kees.model.WeeklyBasketProduct
 import com.blueray.kees.ui.AppViewModel
+import com.blueray.kees.ui.driver.fragments.DoneDialogFragment
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -35,8 +36,12 @@ class CartPageFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentCartPageBinding.inflate(layoutInflater)
+        binding.addNoteButton.setOnClickListener {
+            openNotesPopUp()
+        }
         return binding.root
     }
+
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -128,4 +133,9 @@ class CartPageFragment : Fragment() {
             }
         }
     }
+    private fun openNotesPopUp() {
+        val dialog = NotesDialogFragment()
+        dialog.show(childFragmentManager, "showDialog")
+    }
+
 }

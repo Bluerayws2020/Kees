@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.blueray.kees.R
 import com.blueray.kees.adapters.ProductsAdapter
 import com.blueray.kees.databinding.FragmentFavoriteFargmentBinding
+import com.blueray.kees.databinding.ProductsItemBinding
 import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.helpers.ViewUtils.hide
 import com.blueray.kees.model.NetworkResults
@@ -67,7 +68,7 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun setAdapter() {
-        adapter = ProductsAdapter(listOf(), {}, {})
+        adapter = ProductsAdapter(listOf(), {}, {} , true)
         adapter.onClickListener =
             {
                 val productDetails = ProductInnerBottomSheet()
@@ -87,6 +88,7 @@ class FavoriteFragment : Fragment() {
         val lm = LinearLayoutManager(requireContext())
         binding.productsRv.layoutManager = lm
         binding.productsRv.adapter = adapter
+
     }
 
     private fun addRemoveFromWishList() {

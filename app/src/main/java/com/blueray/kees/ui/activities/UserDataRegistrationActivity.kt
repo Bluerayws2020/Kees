@@ -168,10 +168,14 @@ class UserDataRegistrationActivity : BaseActivity() {
             when (result) {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
-                        saveUserData(this,result.data.customer_data)
-                        saveUserToken(this,result.data.token)
-                        OTP = result.data.customer_data.otp_code.toString()
-                        startActivity(Intent(this, OtpActivity::class.java))
+                        saveUserData(this,result.data.data)
+                        saveUserToken(this,result.data.data.token)
+                        OTP = result.data.data.otp_code.toString()
+                        val intent = Intent(this, OtpActivity::class.java)
+                        intent.putExtra("phoneNumber" , binding.phoneEt.text.toString())
+                        startActivity(intent)
+
+
                     } else {
                         showMessage(this, getString(R.string.Error))
                     }

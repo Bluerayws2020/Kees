@@ -47,7 +47,7 @@ class ChooseLocationActivity : BaseActivity() {
             startActivity(Intent(this,MapsActivity::class.java))
         }
         
-        binding.includedTap.title.text= getString(R.string.create_accounttt)
+        binding.includedTap.title.text= "Create Account"
         binding.previosBtn.setOnClickListener {
             onBackPressed()
         }

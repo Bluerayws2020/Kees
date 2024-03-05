@@ -11,7 +11,8 @@ import com.bumptech.glide.Glide
 class ProductsAdapter (
     var list: List<GetProductsData>,
     var onClickListener : (id :String) -> Unit,
-    var onLikeClickListener : (id : String) -> Unit
+    var onLikeClickListener : (id : String) -> Unit,
+    var isWishList:Boolean
 ):RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(var binding: ProductsItemBinding) :
@@ -32,6 +33,10 @@ class ProductsAdapter (
             Glide.with(holder.itemView.context).load(data.image).placeholder(R.drawable.tahini).into(binding.productImage)
             binding.productName.text = data.name
             binding.price.text = data.sale_price
+            if (data.is_wishlist == true || isWishList == true){
+                binding.likeBtn.isChecked = true
+            }
+
             // must know the deference between the sale and th on sale price
         }
 

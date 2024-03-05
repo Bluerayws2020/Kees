@@ -87,7 +87,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
-        productAdapter = ProductsAdapter(listOf(),{},{})
+        productAdapter = ProductsAdapter(listOf(),{},{} , false)
         productAdapter.onClickListener = {
             val productDetails = ProductInnerBottomSheet()
             productDetails.productId = it

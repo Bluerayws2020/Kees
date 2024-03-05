@@ -30,7 +30,7 @@
         android:id="@+id/navDrawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:menu="@menu/drawer_menu"
+        app:menu="@menu/driver_drawer_menu"
         app:headerLayout="@layout/drawer_header"
         android:layout_gravity="start"
         app:itemTextAppearance="@style/NavigationDrawerTextAppearance2"

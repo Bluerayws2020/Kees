@@ -2,6 +2,8 @@ package com.blueray.kees.ui.activities;
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
@@ -15,6 +17,7 @@ import com.blueray.kees.model.NetworkResults
 import com.blueray.kees.ui.AppViewModel
 
 class LoginActivity : BaseActivity() {
+
 
     private lateinit var binding: ActivityLoginActivtiyBinding
     private val viewModel: AppViewModel by viewModels()
@@ -49,6 +52,19 @@ class LoginActivity : BaseActivity() {
                 binding.password.text.toString()
             )
         }
+        binding.showPasswordBtn.setOnClickListener {
+            if (binding.password.transformationMethod == PasswordTransformationMethod.getInstance()) {
+                // Show password
+                binding.password.transformationMethod =
+                    HideReturnsTransformationMethod.getInstance()
+                binding.showPasswordBtn.setImageResource(R.drawable.invisible)
+            } else {
+                // Hide password
+                binding.password.transformationMethod = PasswordTransformationMethod.getInstance()
+                binding.showPasswordBtn.setImageResource(R.drawable.baseline_remove_red_eye_24)
+
+            }
+        }
     }
 
 
@@ -70,17 +86,21 @@ class LoginActivity : BaseActivity() {
             when (result) {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
-                        if (result.data.isAuth != null && !result.data.isAuth) {
-                            HelperUtils.saveUserToken(this, result.data.token)
-                            startActivity(Intent(this, OtpActivity::class.java).apply {
-                                putExtra("phoneNumber",binding.phoneNumberET.text.toString())
-                            })
+                        if (result.data.message != null) {
+//                            HelperUtils.saveUserToken(this, result.data.data.token)
+                            val intent = Intent(this, OtpActivity::class.java)
+                            intent.putExtra("phoneNumber", binding.phoneNumberET.text.toString())
+                            startActivity(intent)
                             FromLogin = true
                             return@observe
+                        } else {
+                            HelperUtils.saveUserData(this, result.data.data)
+                            HelperUtils.saveUserToken(this, result.data.data.token)
+                            startActivity(Intent(this, HomeActivity::class.java))
+                            HelperUtils.saveUserName(this, result.data.data.full_name)
+                            HelperUtils.saveUserEmail(this, result.data.data.email)
                         }
-                        HelperUtils.saveUserData(this, result.data.customer_data)
-                        HelperUtils.saveUserToken(this, result.data.token)
-                        startActivity(Intent(this, HomeActivity::class.java))
+
 //                            HelperUtils.OTP = result.data.customer_data.otp_code.toString()
 
                     } else {

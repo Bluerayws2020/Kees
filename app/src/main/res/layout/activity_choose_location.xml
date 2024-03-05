@@ -30,7 +30,7 @@
             android:id="@+id/signInLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create New Account"
+            android:text="Create Account"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/included_tap"
@@ -117,7 +117,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Choose Your Location Manually"
+                    android:text="Continue Location Info "
                     android:textColor="@color/purpleColor"
                     android:textSize="19sp"
                     android:fontFamily="@font/cairo_bold"

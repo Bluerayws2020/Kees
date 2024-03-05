@@ -13,6 +13,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.blueray.kees.model.CustomerData
+import com.blueray.kees.model.DriverData
 import com.blueray.kees.ui.activities.MainActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
@@ -41,11 +42,18 @@ const val PHONENUMEBR = "PHONE"
     var FromLogin = false
     var LOCATION_IN_STRING = ""
 
+    var NAME: String = ""
+    var EMAIL2: String = ""
+
     fun String.toStringRequestBody():RequestBody{
         return toRequestBody("multipart/form-data".toMediaTypeOrNull())
     }
 
     fun saveUserData(mContext:Context , customerData: CustomerData) {
+        val sharedPreferences = mContext.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+    }
+    fun saveDriverData(mContext:Context , customerData: DriverData) {
         val sharedPreferences = mContext.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
     }
@@ -55,9 +63,49 @@ const val PHONENUMEBR = "PHONE"
         editor.putString("token",token)
         editor.apply()
     }
+    fun saveUserName(mContext:Context , name : String) {
+        val sharedPreferences = mContext.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("name",name)
+        editor.apply()
+    }
+    fun saveUserEmail(mContext:Context , email : String) {
+        val sharedPreferences = mContext.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("email",email)
+        editor.apply()
+    }
+    fun logOutUser(mContext:Context){
+        val sharedPreferences = mContext.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
+    }
     fun getToken(mContext:Context):String {
         val sharedPreferences = mContext.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
         return sharedPreferences.getString("token","").toString()
+    }
+
+    fun getName(mContext:Context):String {
+        val sharedPreferences = mContext.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+        return sharedPreferences.getString("name","").toString()
+    }
+    fun getEmail(mContext:Context):String {
+        val sharedPreferences = mContext.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+        return sharedPreferences.getString("email","").toString()
+    }
+
+
+    fun saveDriverStatus(mContext:Context , driver_status : String) {
+        val sharedPreferences = mContext.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("driver_status",driver_status)
+        editor.apply()
+    }
+    fun getDriverStatus(mContext:Context):String {
+        val sharedPreferences = mContext.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+        return sharedPreferences.getString("driver_status","").toString()
     }
 
 

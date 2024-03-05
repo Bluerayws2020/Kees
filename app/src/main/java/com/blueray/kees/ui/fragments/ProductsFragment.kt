@@ -48,7 +48,7 @@ class ProductsFragment : Fragment() {
     }
 
     private fun setAdapter() {
-        adapter = ProductsAdapter(listOf(),{},{})
+        adapter = ProductsAdapter(listOf(),{},{} , false)
         adapter.onClickListener =
         {
             val productDetails = ProductInnerBottomSheet()
@@ -75,7 +75,7 @@ class ProductsFragment : Fragment() {
             when(result){
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
-                        adapter.list = result.data.data
+                        adapter.list = result.data.data ?: listOf()
                         adapter.notifyDataSetChanged()
                     } else {
                         HelperUtils.showMessage(requireContext(), getString(R.string.Error))

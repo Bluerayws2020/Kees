@@ -18,11 +18,12 @@ import kotlinx.coroutines.*
 class OtpActivity : BaseActivity() {
     private lateinit var binding: ActivityOtpBinding
     private val viewModel: AppViewModel by viewModels()
+    private var phoneNumber: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOtpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        phoneNumber = intent.getStringExtra("phoneNumber")
         setGif()
 
         getData()
@@ -34,11 +35,16 @@ class OtpActivity : BaseActivity() {
                 showMessage(this, "Please Enter Otp")
                 return@setOnClickListener
             }
-            if (binding.otpView.otp.toString().length != 6){
+            if (binding.otpView.otp.toString().length != 6) {
                 showMessage(this, "Wrong Otp")
                 return@setOnClickListener
             }
-            viewModel.retrieveSendOtp(binding.otpView.otp.toString())
+            if (phoneNumber != null) {
+                viewModel.retrieveSendOtp(
+                    otp_code = binding.otpView.otp.toString(),
+                    phone = phoneNumber!!
+                )
+            }
         }
 
         val delayTime = 3000L * 60
@@ -69,20 +75,22 @@ class OtpActivity : BaseActivity() {
             when (result) {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
-                        if(FromLogin){
+                        if (FromLogin) {
                             startActivity(Intent(this, HomeActivity::class.java))
                             FromLogin = !FromLogin
                             // todo add token and userData since this Api is not returning it
-                        }else{
-                        startActivity(Intent(this, ChooseOrderReceiveTime::class.java))
+                        } else {
+                            startActivity(Intent(this, ChooseOrderReceiveTime::class.java))
                         }
                     } else {
                         showMessage(this, getString(R.string.Error))
                     }
                 }
+
                 is NetworkResults.ErrorMessage -> {
                     showMessage(this, result.data?.message ?: getString(R.string.Error))
                 }
+
                 is NetworkResults.Error -> {
                     result.exception.printStackTrace()
                     showMessage(this, getString(R.string.Error))

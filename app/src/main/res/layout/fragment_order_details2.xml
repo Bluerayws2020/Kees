@@ -67,9 +67,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cairo_bold"
                 android:text="Number of products"
-                android:textSize="16sp"
                 android:textColor="@color/LightGreyTextColor"
-                />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/numberOfProductsTv"
@@ -168,6 +167,73 @@
             app:layout_constraintStart_toEndOf="@id/truckIcon"
             app:layout_constraintTop_toTopOf="@id/truckIcon" />
 
+        <TextView
+            android:id="@+id/dayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cairo_bold"
+            android:text="Day:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/deliveryInfoTv"
+            app:layout_constraintTop_toBottomOf="@id/deliveryInfoTv" />
+
+        <TextView
+            android:id="@+id/dayTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cairo_medium"
+            android:text="Sunday"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/dayText"
+            app:layout_constraintTop_toBottomOf="@id/dayText" />
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:fontFamily="@font/cairo_bold"
+            android:text="Date:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/dayText"
+            app:layout_constraintTop_toBottomOf="@id/deliveryInfoTv" />
+
+        <TextView
+            android:id="@+id/dateTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cairo_medium"
+            android:text="2022-12-18"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/dateText"
+            app:layout_constraintTop_toBottomOf="@id/dateText" />
+        <TextView
+            android:id="@+id/deliveryTimeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/deliveryInfoTv"
+            app:layout_constraintStart_toEndOf="@id/dateText"
+            android:text="Delivery Time:"
+            android:fontFamily="@font/cairo_bold"
+            android:layout_marginHorizontal="55dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:id="@+id/deliveryTimeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/deliveryTimeText"
+            app:layout_constraintStart_toStartOf="@id/deliveryTimeText"
+            android:text="17:00 - 19:00"
+            android:fontFamily="@font/cairo_medium"
+            android:textColor="@color/black"
+            android:textSize="14sp"/>
+
         <View
             android:id="@+id/dividerLine4"
             android:layout_width="0dp"
@@ -177,7 +243,7 @@
             android:background="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/deliveryInfoTv" />
+            app:layout_constraintTop_toBottomOf="@id/dayTv" />
 
         <LinearLayout
             android:id="@+id/ClintNameLayout"
@@ -241,8 +307,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cairo_medium"
-                android:textColor="@color/DarkGreyTextColor"
                 android:text="07891267"
+                android:textColor="@color/DarkGreyTextColor"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -252,9 +318,13 @@
             android:layout_height="100dp"
             android:layout_marginHorizontal="25dp"
             android:layout_marginTop="25dp"
-            android:backgroundTint="@color/grey"
             app:cardCornerRadius="25dp"
             app:layout_constraintTop_toBottomOf="@id/ClintNameLayout">
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </androidx.cardview.widget.CardView>
 

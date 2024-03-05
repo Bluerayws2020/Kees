@@ -5,11 +5,18 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.blueray.kees.helpers.HelperUtils.LANG
+import com.blueray.kees.helpers.HelperUtils.getEmail
+import com.blueray.kees.helpers.HelperUtils.getName
 import com.blueray.kees.helpers.HelperUtils.getToken
 import com.blueray.kees.model.AboutUsModel
 import com.blueray.kees.model.CustomerGetAddressesModel
 import com.blueray.kees.model.CustomerProfileModel
+import com.blueray.kees.model.DriverLoginResponse
+import com.blueray.kees.model.DriverOrderDetailsResponse
+import com.blueray.kees.model.DriverOrdersResponse
 import com.blueray.kees.model.ErrorResponse
+import com.blueray.kees.model.FinishedOrdersRespose
+import com.blueray.kees.model.GetDriverProfileResponse
 import com.blueray.kees.model.GetMainCategories
 import com.blueray.kees.model.GetMyProfileModel
 import com.blueray.kees.model.GetProductDetailsResponse
@@ -20,6 +27,7 @@ import com.blueray.kees.model.NetworkResults
 import com.blueray.kees.model.PrivacyPolicyModel
 import com.blueray.kees.model.RegistrationModel
 import com.blueray.kees.model.ShiftsModel
+import com.blueray.kees.model.UpdateDeliveryStatusResponse
 import com.blueray.kees.repository.Repository
 import kotlinx.coroutines.launch
 import java.io.File
@@ -44,7 +52,8 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     private val getFavoriteProductsLiveData = MutableLiveData<NetworkResults<GetProductsModel>>()
     private val getCustomerProfileLiveData = MutableLiveData<NetworkResults<CustomerProfileModel>>()
     private val changePhoneNumberLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
-    private val customerAddressesLiveData = MutableLiveData<NetworkResults<CustomerGetAddressesModel>>()
+    private val customerAddressesLiveData =
+        MutableLiveData<NetworkResults<CustomerGetAddressesModel>>()
     private val customerUpdateAddressLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
     private val customerAddNewAddressLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
     private val customerDeleteAddressLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
@@ -52,6 +61,17 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     private val getPrivacyPoliciesLiveData = MutableLiveData<NetworkResults<PrivacyPolicyModel>>()
     private val retrieveMyProfileLiveData = MutableLiveData<NetworkResults<GetMyProfileModel>>()
     private val changePasswordLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
+    private val driverLoginLiveData = MutableLiveData<NetworkResults<DriverLoginResponse>>()
+    private val driverProfileLiveData = MutableLiveData<NetworkResults<GetDriverProfileResponse>>()
+    private val driverOrdersLiveData = MutableLiveData<NetworkResults<DriverOrdersResponse>>()
+    private val driverOrderDetailsLiveData =
+        MutableLiveData<NetworkResults<DriverOrderDetailsResponse>>()
+    private val updateDeliveryStatusLiveData =
+        MutableLiveData<NetworkResults<UpdateDeliveryStatusResponse>>()
+    private val finishOrderLiveData =
+        MutableLiveData<NetworkResults<UpdateDeliveryStatusResponse>>()
+    private val getFinishedOrdersLiveData = MutableLiveData<NetworkResults<FinishedOrdersRespose>>()
+    private val contactUsLiveData = MutableLiveData<NetworkResults<UpdateDeliveryStatusResponse>>()
 
     fun retrieveRegistration(
         fullName: String,
@@ -93,12 +113,15 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     fun getRegistration() = registrationLiveData
 
     fun retrieveSendOtp(
-        otp_code: String
+        otp_code: String,
+        phone: String
     ) {
         viewModelScope.launch {
             sendOtpLiveData.postValue(
                 repo.sendOtpRequest(
-                    getToken(context), LANG, otp_code
+                    lang = LANG,
+                    otp = otp_code,
+                    phone = phone
                 )
             )
         }
@@ -153,6 +176,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             getProductsLiveData.postValue(
                 repo.getProducts(
+                    getToken(context),
                     LANG, categoryId, textSearch
                 )
             )
@@ -209,13 +233,13 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         size_id: String,
         unit_id: String,
         weight_id: String,
-        feature_ids :List<String>? = null
+        feature_ids: List<String>? = null
     ) {
         viewModelScope.launch {
             addToCartLiveData.postValue(
                 repo.addProductToWeeklyBaskets(
                     LANG, weeks, productId, quantity, color_id, size_id, unit_id, weight_id,
-                    getToken(context),feature_ids
+                    getToken(context), feature_ids
                 )
             )
         }
@@ -229,6 +253,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             getProductDetailsLiveData.postValue(
                 repo.getProductDetails(
+                    getToken(context),
                     LANG,
                     productId
                 )
@@ -400,10 +425,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getMyProfile() = retrieveMyProfileLiveData
     fun retrieveChangePassword(
-    old : String,
-    new: String,
-    confirm  :String
-    ){
+        old: String,
+        new: String,
+        confirm: String
+    ) {
         viewModelScope.launch {
             changePasswordLiveData.postValue(
                 repo.changePassword(
@@ -417,4 +442,116 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getChangePassword() = changePasswordLiveData
 
+    fun retrieveDriverLogin(
+        email: String,
+        password: String
+    ) {
+        viewModelScope.launch {
+            driverLoginLiveData.postValue(
+                repo.driverLogin(
+                    LANG,
+                    email,
+                    password
+                )
+            )
+        }
+    }
+
+    fun getDriverLogin() = driverLoginLiveData
+    fun retrieveDriverProfile() {
+        viewModelScope.launch {
+            driverProfileLiveData.postValue(
+                repo.getDriverProfile(
+                    getToken(context)
+                )
+            )
+        }
+    }
+
+    fun getDriverProfile() = driverProfileLiveData
+
+    fun retrieveDriverOrders() {
+        viewModelScope.launch {
+            driverOrdersLiveData.postValue(
+                repo.getDriverOrders(
+                    getToken(context)
+                )
+            )
+        }
+    }
+
+    fun getDriverOrders() = driverOrdersLiveData
+
+    fun retrieveDriverOrderDetails(
+        basket_id: String
+    ) {
+        viewModelScope.launch {
+            driverOrderDetailsLiveData.postValue(
+                repo.getDriverOrderDetails(
+                    getToken(context),
+                    basket_id
+                )
+            )
+        }
+    }
+
+    fun getDriverOrderDetails() = driverOrderDetailsLiveData
+
+    fun retrieveUpdateDeliveryStatus(
+        basket_id: String
+    ) {
+        viewModelScope.launch {
+            updateDeliveryStatusLiveData.postValue(
+                repo.updateDeliveryStatus(
+                    getToken(context),
+                    basket_id
+                )
+            )
+        }
+    }
+
+    fun getUpdateDeliveryStatus() = updateDeliveryStatusLiveData
+
+    fun retrieveFinishOrder(
+        basket_id: String
+    ) {
+        viewModelScope.launch {
+            finishOrderLiveData.postValue(
+                repo.finishOrder(
+                    getToken(context), basket_id
+                )
+            )
+        }
+    }
+
+    fun getFinishOrder() = finishOrderLiveData
+
+    fun retrieveFinishedOrders() {
+        viewModelScope.launch {
+            getFinishedOrdersLiveData.postValue(
+                repo.getFinishedOrders(
+                    getToken(context)
+                )
+            )
+        }
+    }
+
+    fun getFinishedOrders() = getFinishedOrdersLiveData
+
+    fun retrieveContactUs(
+
+        phone: String,
+        subject: String,
+        message: String
+    ) {
+        viewModelScope.launch {
+            contactUsLiveData.postValue(
+                repo.contactUsRequest(
+                    LANG,
+                    getName(context), getEmail(context), phone, subject, message
+                )
+            )
+        }
+    }
+    fun getContactUs() = contactUsLiveData
 }

@@ -11,7 +11,7 @@ import com.blueray.kees.model.NetworkResults
 import com.blueray.kees.ui.AppViewModel
 
 class MyProfileDataActivity : BaseActivity() {
-    private lateinit var binding :ActivityMyProfileActivtiyBinding
+    private lateinit var binding: ActivityMyProfileActivtiyBinding
     private val viewModel by viewModels<AppViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +28,13 @@ class MyProfileDataActivity : BaseActivity() {
         getData()
 
         // Call API
-         viewModel.retrieveMyProfile()
+        viewModel.retrieveMyProfile()
 
-        binding.changePassword.setOnClickListener{
-           // startActivity(Intent(this,UpdateProfileActivity::class.java))
+        binding.changePassword.setOnClickListener {
+            startActivity(Intent(this, ChangePasswordActivity::class.java))
+        }
+        binding.changePhone.setOnClickListener {
+            startActivity(Intent(this, ChangePhoneNumber::class.java))
         }
     }
 

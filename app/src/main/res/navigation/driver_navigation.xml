@@ -35,4 +35,14 @@
         android:name="com.blueray.kees.ui.driver.fragments.OrderProductsFragment"
         android:label="fragment_order_products"
         tools:layout="@layout/fragment_order_products" />
+    <fragment
+        android:id="@+id/notificationFragment2"
+        android:name="com.blueray.kees.ui.fragments.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+    <activity
+        android:id="@+id/finishedOrdersActivity"
+        android:name="com.blueray.kees.ui.activities.FinishedOrdersActivity"
+        android:label="activity_finished_orders"
+        tools:layout="@layout/activity_finished_orders" />
 </navigation>

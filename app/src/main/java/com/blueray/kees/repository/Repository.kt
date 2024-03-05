@@ -7,7 +7,12 @@ import com.blueray.kees.model.AboutUsModel
 import com.blueray.kees.model.AddToBasketRequestBody
 import com.blueray.kees.model.CustomerGetAddressesModel
 import com.blueray.kees.model.CustomerProfileModel
+import com.blueray.kees.model.DriverLoginResponse
+import com.blueray.kees.model.DriverOrderDetailsResponse
+import com.blueray.kees.model.DriverOrdersResponse
 import com.blueray.kees.model.ErrorResponse
+import com.blueray.kees.model.FinishedOrdersRespose
+import com.blueray.kees.model.GetDriverProfileResponse
 import com.blueray.kees.model.GetMainCategories
 import com.blueray.kees.model.GetMyProfileModel
 import com.blueray.kees.model.GetProductDetailsResponse
@@ -19,6 +24,7 @@ import com.blueray.kees.model.NumberOfWeeksModel
 import com.blueray.kees.model.PrivacyPolicyModel
 import com.blueray.kees.model.RegistrationModel
 import com.blueray.kees.model.ShiftsModel
+import com.blueray.kees.model.UpdateDeliveryStatusResponse
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -110,17 +116,19 @@ object Repository {
     }
 
     suspend fun sendOtpRequest(
-        token: String,
+        phone: String,
         lang: String,
         otp: String
     ): NetworkResults<ErrorResponse> {
         val langRequest = lang.toStringRequestBody()
         val otpRequest = otp.toStringRequestBody()
+        val phoneRequest = phone.toStringRequestBody()
         try {
             val result = ApiClient.retrofitService.sendOtpCode(
-                "Bearer $token",
-                otpRequest,
-                langRequest
+
+                otpCode = otpRequest,
+                lang = langRequest,
+                phone = phoneRequest
             )
             return if (result.isSuccessful) {
                 NetworkResults.Success(result.body()!!)
@@ -253,15 +261,17 @@ object Repository {
     }
 
     suspend fun getProducts(
+        token: String,
         lang: String,
         categoryId: String?,
-        textSearch: String?
+        textSearch: String?,
     ): NetworkResults<GetProductsModel> {
         val langRequest = lang.toStringRequestBody()
         val categoryIdRequest = categoryId?.toStringRequestBody()
         val textSearchRequest = textSearch?.toStringRequestBody()
         try {
             val result = ApiClient.retrofitService.getProducts(
+                "Bearer $token",
                 langRequest, categoryIdRequest, textSearchRequest
             )
             return if (result.isSuccessful) {
@@ -403,7 +413,7 @@ object Repository {
         unit_id: String,
         weight_id: String,
         token: String,
-        feature_ids:List<String>?
+        feature_ids: List<String>?
 
     ): NetworkResults<ErrorResponse> {
         val body = AddToBasketRequestBody(
@@ -447,6 +457,7 @@ object Repository {
     }
 
     suspend fun getProductDetails(
+        token: String,
         lang: String,
         productId: String
     ): NetworkResults<GetProductDetailsResponse> {
@@ -454,6 +465,7 @@ object Repository {
         val productIdBody = productId.toStringRequestBody()
         try {
             val result = ApiClient.retrofitService.getProductDetails(
+                "Bearer $token",
                 langRequest,
                 productIdBody
             )
@@ -701,6 +713,7 @@ object Repository {
             return NetworkResults.Error(e)
         }
     }
+
     suspend fun customerAddNewAddress(
         token: String,
         lang: String,
@@ -752,6 +765,7 @@ object Repository {
             return NetworkResults.Error(e)
         }
     }
+
     suspend fun customerDeleteMyAddress(
         token: String,
         lang: String,
@@ -764,7 +778,8 @@ object Repository {
             val result = ApiClient.retrofitService.customerDeleteMyAddress(
                 "Bearer $token",
                 langBody,
-                addressIdBody)
+                addressIdBody
+            )
             return if (result.isSuccessful) {
                 NetworkResults.Success(result.body()!!)
             } else {
@@ -796,7 +811,8 @@ object Repository {
             val langBody = lang.toStringRequestBody()
 
             val result = ApiClient.retrofitService.getAboutUs(
-                langBody)
+                langBody
+            )
             return if (result.isSuccessful) {
                 NetworkResults.Success(result.body()!!)
             } else {
@@ -820,14 +836,16 @@ object Repository {
             return NetworkResults.Error(e)
         }
     }
-suspend fun getPrivacyPolicies(
+
+    suspend fun getPrivacyPolicies(
         lang: String,
     ): NetworkResults<PrivacyPolicyModel> {
         try {
             val langBody = lang.toStringRequestBody()
 
             val result = ApiClient.retrofitService.getPrivacyPolicy(
-                langBody)
+                langBody
+            )
             return if (result.isSuccessful) {
                 NetworkResults.Success(result.body()!!)
             } else {
@@ -861,7 +879,8 @@ suspend fun getPrivacyPolicies(
 
             val result = ApiClient.retrofitService.getMyProfile(
                 "Bearer $token",
-                langBody)
+                langBody
+            )
             return if (result.isSuccessful) {
                 NetworkResults.Success(result.body()!!)
             } else {
@@ -885,12 +904,13 @@ suspend fun getPrivacyPolicies(
             return NetworkResults.Error(e)
         }
     }
-suspend fun changePassword(
+
+    suspend fun changePassword(
         token: String,
         lang: String,
-        old : String,
-        new : String,
-        confirm : String
+        old: String,
+        new: String,
+        confirm: String
     ): NetworkResults<ErrorResponse> {
         try {
             val langBody = lang.toStringRequestBody()
@@ -929,4 +949,295 @@ suspend fun changePassword(
         }
     }
 
+    suspend fun driverLogin(
+        lang: String,
+        email: String,
+        password: String
+    ): NetworkResults<DriverLoginResponse> {
+        val langRequest = lang.toStringRequestBody()
+        val emailRequest = email.toStringRequestBody()
+        val passwordRequest = password.toStringRequestBody()
+
+        try {
+            val result = ApiClient.retrofitService.driverLogin(
+                langRequest,
+                emailRequest,
+                passwordRequest
+            )
+
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
+
+    suspend fun getDriverProfile(
+        token: String
+    ): NetworkResults<GetDriverProfileResponse> {
+        try {
+            val result = ApiClient.retrofitService.getDriverProfile(
+                "Bearer $token"
+            )
+
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
+
+    suspend fun getDriverOrders(
+        token: String
+
+    ): NetworkResults<DriverOrdersResponse> {
+        try {
+            val result = ApiClient.retrofitService.getDriverOrders(
+                "Bearer $token"
+            )
+
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
+
+    suspend fun getDriverOrderDetails(
+        token: String,
+        basket_id: String
+    ): NetworkResults<DriverOrderDetailsResponse> {
+        val basketRequest = basket_id.toStringRequestBody()
+        try {
+            val result = ApiClient.retrofitService.getDriverOrderDetails(
+                "Bearer $token",
+                basketRequest
+            )
+
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
+
+    suspend fun updateDeliveryStatus(
+        token: String,
+        basket_id: String
+    ): NetworkResults<UpdateDeliveryStatusResponse> {
+        val basketRequest = basket_id.toStringRequestBody()
+        try {
+            val result = ApiClient.retrofitService.updateDeliveryStatus(
+                "Bearer $token",
+                basketRequest
+            )
+
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
+
+    suspend fun finishOrder(
+        token: String,
+        basket_id: String
+    ): NetworkResults<UpdateDeliveryStatusResponse> {
+        val basketRequest = basket_id.toStringRequestBody()
+        try {
+            val result = ApiClient.retrofitService.finishOrder(
+                "Bearer $token",
+                basketRequest
+            )
+
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
+
+    suspend fun getFinishedOrders(
+        token: String,
+    ): NetworkResults<FinishedOrdersRespose> {
+        try {
+            val result = ApiClient.retrofitService.getFinishedOrders(
+                "Bearer $token",
+
+                )
+
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
+
+    suspend fun contactUsRequest(
+        lang: String,
+        name: String,
+        email: String,
+        phone: String,
+        subject: String,
+        message: String
+    ): NetworkResults<UpdateDeliveryStatusResponse> {
+        val langRequest = lang.toStringRequestBody()
+        val nameRequest = name.toStringRequestBody()
+        val emailRequest = email.toStringRequestBody()
+        val phoneRequest = phone.toStringRequestBody()
+        val subjectRequest = subject.toStringRequestBody()
+        val messageRequest = message.toStringRequestBody()
+        try {
+            val result = ApiClient.retrofitService.contactUsRequest(
+                langRequest,
+                nameRequest,
+                emailRequest,
+                phoneRequest,
+                subjectRequest,
+                messageRequest
+
+            )
+
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
 }

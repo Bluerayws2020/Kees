@@ -1,33 +1,29 @@
 package com.blueray.kees.ui.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.blueray.kees.R
-import com.blueray.kees.databinding.ActivityContactUsBinding
+import com.blueray.kees.adapters.FinishedOrdersAdapter
+import com.blueray.kees.databinding.ActivityFinishedOrdersBinding
 import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.helpers.ViewUtils.hide
 import com.blueray.kees.model.NetworkResults
 import com.blueray.kees.ui.AppViewModel
-import com.blueray.kees.ui.fragments.HomeFragment
 
-class ContactUsActivity : BaseActivity() {
-    private lateinit var binding: ActivityContactUsBinding
+class FinishedOrdersActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityFinishedOrdersBinding
+    private lateinit var adapter: FinishedOrdersAdapter
     private val viewModel: AppViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityContactUsBinding.inflate(layoutInflater)
+        binding = ActivityFinishedOrdersBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        prepareAppBar("Contact Us")
-        binding.sendButton.setOnClickListener {
-            viewModel.retrieveContactUs(
-                binding.phoneNumberET.text.toString(),
-                binding.establishmentNameET.text.toString(),
-                binding.notesEt.text.toString()
-            )
-        }
-        getData()
+        prepareAppBar("Finished Orders")
+        viewModel.retrieveFinishedOrders()
+        getFinishedOrdersData()
     }
 
     private fun prepareAppBar(title: String) {
@@ -38,27 +34,33 @@ class ContactUsActivity : BaseActivity() {
         binding.includedTap.back.hide()
         binding.includedTap.title.text = title
     }
-    private fun getData(){
-        viewModel.getContactUs().observe(this){
+
+    fun initAdapter() {
+        binding.finishedOrdersRv.adapter = adapter
+        binding.finishedOrdersRv.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+    }
+    private fun getFinishedOrdersData(){
+        viewModel.getFinishedOrders().observe(this){
                 result ->
             when (result) {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
-                        HelperUtils.showMessage(this , result.data.message)
-                        Log.d("LKPAZX" , result.data.toString())
-                        val intent = Intent(this , HomeActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
+//                        initAdapter()
+                        adapter = FinishedOrdersAdapter(result.data.data)
+                        binding.finishedOrdersRv.adapter = adapter
+                        binding.finishedOrdersRv.layoutManager =
+                            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                        Log.d("MNBVC" , adapter.list.size.toString())
+                    }else {
                         HelperUtils.showMessage(this, getString(R.string.Error))
+
                     }
                 }
 
                 is NetworkResults.ErrorMessage -> {
-                    HelperUtils.showMessage(
-                        this,
-                        result.data?.message ?: getString(R.string.Error)
-                    )
+                    HelperUtils.showMessage(this, result.data?.message ?: getString(R.string.Error))
+
                 }
 
                 is NetworkResults.Error -> {
@@ -67,5 +69,5 @@ class ContactUsActivity : BaseActivity() {
                 }
             }
         }
-        }
     }
+}

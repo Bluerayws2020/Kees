@@ -73,7 +73,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="User Name"
+                    android:text="Email"
                     android:textColor="@color/darkPurple"
                     android:textSize="18sp"
                     android:fontFamily="@font/cairo_bold"
@@ -86,15 +86,15 @@
                     android:background="@drawable/custom_edit_text"
                     >
                     <EditText
-                        app:layoutDescription="@id/UserNameEt"
-                        android:id="@+id/UserNameEt"
+                        app:layoutDescription="@id/emailEt"
+                        android:id="@+id/emailEt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/empty_edit_text"
                         android:textSize="16sp"
                         android:textColor="#7F7F7F"
                         android:fontFamily="@font/cairo_bold"
-                        android:hint="User name"
+                        android:hint="Email"
                         android:paddingStart="15sp"
                         android:inputType="text"
                         android:singleLine="true"

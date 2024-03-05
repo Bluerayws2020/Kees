@@ -1,25 +1,23 @@
 package com.blueray.kees.ui.driver.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blueray.kees.R
-import com.blueray.kees.adapters.DriverLastOrdersAdapter
 import com.blueray.kees.adapters.DriverOrderItemsAdapter
-import com.blueray.kees.adapters.WaitingForDeliveryAdapter
 import com.blueray.kees.databinding.FragmentOrderProductsBinding
-import com.blueray.kees.databinding.OrderDetailsRvItemBinding
 import com.blueray.kees.helpers.ViewUtils.hide
 import com.blueray.kees.ui.activities.DriverHomeActivity
-import com.blueray.kees.ui.activities.HomeActivity
 
 
 class OrderProductsFragment : Fragment() {
     private lateinit var binding: FragmentOrderProductsBinding
     private lateinit var adapter: DriverOrderItemsAdapter
+    val productList = OrderDetailsFragment.productsList
+    val note = OrderDetailsFragment.note
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,13 +27,16 @@ class OrderProductsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+
         // Inflate the layout for this fragment
         binding = FragmentOrderProductsBinding.inflate(layoutInflater)
-
+        binding.notesTv.text = note
         // Prepare App bar
         prepareAppBar(getString(R.string.products))
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Init Adapter
@@ -44,7 +45,10 @@ class OrderProductsFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        adapter = DriverOrderItemsAdapter(listOf()){
+        adapter = DriverOrderItemsAdapter(listOf()) {
+        }
+        if (productList != null) {
+            adapter.list = productList
         }
         val layoutManager = LinearLayoutManager(requireContext())
 

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import com.blueray.kees.R
@@ -19,9 +20,11 @@ class UserTypeLoginActivity : BaseActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         HelperUtils.setDefaultLanguage(this, "ar")
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+        Log.d("TOKENKKK" , HelperUtils.getToken(this).toString())
         // hide the back button because its the first activity
         binding.includedTap.back.visibility = View.GONE
+
+
 
         binding.createNewAccountBtn.setOnClickListener {
             val intent = Intent(this , CreateAccountActivity::class.java)
@@ -33,7 +36,7 @@ class UserTypeLoginActivity : BaseActivity() {
         }
         //todo check how the user can enter as a guest
         binding.enterAsGuestBtn.setOnClickListener {
-            val intent = Intent(this , MainActivity::class.java)
+            val intent = Intent(this , HomeActivity::class.java)
             startActivity(intent)
         }
         binding.driversPortalBtn.setOnClickListener {

@@ -3,6 +3,7 @@ package com.blueray.kees.model
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import kotlin.Unit
 
 sealed class NetworkResults<out R> {
     data class Success<out T>(val data: T) : NetworkResults<T>()
@@ -33,22 +34,24 @@ data class CustomerData(
     val longitude: String,
     val otp_is_verified: String,
     val phone: String,
-    val otp_code: Int
-)
-
-data class RegistrationModel(
-    val customer_data: CustomerData,
-    val status: Int,
-    val success: Boolean,
+    val otp_code: Int,
     val token: String
 )
 
-data class LoginResponse(
-    val customer_data: CustomerData,
+data class RegistrationModel(
+    val data: CustomerData,
     val status: Int,
     val success: Boolean,
-    val token: String,
-    @SerializedName("is_authenticated") val isAuth: Boolean? = null
+
+    )
+
+data class LoginResponse(
+    val data: CustomerData,
+    val status: Int,
+    val success: Boolean,
+    val message: String
+
+//    @SerializedName("is_authenticated") val isAuth: Boolean? = null
 )
 
 data class GetMainCategories(
@@ -81,7 +84,8 @@ data class GetProductsData(
     val on_sale_price_status: String,
     val sale_price: String,
     val sub_category_id: Int,
-    val sub_category_name: String
+    val sub_category_name: String,
+    val is_wishlist: Boolean
 )
 
 data class NumberOfWeeksModel(
@@ -169,7 +173,7 @@ data class AddToBasketRequestBody(
     val size_id: String,
     val unit_id: String,
     val weight_id: String,
-   @SerializedName("feature_ids") val feature_ids: List<String>? =null
+    @SerializedName("feature_ids") val feature_ids: List<String>? = null
 )
 
 data class GetProductDetailsResponse(
@@ -202,7 +206,8 @@ data class GetProductDetailsData(
     val variation_type: String,
     val weight_id: Int,
     val weight_name: String,
-    val features: List<Features>?= null
+    val features: List<Features>? = null,
+    val is_wishlist: Boolean
 )
 
 data class Features(
@@ -262,6 +267,7 @@ data class CustomerGetAddressesModel(
     val status: Int,
     val success: Boolean
 )
+
 data class AboutUsData(
     val about_us_descriptio: String,
     val about_us_image: String,
@@ -271,26 +277,31 @@ data class AboutUsData(
     val value: String,
     val vision: String
 )
+
 data class AboutUsModel(
     val `data`: AboutUsData,
     val status: Int,
     val success: Boolean
 )
+
 data class PrivacyPolicyData(
     val description: String,
     val title: String
 )
+
 data class PrivacyPolicyModel(
     val `data`: PrivacyPolicyData,
     val status: Int,
     val success: Boolean
 )
+
 data class GetMyProfileModel(
     val `data`: GetMyProfileData,
     val message: String,
     val status: Int,
     val success: Boolean
 )
+
 data class GetMyProfileData(
     val address: String,
     val area: String,
@@ -311,4 +322,218 @@ data class GetMyProfileData(
     val phone: String,
     val two_factor_confirmed_at: Any,
     val wallet_balance: String
+)
+
+data class DriverLoginResponse(
+    val data: DriverData,
+    val status: Int,
+    val success: Boolean,
+
+    )
+
+data class DriverData(
+    val city_id: Int,
+    val city_name: String,
+    val driver_status: String,
+    val email: String,
+    val full_name: String,
+    val id: Int,
+    val image: Any,
+    val otp_code: String,
+    val otp_is_verified: String,
+    val otp_verified_at: String,
+    val phone: String,
+    val token: String
+)
+
+data class GetDriverProfileResponse(
+    val data: DriverProfileData,
+    val message: String,
+    val status: Int,
+    val success: Boolean
+)
+
+data class DriverProfileData(
+    val city_id: Int,
+    val city_name: String,
+    val driver_status: String,
+    val email: String,
+    val full_name: String,
+    val id: Int,
+    val image: Any,
+    val otp_code: String,
+    val otp_is_verified: String,
+    val otp_verified_at: String,
+    val phone: String
+)
+
+data class DriverOrdersResponse(
+    val `data`: DriverOrdersData,
+    val status: Int,
+    val success: Boolean
+)
+
+data class DriverOrdersData(
+    val under_delivery: List<UnderDelivery>,
+    val waiting_for_delivery: List<WaitingForDelivery>
+)
+
+data class UnderDelivery(
+    val address: String,
+    val area: String,
+    val coupon_id: Any,
+    val coupon_status: String,
+    val date: String,
+    val day: String,
+    val driver_status: String,
+    val end_time: String,
+    val id: Int,
+    val latitude: String,
+    val longitude: String,
+    val payment_status: String,
+    val process_status: String,
+    val start_time: String,
+    val week_number: String,
+    val item_count: Int,
+    val total_price: Int
+)
+
+data class WaitingForDelivery(
+    val address: String,
+    val area: String,
+    val coupon_id: Any,
+    val coupon_status: String,
+    val date: String,
+    val day: String,
+    val driver_status: String,
+    val end_time: String,
+    val id: Int,
+    val latitude: String,
+    val longitude: String,
+    val payment_status: String,
+    val process_status: String,
+    val start_time: String,
+    val week_number: String,
+    val item_count: Int,
+    val total_price: Int
+
+)
+
+data class DriverOrderDetailsResponse(
+    val `data`: OrderData,
+    val status: Int,
+    val success: Boolean
+)
+
+data class OrderData(
+    val coupon_id: Any,
+    val coupon_status: String,
+    val date: String,
+    val day: String,
+    val end_time: String,
+    val id: Int,
+    val note:String,
+    val payment_status: String,
+    val process_status: String,
+    val start_time: String,
+    val week_number: String,
+    val user_name:String,
+    val user_email:String,
+    val user_phone:String,
+    val weekly_basket_products: List<DriverWeeklyBasketProduct>
+)
+
+data class DriverWeeklyBasketProduct(
+    val color: Color,
+    val color_id: Int,
+    val id: Int,
+    val product: Product,
+    val product_id: Int,
+    val quantity: Int,
+    val size: Size,
+    val size_id: Int,
+    val unit: Unit,
+    val unit_id: Int,
+    val weekly_basket_id: Int,
+    val weekly_basket_product_features: List<Any>,
+    val weight: Weight,
+    val weight_id: Int
+)
+
+data class Color(
+    val id: Int,
+    val name_ar: String,
+    val name_en: String
+)
+
+data class Product(
+    val id: Int,
+    val image: Any,
+    val name_ar: String,
+    val name_en: String,
+    val on_sale_price: String,
+    val on_sale_price_status: String,
+    val sale_price: String
+)
+
+data class Size(
+    val id: Int,
+    val name_ar: String,
+    val name_en: String
+)
+
+data class Unit(
+    val id: Int,
+    val name_ar: String,
+    val name_en: String
+)
+
+data class Weight(
+    val id: Int,
+    val name_ar: String,
+    val name_en: String
+)
+
+data class UpdateDeliveryStatusResponse(
+    val message: String,
+    val status: Int,
+    val success: Boolean
+)
+
+data class FinishedOrdersRespose(
+    val `data`: List<FinishedOrderData>,
+    val status: Int,
+    val success: Boolean
+)
+
+data class FinishedOrderData(
+    val address: String,
+    val area: String,
+    val city_id: Int,
+    val coupon_id: Any,
+    val created_at: String,
+    val delivery_total: String,
+    val end_total: String,
+    val id: Int,
+    val latitude: String,
+    val longitude: String,
+    val payment_method: String,
+    val product_quantity: Int,
+    val services_total: String,
+    val sub_total: String,
+    val updated_at: String,
+    val user_id: Int,
+    val user_name:String,
+    val date:String,
+    val time:String
+)
+
+data class NotificationsResponse(
+    val `data`: List<NotificationsData>,
+    val status: Int,
+    val success: Boolean
+)
+
+data class NotificationsData(
+    val notification_text: String
 )

@@ -12,6 +12,7 @@ import com.blueray.kees.R
 import com.blueray.kees.adapters.ProductFeaturesAdapter
 import com.blueray.kees.adapters.WeeksAdapter
 import com.blueray.kees.databinding.FragmentProductInnerBottomSheetBinding
+import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.helpers.HelperUtils.showMessage
 import com.blueray.kees.helpers.ViewUtils.hide
 import com.blueray.kees.helpers.ViewUtils.show
@@ -36,6 +37,7 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
     private lateinit var unitId: String
     private lateinit var weightId: String
     private lateinit var weeklyBasketIds: String
+    private var isWishlist: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,9 +58,20 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
             binding.itemCount.text = (binding.itemCount.text.toString().toInt() + 1).toString()
         }
         binding.removeItem.setOnClickListener {
-            if(binding.itemCount.text.toString().toInt()> 0){
+            if (binding.itemCount.text.toString().toInt() > 0) {
                 binding.itemCount.text = (binding.itemCount.text.toString().toInt() - 1).toString()
             }
+        }
+        binding.favouriteButton.setOnClickListener {
+            productId?.let { it1 -> viewModel.retrieveAddRemoveWishlistProduct(it1) }
+            if (isWishlist == false){
+                binding.favouriteButton.setImageResource(R.drawable.heart)
+                isWishlist = true
+            }else{
+                binding.favouriteButton.setImageResource(R.drawable.ic_heart)
+                isWishlist = false
+            }
+//
         }
 
         // init features Adapter if existed
@@ -96,17 +109,16 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
         viewModel.retrieveWeeklyCart()
 
 
-
-
         // call Observers
         getData()
         getWeeklyBasket()
         addToCart()
+        addToWishList()
     }
 
     private fun initFeaturesAdapter() {
         featureAdapter = ProductFeaturesAdapter(listOf())
-        val lm = GridLayoutManager(requireContext(),2)
+        val lm = GridLayoutManager(requireContext(), 2)
         binding.featuresRv.layoutManager = lm
         binding.featuresRv.adapter = featureAdapter
     }
@@ -137,7 +149,8 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
                         val data = result.data.data
-                        Glide.with(requireContext()).load(data.image).placeholder(R.drawable.tahini).into(binding.productImage)
+                        Glide.with(requireContext()).load(data.image).placeholder(R.drawable.tahini)
+                            .into(binding.productImage)
                         binding.productName.text = data.name
                         binding.price.text = data.sale_price
                         binding.productDescription.text = data.description
@@ -146,11 +159,18 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
                         sizeId = data.size_id.toString()
                         unitId = data.unit_id.toString()
                         weightId = data.weight_id.toString()
-                        if(!data.features.isNullOrEmpty()){
+                        if (data.is_wishlist == true) {
+                            binding.favouriteButton.setImageResource(R.drawable.heart)
+                            isWishlist = true
+                        } else {
+                            binding.favouriteButton.setImageResource(R.drawable.ic_heart)
+                            isWishlist = false
+                        }
+                        if (!data.features.isNullOrEmpty()) {
                             binding.featuresRv.show()
                             featureAdapter.list = data.features
                             featureAdapter.notifyDataSetChanged()
-                        }else{
+                        } else {
                             binding.featuresRv.hide()
                         }
 
@@ -158,12 +178,14 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
                         showMessage(requireContext(), getString(R.string.Error))
                     }
                 }
+
                 is NetworkResults.ErrorMessage -> {
                     showMessage(
                         requireContext(),
                         result.data?.message ?: getString(R.string.Error)
                     )
                 }
+
                 is NetworkResults.Error -> {
                     result.exception.printStackTrace()
                     showMessage(requireContext(), getString(R.string.Error))
@@ -185,12 +207,14 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
                         showMessage(requireContext(), getString(R.string.Error))
                     }
                 }
+
                 is NetworkResults.ErrorMessage -> {
                     showMessage(
                         requireContext(),
                         result.data?.message ?: getString(R.string.Error)
                     )
                 }
+
                 is NetworkResults.Error -> {
                     result.exception.printStackTrace()
                     showMessage(requireContext(), getString(R.string.Error))
@@ -210,15 +234,43 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
                         showMessage(requireContext(), getString(R.string.Error))
                     }
                 }
+
                 is NetworkResults.ErrorMessage -> {
                     showMessage(
                         requireContext(),
                         result.data?.message ?: getString(R.string.Error)
                     )
                 }
+
                 is NetworkResults.Error -> {
                     result.exception.printStackTrace()
                     showMessage(requireContext(), getString(R.string.Error))
+                }
+            }
+        }
+    }
+
+    private fun addToWishList() {
+        viewModel.getAddRemoveWishlistProduct().observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is NetworkResults.Success -> {
+                    if (result.data.status == 200) {
+                        HelperUtils.showMessage(requireContext(), result.data.message)
+                    } else {
+                        HelperUtils.showMessage(requireContext(), getString(R.string.Error))
+                    }
+                }
+
+                is NetworkResults.ErrorMessage -> {
+                    HelperUtils.showMessage(
+                        requireContext(),
+                        result.data?.message ?: getString(R.string.Error)
+                    )
+                }
+
+                is NetworkResults.Error -> {
+                    result.exception.printStackTrace()
+                    HelperUtils.showMessage(requireContext(), getString(R.string.Error))
                 }
             }
         }

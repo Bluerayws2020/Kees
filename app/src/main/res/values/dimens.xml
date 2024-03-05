@@ -2,4 +2,6 @@
 <resources>
     <dimen name="elevation">15dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="dialog_width">300dp</dimen>
+    <dimen name="dialog_height">250dp</dimen>
 </resources>
