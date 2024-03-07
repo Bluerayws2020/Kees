@@ -8,10 +8,11 @@ import androidx.core.view.GravityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.blueray.kees.R
+import com.blueray.kees.api.DrawerOpener
 import com.blueray.kees.databinding.ActivityDriverHomeBinding
 import com.blueray.kees.helpers.HelperUtils
 
-class DriverHomeActivity : AppCompatActivity() {
+class DriverHomeActivity : AppCompatActivity() , DrawerOpener {
     private lateinit var binding: ActivityDriverHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +48,7 @@ class DriverHomeActivity : AppCompatActivity() {
                     false
                 }
                 R.id.notifications ->{
-                   // navController.navigate(R.id.notificationFragment2)
+                     navController.navigate(R.id.notificationFragment2)
                     binding.drawerlayout.closeDrawer(GravityCompat.START)
                     true
                 }
@@ -68,7 +69,11 @@ class DriverHomeActivity : AppCompatActivity() {
 
 
     }
-    fun openDrawer(){
+    override fun openDrawer() {
         binding.drawerlayout.openDrawer(GravityCompat.START)
+    }
+
+    override fun closeDrawer() {
+        binding.drawerlayout.closeDrawer(GravityCompat.START)
     }
 }

@@ -9,13 +9,14 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.blueray.kees.R
+import com.blueray.kees.api.DrawerOpener
 import com.blueray.kees.databinding.ActivityHomeBinding
 import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.helpers.ViewUtils.hide
 import com.blueray.kees.helpers.ViewUtils.show
 import com.blueray.kees.helpers.ViewUtils.startAnimation
 
-class HomeActivity : BaseActivity() {
+class HomeActivity : BaseActivity() , DrawerOpener {
 
     private lateinit var binding: ActivityHomeBinding
     private var navController: NavController? = null
@@ -146,11 +147,11 @@ class HomeActivity : BaseActivity() {
 
     }
 
-    fun openDrawer() {
+    override fun openDrawer() {
         binding.drawerLayout.openDrawer(GravityCompat.START)
     }
 
-    fun closeDrawer() {
+    override fun closeDrawer() {
         binding.drawerLayout.closeDrawer(GravityCompat.START)
     }
 

@@ -11,6 +11,7 @@ import com.blueray.kees.helpers.HelperUtils.getToken
 import com.blueray.kees.model.AboutUsModel
 import com.blueray.kees.model.CustomerGetAddressesModel
 import com.blueray.kees.model.CustomerProfileModel
+import com.blueray.kees.model.DeleteNotificationsResponse
 import com.blueray.kees.model.DriverLoginResponse
 import com.blueray.kees.model.DriverOrderDetailsResponse
 import com.blueray.kees.model.DriverOrdersResponse
@@ -24,6 +25,7 @@ import com.blueray.kees.model.GetProductsModel
 import com.blueray.kees.model.GetWeeklyCartModel
 import com.blueray.kees.model.LoginResponse
 import com.blueray.kees.model.NetworkResults
+import com.blueray.kees.model.NotificationsResponse
 import com.blueray.kees.model.PrivacyPolicyModel
 import com.blueray.kees.model.RegistrationModel
 import com.blueray.kees.model.ShiftsModel
@@ -72,6 +74,13 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         MutableLiveData<NetworkResults<UpdateDeliveryStatusResponse>>()
     private val getFinishedOrdersLiveData = MutableLiveData<NetworkResults<FinishedOrdersRespose>>()
     private val contactUsLiveData = MutableLiveData<NetworkResults<UpdateDeliveryStatusResponse>>()
+    private val checkOutSingleBasketLiveData =
+        MutableLiveData<NetworkResults<UpdateDeliveryStatusResponse>>()
+    private val getNotificationsLiveData = MutableLiveData<NetworkResults<NotificationsResponse>>()
+    private val deleteNotificationByIdLiveData =
+        MutableLiveData<NetworkResults<DeleteNotificationsResponse>>()
+    private val deleteAllNotificationsLiveData =
+        MutableLiveData<NetworkResults<DeleteNotificationsResponse>>()
 
     fun retrieveRegistration(
         fullName: String,
@@ -553,5 +562,85 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             )
         }
     }
+
     fun getContactUs() = contactUsLiveData
+
+    fun retrieveNotifications() {
+        viewModelScope.launch {
+            getNotificationsLiveData.postValue(
+                repo.getNotifications(
+                    getToken(context)
+                )
+            )
+        }
+    }
+
+    fun getNotifications() = getNotificationsLiveData
+
+    fun retrieveCheckOutSingleBasket(
+        weekly_basket_id: String,
+        coupon_code: String,
+        address_id: String,
+        title: String,
+        latitude: String,
+        longitude: String,
+        city_id: String,
+        area: String,
+        address: String,
+        note: String
+    ) {
+        viewModelScope.launch {
+            checkOutSingleBasketLiveData.postValue(
+                repo.checkOutSingleBasket(
+                    token = getToken(context),
+                    lang = LANG,
+                    weekly_basket_id = weekly_basket_id,
+                    coupon_code = coupon_code,
+                    address_id = address_id,
+                    title = title,
+                    latitude = latitude,
+                    longitude = longitude,
+                    city_id = city_id,
+                    area = area,
+                    address = address,
+                    note = note
+                )
+            )
+        }
+    }
+
+    fun getCheckOutSingleBasket() = checkOutSingleBasketLiveData
+
+
+    fun retrieveDeleteNotificationById(
+        notificationId: String
+    ) {
+        viewModelScope.launch {
+            deleteNotificationByIdLiveData.postValue(
+                repo.deleteNotificationById(
+                    getToken(context),
+                    notificationId
+                )
+            )
+        }
+    }
+
+    fun getDeleteNotificationById() = deleteNotificationByIdLiveData
+
+    fun retrieveDeleteAllNotifications() {
+        viewModelScope.launch {
+            deleteAllNotificationsLiveData.postValue(
+                repo.deleteAllNotifications(
+                    getToken(context)
+                )
+            )
+        }
+    }
+
+    fun getDeleteAllNotifications() = deleteAllNotificationsLiveData
+
 }
+
+
+
+

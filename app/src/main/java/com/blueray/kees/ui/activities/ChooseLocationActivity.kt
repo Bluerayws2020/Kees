@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import com.blueray.kees.R
 import com.blueray.kees.databinding.ActivityChooseLocationBinding
 import com.blueray.kees.helpers.HelperUtils.AREA
+import com.blueray.kees.helpers.HelperUtils.AREADetail
 import com.blueray.kees.helpers.HelperUtils.CITY
 import com.blueray.kees.helpers.HelperUtils.IMAGE
 import com.blueray.kees.helpers.HelperUtils.LAT
@@ -88,6 +89,7 @@ class ChooseLocationActivity : BaseActivity() {
         }
         CITY = "5"
         AREA = binding.areaEt.text.toString()
+        AREADetail = binding.addressInDetailEt.text.toString()
         IMAGE = imageFile
         startActivity(Intent(this,UserDataRegistrationActivity::class.java))
 

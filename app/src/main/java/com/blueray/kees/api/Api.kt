@@ -254,4 +254,38 @@ Api {
     suspend fun getFinishedOrders(
         @Header("Authorization") auth: String,
     ): Response<FinishedOrdersRespose>
+
+    @POST("frontend/getMyNotifications")
+    suspend fun getNotifications(
+        @Header("Authorization") auth: String,
+
+        ): Response<NotificationsResponse>
+
+    @Multipart
+    @POST("customer/checkoutSingleWeeklyBasket")
+    suspend fun checkOutSingleBasket(
+        @Header("Authorization") auth: String,
+        @Part("lang") lang: RequestBody,
+        @Part("weekly_basket_id") weekly_basket_id: RequestBody,
+        @Part("coupon_code") coupon_code: RequestBody,
+        @Part("address_id") address_id: RequestBody,
+        @Part("title") title: RequestBody,
+        @Part("latitude") latitude: RequestBody,
+        @Part("longitude") longitude: RequestBody,
+        @Part("city_id") city_id: RequestBody,
+        @Part("area") area: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("note") note: RequestBody
+    ): Response<UpdateDeliveryStatusResponse>
+    @Multipart
+    @POST("frontend/deleteNotificationsById")
+    suspend fun deleteNotificationsById(
+        @Header("Authorization") auth: String,
+        @Part("notification_id") notification_id: RequestBody
+        ):Response<DeleteNotificationsResponse>
+    @POST("frontend/deleteAllNotifications")
+    suspend fun deleteAllNotifications(
+        @Header("Authorization") auth: String,
+    ):Response<DeleteNotificationsResponse>
 }
+

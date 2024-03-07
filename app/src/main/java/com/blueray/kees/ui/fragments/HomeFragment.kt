@@ -21,6 +21,7 @@ import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.model.GetMainCategoriesData
 import com.blueray.kees.model.NetworkResults
 import com.blueray.kees.ui.AppViewModel
+import com.blueray.kees.ui.activities.CartActivity
 import com.blueray.kees.ui.activities.HomeActivity
 import com.blueray.kees.ui.activities.ProductsActivity
 import kotlinx.coroutines.Dispatchers
@@ -57,8 +58,9 @@ class HomeFragment : Fragment() {
             (activity as HomeActivity).openDrawer()
         }
         binding.includedTap.cartLabel.setOnClickListener {
-            val dialog = CartsBottomSheetFragment()
-            dialog.show(parentFragmentManager, "show cart")
+            startActivity(Intent(requireActivity(), CartActivity::class.java))
+//            val dialog = CartsBottomSheetFragment()
+//            dialog.show(parentFragmentManager, "show cart")
         }
         viewModel.retrieveMainCategories()
         getData()

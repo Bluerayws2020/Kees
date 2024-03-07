@@ -38,48 +38,54 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="Om Othaina"
+            android:textColor="@color/black_200"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/cairo_medium"
             app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/addressArea"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toStartOf="@id/deleteLocationBtn"/>
+
+        <!-- Address Area TextView -->
+        <TextView
+            android:id="@+id/addressArea"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:text="Amman - Om Othaina"
+            android:textColor="@color/black_200"
+            android:textSize="11sp"
+            android:fontFamily="@font/cairo_medium"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintBottom_toTopOf="@id/details"
+            app:layout_constraintEnd_toStartOf="@id/deleteLocationBtn"
+            android:layout_marginTop="-3dp"/>
+
+        <!-- Details TextView -->
+        <TextView
+            android:id="@+id/details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Address Details"
+            android:textColor="@color/black_200"
+            android:textSize="9sp"
+            android:fontFamily="@font/cairo_regular"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/addressArea"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:orientation="vertical"
-            android:layout_marginStart="15dp"
-            >
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Om Othaina"
-                android:textColor="@color/black_200"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/cairo_medium"
-                />
-            <TextView
-                android:id="@+id/addressArea"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Amman - Om Othaina"
-                android:textColor="@color/black_200"
-                android:textSize="11sp"
-                android:fontFamily="@font/cairo_medium"
-                android:layout_marginTop="-3dp"
-                />
-            <TextView
-                android:id="@+id/details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Address Details"
-                android:textColor="@color/black_200"
-                android:textSize="9sp"
-                android:fontFamily="@font/cairo_regular"
-                />
+            app:layout_constraintEnd_toStartOf="@id/deleteLocationBtn"/>
 
-
-
-        </LinearLayout>
+        <!-- Edit Location Button -->
         <ImageView
             android:id="@+id/editLocationBtn"
             android:layout_width="36dp"
@@ -87,19 +93,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/pin"
-            />
+            android:src="@drawable/pin"/>
+
+        <!-- Delete Location Button -->
         <ImageView
             android:id="@+id/deleteLocationBtn"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            app:layout_constraintEnd_toStartOf = "@id/editLocationBtn"
+            app:layout_constraintEnd_toStartOf="@id/editLocationBtn"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:src="@drawable/bin"
             android:padding="8dp"
             android:background="@drawable/custom_edit_text"
-            android:layout_marginEnd="10dp"
-            />
+            android:layout_marginEnd="10dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -137,7 +137,7 @@ class SearchFragment : Fragment() {
             when(result){
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
-                        HelperUtils.showMessage(requireContext(), result.data.message)
+                        HelperUtils.showMessage(requireContext(), result.data.data.toString())
                     } else {
                         HelperUtils.showMessage(requireContext(), getString(R.string.Error))
                     }

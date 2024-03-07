@@ -21,10 +21,11 @@ class FinishedOrdersAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val data = list[position]
         holder.binding.apply {
-        locationTv.text = data.area + "," + data.address
-        ClintNameTv.text = data.user_name
-        dateTv.text = data.date
-        timeTv.text = data.time
+            locationTv.text = data.area + "," + data.address
+            ClintNameTv.text = data.user_name
+            dateTv.text = data.date
+            timeTv.text = data.time
+            orderIdTv.text = "#" + data.id
         }
     }
 

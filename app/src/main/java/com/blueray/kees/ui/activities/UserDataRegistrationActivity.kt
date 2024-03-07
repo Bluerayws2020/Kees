@@ -9,7 +9,9 @@ import android.widget.AdapterView.OnItemSelectedListener
 import androidx.activity.viewModels
 import com.blueray.kees.R
 import com.blueray.kees.databinding.ActivityUserDataRegistrationBinding
+import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.helpers.HelperUtils.AREA
+import com.blueray.kees.helpers.HelperUtils.AREADetail
 import com.blueray.kees.helpers.HelperUtils.CONFIRM_PASSWORD
 import com.blueray.kees.helpers.HelperUtils.DATE_OF_BIRTH
 import com.blueray.kees.helpers.HelperUtils.EMAIL
@@ -149,8 +151,8 @@ class UserDataRegistrationActivity : BaseActivity() {
             LAT,
             LONG,
             "5",
-            "Amman",// Todo change this once the api is ok
             AREA,
+            AREADetail,
             PASSWORD,
             CONFIRM_PASSWORD,
             null,

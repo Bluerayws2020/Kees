@@ -26,11 +26,7 @@ class ChangePhoneNumber : BaseActivity() {
         setContentView(binding.root)
 
         // set up app bar
-        binding.includedTap.title.text = getString(R.string.changePhoneNumber)
-        binding.includedTap.back.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
-        binding.includedTap.menu.hide()
+        prepareAppBar(getString(R.string.changePhoneNumber))
 
         // observe to live Data
         changeMyPhoneObserver()
@@ -60,6 +56,14 @@ class ChangePhoneNumber : BaseActivity() {
 
         }
 
+    }
+    private fun prepareAppBar(title: String) {
+        binding.includedTap.menu.setImageResource(R.drawable.back_button)
+        binding.includedTap.menu.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+        binding.includedTap.back.hide()
+        binding.includedTap.title.text = title
     }
 
     private fun changeMyPhoneObserver() {

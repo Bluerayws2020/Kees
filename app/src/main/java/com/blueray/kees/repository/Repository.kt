@@ -7,6 +7,7 @@ import com.blueray.kees.model.AboutUsModel
 import com.blueray.kees.model.AddToBasketRequestBody
 import com.blueray.kees.model.CustomerGetAddressesModel
 import com.blueray.kees.model.CustomerProfileModel
+import com.blueray.kees.model.DeleteNotificationsResponse
 import com.blueray.kees.model.DriverLoginResponse
 import com.blueray.kees.model.DriverOrderDetailsResponse
 import com.blueray.kees.model.DriverOrdersResponse
@@ -20,6 +21,7 @@ import com.blueray.kees.model.GetProductsModel
 import com.blueray.kees.model.GetWeeklyCartModel
 import com.blueray.kees.model.LoginResponse
 import com.blueray.kees.model.NetworkResults
+import com.blueray.kees.model.NotificationsResponse
 import com.blueray.kees.model.NumberOfWeeksModel
 import com.blueray.kees.model.PrivacyPolicyModel
 import com.blueray.kees.model.RegistrationModel
@@ -1191,6 +1193,107 @@ object Repository {
             return NetworkResults.Error(e)
         }
     }
+    suspend fun getNotifications(
+        token: String,
+    ): NetworkResults<NotificationsResponse> {
+        try {
+            val result = ApiClient.retrofitService.getNotifications(
+                "Bearer $token",
+
+                )
+
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
+
+    suspend fun deleteNotificationById(
+        token: String,
+        notification_id:String
+    ): NetworkResults<DeleteNotificationsResponse> {
+        val notificationIdRequest = notification_id.toStringRequestBody()
+
+        try {
+            val result = ApiClient.retrofitService.deleteNotificationsById(
+                "Bearer $token",
+                    notificationIdRequest
+                )
+
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
+
+    suspend fun deleteAllNotifications(
+        token: String,
+    ): NetworkResults<DeleteNotificationsResponse> {
+
+        try {
+            val result = ApiClient.retrofitService.deleteAllNotifications(
+                "Bearer $token",
+            )
+
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
 
     suspend fun contactUsRequest(
         lang: String,
@@ -1216,6 +1319,72 @@ object Repository {
                 messageRequest
 
             )
+
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
+
+    suspend fun checkOutSingleBasket(
+        token: String,
+        lang: String,
+        weekly_basket_id:String,
+        coupon_code:String,
+        address_id:String,
+        title:String,
+        latitude:String,
+        longitude:String,
+        city_id:String,
+        area:String,
+        address:String,
+        note:String
+    ): NetworkResults<UpdateDeliveryStatusResponse> {
+        val langRequest = lang.toStringRequestBody()
+        val weekly_basket_idRequest = weekly_basket_id.toStringRequestBody()
+        val coupon_codeRequest = coupon_code.toStringRequestBody()
+        val address_idRequest = address_id.toStringRequestBody()
+        val titleRequest = title.toStringRequestBody()
+        val latitudeRequest = latitude.toStringRequestBody()
+        val longitudeRequest = longitude.toStringRequestBody()
+        val city_idRequest = city_id.toStringRequestBody()
+        val areaRequest = area.toStringRequestBody()
+        val addressRequest = address.toStringRequestBody()
+        val noteRequest = note.toStringRequestBody()
+
+        try {
+            val result = ApiClient.retrofitService.checkOutSingleBasket(
+                "Bearer $token",
+                langRequest,
+                weekly_basket_idRequest,
+                coupon_codeRequest,
+                address_idRequest,
+                titleRequest,
+                latitudeRequest,
+                longitudeRequest,
+                city_idRequest,
+                areaRequest,
+                addressRequest,
+                noteRequest
+                )
 
             return if (result.isSuccessful) {
                 NetworkResults.Success(result.body()!!)

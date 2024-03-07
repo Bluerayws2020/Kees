@@ -4,4 +4,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="dialog_width">300dp</dimen>
     <dimen name="dialog_height">250dp</dimen>
+    <dimen name="location_dialog_width">350dp</dimen>
+    <dimen name="location_dialog_height">350dp</dimen>
 </resources>

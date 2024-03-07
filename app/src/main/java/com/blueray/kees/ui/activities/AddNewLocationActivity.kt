@@ -53,7 +53,7 @@ class AddNewLocationActivity : BaseActivity() {
         HelperUtils.CITY = "5" // todo add Cities
         HelperUtils.AREA = binding.areaEt.text.toString()
         viewModel.retrieveCustomerAddNewAddress(
-            "address",
+            binding.titleEt.text.toString(),
 
             HelperUtils.LAT,
             HelperUtils.LONG,

@@ -158,6 +158,8 @@ data class WeeklyBasketData(
     val start_time: String,
     val sup_total_price: Int,
     val total_price: Double,
+    val delivery_fees:Double,
+    val services_fees:Double,
     val total_tax: Double,
     val week_number: String,
     var weekly_basket_products: List<WeeklyBasketProduct>,
@@ -440,6 +442,8 @@ data class OrderData(
     val user_name:String,
     val user_email:String,
     val user_phone:String,
+    val latitude:String,
+    val longitude:String,
     val weekly_basket_products: List<DriverWeeklyBasketProduct>
 )
 
@@ -535,5 +539,13 @@ data class NotificationsResponse(
 )
 
 data class NotificationsData(
-    val notification_text: String
+    val id: Int,
+    val notification_text: String,
+    val date:String
+)
+
+data class DeleteNotificationsResponse(
+    val `data`: String,
+    val status: Int,
+    val success: Boolean
 )

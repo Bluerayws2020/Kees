@@ -26,7 +26,6 @@ class DriverHomeFragment : Fragment() {
 
 
     private lateinit var binding:FragmentDriverHomeBinding
-    private lateinit var notesAdapter : NotesAndNotificationsAdapter
     private lateinit var notificationsAdapter : NotesAndNotificationsAdapter
     private val viewModel:AppViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +45,9 @@ class DriverHomeFragment : Fragment() {
             (activity as DriverHomeActivity).openDrawer()
         }
         viewModel.retrieveDriverProfile()
+        viewModel.retrieveNotifications()
         getDriverData()
+        getNotificationsData()
         binding.startWorkingBtn.setOnClickListener {
             findNavController().navigate(R.id.driverOrdersFragment)
         }
@@ -58,27 +59,11 @@ class DriverHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Init Adapters
-        initNoteAdapter()
-        initNotificationsAdapter()
+
     }
 
-    private fun initNotificationsAdapter() {
-        notificationsAdapter = NotesAndNotificationsAdapter(listOf()){
-        }
-        val layoutManager = LinearLayoutManager(requireContext())
 
-        binding.NotificationsRv.adapter = notificationsAdapter
-        binding.NotificationsRv.layoutManager = layoutManager
-    }
 
-    private fun initNoteAdapter() {
-        notesAdapter = NotesAndNotificationsAdapter(listOf()){
-        }
-        val layoutManager = LinearLayoutManager(requireContext())
-
-        binding.notesRv.adapter = notesAdapter
-        binding.notesRv.layoutManager = layoutManager
-    }
 
     private fun getDriverData() {
         viewModel.getDriverProfile().observe(this) { result ->
@@ -105,4 +90,33 @@ class DriverHomeFragment : Fragment() {
             }
         }
     }
+    private fun getNotificationsData() {
+        viewModel.getNotifications().observe(this) { result ->
+            when (result) {
+                is NetworkResults.Success -> {
+                    if (result.data.status == 200) {
+                        notificationsAdapter = NotesAndNotificationsAdapter(result.data.data)
+                        val layoutManager = LinearLayoutManager(requireContext())
+
+                        binding.NotificationsRv.adapter = notificationsAdapter
+                        binding.NotificationsRv.layoutManager = layoutManager
+                    }else {
+                        HelperUtils.showMessage(requireContext(), getString(R.string.Error))
+
+                    }
+                }
+
+                is NetworkResults.ErrorMessage -> {
+                    HelperUtils.showMessage(requireContext(), result.data?.message ?: getString(R.string.Error))
+
+                }
+
+                is NetworkResults.Error -> {
+                    result.exception.printStackTrace()
+                    HelperUtils.showMessage(requireContext(), getString(R.string.Error))
+                }
+            }
+        }
+    }
+
 }

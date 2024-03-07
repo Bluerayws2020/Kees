@@ -7,9 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.blueray.kees.R
+import com.blueray.kees.databinding.FragmentNotesDialogBinding
 
 
 class NotesDialogFragment : DialogFragment() {
+    private lateinit var binding:FragmentNotesDialogBinding
+    companion object{
+        var note :String? =null
+    }
     override fun onStart() {
         super.onStart()
 
@@ -31,7 +36,13 @@ class NotesDialogFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentNotesDialogBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notes_dialog, container, false)
+
+        binding.sendButton.setOnClickListener {
+            note = binding.notesEt.text.toString()
+            dialog?.dismiss()
+        }
+        return binding.root
     }
 }

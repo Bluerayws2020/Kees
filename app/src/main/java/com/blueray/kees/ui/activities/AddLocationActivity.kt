@@ -22,12 +22,7 @@ class AddLocationActivity : BaseActivity() {
         setContentView(binding.root)
 
         // set up app bar
-        binding.includedTap.title.text = getString(R.string.MyLocations)
-        binding.includedTap.back.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
-        binding.includedTap.menu.hide()
-
+        prepareAppBar(getString(R.string.MyLocations))
         // init Adapter
         initAdapter()
 
@@ -41,7 +36,14 @@ class AddLocationActivity : BaseActivity() {
         }
 
     }
-
+    private fun prepareAppBar(title: String) {
+        binding.includedTap.menu.setImageResource(R.drawable.back_button)
+        binding.includedTap.menu.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+        binding.includedTap.back.hide()
+        binding.includedTap.title.text = title
+    }
     private fun getAddresses() {
         viewModel.getCustomerAddresses().observe(this) { result ->
             when (result) {

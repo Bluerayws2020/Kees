@@ -33,6 +33,8 @@ const val PHONENUMEBR = "PHONE"
     var LAT = ""
     var LONG = ""
     var AREA = ""
+    var AREADetail = ""
+
     var CITY = ""
     var IMAGE : File? = null
     var LANG = "en"
