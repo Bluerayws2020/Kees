@@ -1,9 +1,12 @@
 package com.blueray.kees.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,16 +21,16 @@ import com.blueray.kees.ui.activities.ProductInnerBottomSheet
 
 class ProductsFragment : Fragment() {
 
-    private lateinit var binding : FragmentProductsBinding
-    private lateinit var adapter : ProductsAdapter
-    private val viewModel : AppViewModel by viewModels()
-
+    private lateinit var binding: FragmentProductsBinding
+    private lateinit var adapter: ProductsAdapter
+    private val viewModel: AppViewModel by viewModels()
+    private lateinit var catId: String
+    private var subId: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        binding = FragmentProductsBinding.inflate(layoutInflater)
+        binding = FragmentProductsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -35,44 +38,56 @@ class ProductsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setAdapter()
-        val catId = arguments?.getString("category")
 
-        // call API
-        viewModel.retrieveProducts(
-            categoryId = catId
-        )
-        // observe to live data
+        // Retrieve category and subcategory IDs from arguments bundle
+        catId = arguments?.getString("category") ?: ""
+        val initialSubId = arguments?.getString("subCategory")
+        if (initialSubId != null) {
+            subId = initialSubId
+        }
+        Log.d("FragmentIds", "Category: $catId, SubCategory: $subId")
+        // Call API with retrieved IDs
+        viewModel.retrieveProducts(categoryId = catId, subCategoryId = subId)
+                binding.search.setOnEditorActionListener { _, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                viewModel.retrieveProducts(
+                    textSearch = binding.search.text.toString(),
+                    categoryId = catId, subCategoryId = subId
+                )
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        }
+        // Observe LiveData
         getProducts()
         addRemoveFromWishList()
-
     }
 
     private fun setAdapter() {
-        adapter = ProductsAdapter(listOf(),{},{} , false)
+        adapter = ProductsAdapter(listOf(), {}, {}, null,false)
+        adapter.onClickListener = { productId ->
+            val productDetails = ProductInnerBottomSheet().apply {
+                this.productId = productId
+            }
+            productDetails.show(parentFragmentManager, "bottomSheet")
+        }
+        adapter.onLikeClickListener = { productId ->
+            viewModel.retrieveAddRemoveWishlistProduct(productId)
+        }
         adapter.onClickListener =
-        {
-            val productDetails = ProductInnerBottomSheet()
-            productDetails.productId = it
-            productDetails.show(parentFragmentManager,"bottomSheet")
-        }
-        adapter.onLikeClickListener = {
-            // call API
-            viewModel.retrieveAddRemoveWishlistProduct(it)
-        }
-        adapter.addToCartClickListener {
-            val addToCart = ProductInnerBottomSheet()
-            addToCart.productId = it
-            addToCart.show(parentFragmentManager,"bottomShow")
-        }
-        val lm  = LinearLayoutManager(requireContext())
+            {
+                val productDetails = ProductInnerBottomSheet()
+                productDetails.productId = it
+                productDetails.show(parentFragmentManager, "bottomSheet")
+            }
+        val lm = LinearLayoutManager(requireContext())
         binding.productsRv.layoutManager = lm
         binding.productsRv.adapter = adapter
     }
 
-    private fun getProducts(){
-        viewModel.getProducts().observe(viewLifecycleOwner){
-            result ->
-            when(result){
+    private fun getProducts() {
+        viewModel.getProducts().observe(viewLifecycleOwner) { result ->
+            when (result) {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
                         adapter.list = result.data.data ?: listOf()
@@ -81,9 +96,14 @@ class ProductsFragment : Fragment() {
                         HelperUtils.showMessage(requireContext(), getString(R.string.Error))
                     }
                 }
+
                 is NetworkResults.ErrorMessage -> {
-                    HelperUtils.showMessage(requireContext(), result.data?.message ?: getString(R.string.Error))
+                    HelperUtils.showMessage(
+                        requireContext(),
+                        result.data?.message ?: getString(R.string.Error)
+                    )
                 }
+
                 is NetworkResults.Error -> {
                     result.exception.printStackTrace()
                     HelperUtils.showMessage(requireContext(), getString(R.string.Error))
@@ -92,10 +112,9 @@ class ProductsFragment : Fragment() {
         }
     }
 
-    private fun addRemoveFromWishList(){
-        viewModel.getAddRemoveWishlistProduct().observe(viewLifecycleOwner){
-                result ->
-            when(result){
+    private fun addRemoveFromWishList() {
+        viewModel.getAddRemoveWishlistProduct().observe(viewLifecycleOwner) { result ->
+            when (result) {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
                         HelperUtils.showMessage(requireContext(), result.data.data.toString())
@@ -103,9 +122,14 @@ class ProductsFragment : Fragment() {
                         HelperUtils.showMessage(requireContext(), getString(R.string.Error))
                     }
                 }
+
                 is NetworkResults.ErrorMessage -> {
-                    HelperUtils.showMessage(requireContext(), result.data?.message ?: getString(R.string.Error))
+                    HelperUtils.showMessage(
+                        requireContext(),
+                        result.data?.message ?: getString(R.string.Error)
+                    )
                 }
+
                 is NetworkResults.Error -> {
                     result.exception.printStackTrace()
                     HelperUtils.showMessage(requireContext(), getString(R.string.Error))
@@ -113,5 +137,4 @@ class ProductsFragment : Fragment() {
             }
         }
     }
-
 }

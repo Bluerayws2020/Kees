@@ -1,9 +1,12 @@
 package com.blueray.kees.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blueray.kees.R
 import com.blueray.kees.adapters.FinishedOrdersAdapter
@@ -12,6 +15,7 @@ import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.helpers.ViewUtils.hide
 import com.blueray.kees.model.NetworkResults
 import com.blueray.kees.ui.AppViewModel
+import com.blueray.kees.ui.driver.fragments.OrderDetailsFragment
 
 class FinishedOrdersActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFinishedOrdersBinding
@@ -47,7 +51,10 @@ class FinishedOrdersActivity : AppCompatActivity() {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
 //                        initAdapter()
-                        adapter = FinishedOrdersAdapter(result.data.data)
+                        adapter = FinishedOrdersAdapter(result.data.data ,{})
+                        adapter.onItemClick ={
+
+                        }
                         binding.finishedOrdersRv.adapter = adapter
                         binding.finishedOrdersRv.layoutManager =
                             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

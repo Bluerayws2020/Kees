@@ -6,25 +6,25 @@
         <item
             android:id="@+id/homeFragment"
             android:icon="@drawable/home_iconnn"
-            android:title="Main"
+            android:title="@string/main"
             app:cnb_iconColor="@color/purpleColor"
             />
         <item
             android:id="@+id/searchFragment"
             android:icon="@drawable/search_icon_11"
-            android:title="Search"
+            android:title="@string/search"
             app:cnb_iconColor="@color/purpleColor"
             />
         <item
             android:id="@+id/favorite"
             android:icon="@drawable/baseline_favorite"
-            android:title="Favorite"
+            android:title="@string/favorite"
             app:cnb_iconColor="@color/purpleColor"
             />
         <item
             android:id="@+id/notificationFragment"
             android:icon="@drawable/notification_iconn"
-            android:title="Notifications"
+            android:title="@string/notifications"
             app:cnb_iconColor="@color/purpleColor"
             />
     </group>

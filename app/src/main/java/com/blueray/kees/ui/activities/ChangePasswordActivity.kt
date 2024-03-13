@@ -2,6 +2,7 @@ package com.blueray.kees.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import com.blueray.kees.R
 import com.blueray.kees.databinding.ActivityChangePasswordBinding
@@ -56,7 +57,7 @@ class ChangePasswordActivity : AppCompatActivity() {
             when (result) {
                 is NetworkResults.Success -> {
                     if(result.data.status == 200){
-                        HelperUtils.showMessage(this, result.data.message)
+                        HelperUtils.showMessage(this, result.data.message ?: result.data.data.toString() )
                     } else {
                         HelperUtils.showMessage(this, getString(R.string.Error))
                     }

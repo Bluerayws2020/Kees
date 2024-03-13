@@ -42,10 +42,9 @@ class DriverHomeActivity : AppCompatActivity() , DrawerOpener {
                     true
                 }
                 R.id.previousOrdersFragment ->{
-                    val intent = Intent(this ,  FinishedOrdersActivity::class.java)
-                    startActivity(intent)
+                    navController.navigate(R.id.finishedOrdersFragment)
                     binding.drawerlayout.closeDrawer(GravityCompat.START)
-                    false
+                    true
                 }
                 R.id.notifications ->{
                      navController.navigate(R.id.notificationFragment2)

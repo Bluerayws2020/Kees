@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.blueray.kees.databinding.OrderDetailsRvItemBinding
 import com.blueray.kees.model.DriverWeeklyBasketProduct
+import com.blueray.kees.model.SaleOperation
 
 class DriverOrderItemsAdapter(
     var list: List<DriverWeeklyBasketProduct> = listOf(),
+    var finishedList: List<SaleOperation> = listOf(),
     val onClickListener: (id: Int) -> Unit
 ) :
     RecyclerView.Adapter<DriverOrderItemsAdapter.MyViewHolder>() {
@@ -20,14 +22,31 @@ class DriverOrderItemsAdapter(
         return MyViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int {
+        if (list.isNotEmpty()) {
+            return list.size
+        } else {
+            return finishedList.size
+        }
+
+    }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.apply {
-            val data = list[position]
-            binding.numberOfItemsTv.text =data.quantity.toString()
-            binding.productNameTv.text = data.product.name_en
-            binding.priceTv.text = data.product.on_sale_price
+            if (list.isNotEmpty()) {
+                val data = list[position]
+                binding.numberOfItemsTv.text = data.quantity.toString()
+                binding.productNameTv.text = data.product.name_en
+                binding.priceTv.text = data.product.on_sale_price
+            } else {
+                val data = finishedList[position]
+                binding.numberOfItemsTv.text = data.quantity.toString()
+                binding.productNameTv.text = data.product.name_en
+                binding.priceTv.text = data.end_total
+                binding.productCategoryTv.text = data.product.category_name
+
+            }
+
         }
     }
 }

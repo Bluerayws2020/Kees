@@ -10,12 +10,14 @@ import com.blueray.kees.helpers.HelperUtils.getName
 import com.blueray.kees.helpers.HelperUtils.getToken
 import com.blueray.kees.model.AboutUsModel
 import com.blueray.kees.model.CustomerGetAddressesModel
+import com.blueray.kees.model.CustomerPastOrdersResponse
 import com.blueray.kees.model.CustomerProfileModel
 import com.blueray.kees.model.DeleteNotificationsResponse
 import com.blueray.kees.model.DriverLoginResponse
 import com.blueray.kees.model.DriverOrderDetailsResponse
 import com.blueray.kees.model.DriverOrdersResponse
 import com.blueray.kees.model.ErrorResponse
+import com.blueray.kees.model.FinishedOrderDetailsResponse
 import com.blueray.kees.model.FinishedOrdersRespose
 import com.blueray.kees.model.GetDriverProfileResponse
 import com.blueray.kees.model.GetMainCategories
@@ -26,6 +28,7 @@ import com.blueray.kees.model.GetWeeklyCartModel
 import com.blueray.kees.model.LoginResponse
 import com.blueray.kees.model.NetworkResults
 import com.blueray.kees.model.NotificationsResponse
+import com.blueray.kees.model.PastOrderDetailsResponse
 import com.blueray.kees.model.PrivacyPolicyModel
 import com.blueray.kees.model.RegistrationModel
 import com.blueray.kees.model.ShiftsModel
@@ -81,6 +84,17 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         MutableLiveData<NetworkResults<DeleteNotificationsResponse>>()
     private val deleteAllNotificationsLiveData =
         MutableLiveData<NetworkResults<DeleteNotificationsResponse>>()
+    private val customerPastOrdersLiveData =
+        MutableLiveData<NetworkResults<CustomerPastOrdersResponse>>()
+    private val driverFinishedOrderDetailsLiveData =
+        MutableLiveData<NetworkResults<FinishedOrderDetailsResponse>>()
+    private val cancelBasketPaymentLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
+    private val pastOrderDetailsLiveData =
+        MutableLiveData<NetworkResults<PastOrderDetailsResponse>>()
+    private val resetPasswordLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
+    private val resetPasswordRequestLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
+    private val addWeeklyBasketLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
+
 
     fun retrieveRegistration(
         fullName: String,
@@ -180,13 +194,14 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     fun retrieveProducts(
         categoryId: String? = null,
+        subCategoryId: String? = null,
         textSearch: String? = null
     ) {
         viewModelScope.launch {
             getProductsLiveData.postValue(
                 repo.getProducts(
                     getToken(context),
-                    LANG, categoryId, textSearch
+                    LANG, categoryId, subCategoryId, textSearch
                 )
             )
         }
@@ -639,8 +654,113 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getDeleteAllNotifications() = deleteAllNotificationsLiveData
 
+    fun retrieveCustomerPastOrders() {
+        viewModelScope.launch {
+            customerPastOrdersLiveData.postValue(
+                repo.customerPastOrders(
+                    getToken(context)
+                )
+            )
+        }
+    }
+
+    fun getCustomerPastOrders() = customerPastOrdersLiveData
+
+    fun retrieveDriverFinishedOrderDetails(
+        orderId: String
+    ) {
+        viewModelScope.launch {
+            driverFinishedOrderDetailsLiveData.postValue(
+                repo.driverFinishedOrderDetails(
+                    getToken(context),
+                    orderId
+                )
+            )
+        }
+    }
+
+    fun getDriverFinishedOrderDetails() = driverFinishedOrderDetailsLiveData
+
+    fun retrieveCancelBasketPayment(
+        weekly_basket_id: String
+    ) {
+        viewModelScope.launch {
+            cancelBasketPaymentLiveData.postValue(
+                repo.cancelBasketPayment(
+                    getToken(context),
+                    LANG,
+                    weekly_basket_id
+                )
+            )
+        }
+    }
+
+    fun getCancelBasketPayment() = cancelBasketPaymentLiveData
+
+    fun retrievePastOrderDetails(
+        orderId: String
+    ) {
+        viewModelScope.launch {
+            pastOrderDetailsLiveData.postValue(
+                repo.pastOrderDetails(
+                    getToken(context),
+                    orderId
+                )
+            )
+        }
+    }
+
+    fun getPastOrderDetails() = pastOrderDetailsLiveData
+
+    fun retrieveResetPassword(
+        phone: String
+    ) {
+        viewModelScope.launch {
+            resetPasswordLiveData.postValue(
+                repo.resetPassword(
+                    getToken(context),
+                    phone
+                )
+            )
+        }
+    }
+
+    fun getResetPassword() = resetPasswordLiveData
+
+    fun retrieveResetPasswordRequest(
+        phone: String,
+        otp_code: String,
+        password: String,
+        password_confirmation: String
+    ) {
+        viewModelScope.launch {
+            resetPasswordRequestLiveData.postValue(
+                repo.resetPasswordRequest(
+                    getToken(context),
+                    phone,
+                    otp_code, password, password_confirmation
+                )
+            )
+        }
+    }
+
+    fun getResetPasswordRequest() = resetPasswordRequestLiveData
+
+    fun retrieveAddWeeklyBasket(
+        number_of_week: String,
+        start_time: String,
+        end_time: String,
+        day: String
+    ) {
+        viewModelScope.launch {
+            addWeeklyBasketLiveData.postValue(
+                repo.addWeeklyBasket(
+                    getToken(context),
+                    number_of_week, start_time, end_time, day
+                )
+            )
+        }
+    }
+
+    fun getAddWeeklyBasket() = addWeeklyBasketLiveData
 }
-
-
-
-

@@ -17,7 +17,9 @@ class OrderProductsFragment : Fragment() {
     private lateinit var binding: FragmentOrderProductsBinding
     private lateinit var adapter: DriverOrderItemsAdapter
     val productList = OrderDetailsFragment.productsList
+    val finishedProductList = OrderDetailsFragment.finishedProductsList
     val note = OrderDetailsFragment.note
+    val productCount = OrderDetailsFragment.productsCount
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,6 +34,7 @@ class OrderProductsFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentOrderProductsBinding.inflate(layoutInflater)
         binding.notesTv.text = note
+        binding.numberOfProductsTv.text = productCount.toString() + " Product"
         // Prepare App bar
         prepareAppBar(getString(R.string.products))
         return binding.root
@@ -49,6 +52,10 @@ class OrderProductsFragment : Fragment() {
         }
         if (productList != null) {
             adapter.list = productList
+        } else{
+            if (finishedProductList != null) {
+                adapter.finishedList = finishedProductList
+            }
         }
         val layoutManager = LinearLayoutManager(requireContext())
 

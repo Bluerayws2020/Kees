@@ -17,6 +17,7 @@ import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.helpers.ViewUtils.hide
 import com.blueray.kees.model.DriverWeeklyBasketProduct
 import com.blueray.kees.model.NetworkResults
+import com.blueray.kees.model.SaleOperation
 import com.blueray.kees.ui.AppViewModel
 import com.blueray.kees.ui.activities.DriverHomeActivity
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -40,7 +41,9 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback {
 
     companion object {
         var productsList: List<DriverWeeklyBasketProduct>? = null
+        var finishedProductsList: List<SaleOperation>? = null
         var note: String? = null
+        var productsCount:Int? = null
     }
 
     override fun onCreateView(
@@ -52,11 +55,15 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback {
         prepareAppBar(getString(R.string.orderdetails))
         val orderId = arguments?.getString("orderId")
         val flag = arguments?.getString("fromWaiting")
-        viewModel.retrieveDriverOrderDetails(orderId.toString())
-        if (flag == "1") {
+        val isFinished = arguments?.getString("fromFinished")
+        if (isFinished == "1" || flag == "1") {
             binding.completeOrderButton.hide()
+            viewModel.retrieveDriverFinishedOrderDetails(orderId.toString())
+        } else {
+            viewModel.retrieveDriverOrderDetails(orderId.toString())
         }
         getData()
+        getFinishedOrdersData()
         mapView = binding.mapView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
@@ -119,7 +126,56 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback {
                         //variables for map
                         lat = result.data.data.latitude.toDouble()
                         lng = result.data.data.longitude.toDouble()
-                        Log.d("LLOOOCCc" , lat.toString() + "  "+ lng.toString())
+                        Log.d("LLOOOCCc", lat.toString() + "  " + lng.toString())
+                        binding.viewProductsButton.setOnClickListener {
+
+                            findNavController().navigate(R.id.orderProductsFragment)
+                        }
+                    } else {
+                        HelperUtils.showMessage(requireContext(), getString(R.string.Error))
+
+                    }
+                }
+
+                is NetworkResults.ErrorMessage -> {
+                    HelperUtils.showMessage(
+                        requireContext(),
+                        result.data?.message ?: getString(R.string.Error)
+                    )
+
+                }
+
+                is NetworkResults.Error -> {
+                    result.exception.printStackTrace()
+                    HelperUtils.showMessage(requireContext(), getString(R.string.Error))
+                }
+            }
+
+        }
+    }
+    private fun getFinishedOrdersData() {
+        viewModel.getDriverFinishedOrderDetails().observe(this) { result ->
+            when (result) {
+                is NetworkResults.Success -> {
+                    if (result.data.status == 200) {
+                        binding.numberOfProductsTv.text =
+                            result.data.data.sale_operations.count().toString()
+                        binding.ClintNameTv.text = result.data.data.user_name
+                        binding.ClintNumberTv.text = result.data.data.user_phone
+//                        binding.notesTv.text = result.data.data.note ?: ""
+                        binding.dayTv.text = result.data.data.day
+                        binding.dateTv.text = result.data.data.date
+                        binding.deliveryTimeTv.text =
+                            result.data.data.time
+                        // variables to pass to the product list page
+                        finishedProductsList = result.data.data.sale_operations
+                        basket_id = result.data.data.id.toString()
+//                        note = result.data.data.note
+                        productsCount = result.data.data.product_quantity
+                        //variables for map
+                        lat = result.data.data.latitude.toDouble()
+                        lng = result.data.data.longitude.toDouble()
+                        Log.d("LLOOOCCc", lat.toString() + "  " + lng.toString())
                         binding.viewProductsButton.setOnClickListener {
 
                             findNavController().navigate(R.id.orderProductsFragment)
@@ -184,10 +240,6 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback {
 
         }
     }
-
-
-
-
 
 
     override fun onMapReady(googleMap: GoogleMap) {

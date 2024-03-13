@@ -26,9 +26,9 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginActivtiyBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        HelperUtils.setDefaultLanguage(this, "ar")
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//        HelperUtils.setDefaultLanguage(this, "ar")
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
 
@@ -36,7 +36,10 @@ class LoginActivity : BaseActivity() {
 
         //observe to live data
         getData()
-
+        binding.resetPasswordTv.setOnClickListener {
+            val intent = Intent(this , ResetPasswordPhoneActivity::class.java)
+            startActivity(intent)
+        }
         binding.includedTap.back.setOnClickListener {
             onBackPressed()
         }

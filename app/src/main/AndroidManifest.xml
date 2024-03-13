@@ -28,7 +28,25 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.AddNewBasketActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.ResetPasswordOtpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.ResetPasswordPhoneActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.CustomerPastOrdersActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.FinishedOrdersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.driver.fragments.OrderDetailsFragment"
             android:exported="false" />
         <activity
             android:name=".ui.activities.ChangePasswordActivity"

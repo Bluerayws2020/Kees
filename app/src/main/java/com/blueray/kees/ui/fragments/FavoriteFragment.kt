@@ -10,16 +10,17 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blueray.kees.R
 import com.blueray.kees.adapters.ProductsAdapter
+import com.blueray.kees.api.ProductsAdapterListener
 import com.blueray.kees.databinding.FragmentFavoriteFargmentBinding
-import com.blueray.kees.databinding.ProductsItemBinding
 import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.helpers.ViewUtils.hide
+import com.blueray.kees.helpers.ViewUtils.show
 import com.blueray.kees.model.NetworkResults
 import com.blueray.kees.ui.AppViewModel
 import com.blueray.kees.ui.activities.HomeActivity
 import com.blueray.kees.ui.activities.ProductInnerBottomSheet
 
-class FavoriteFragment : Fragment() {
+class FavoriteFragment : Fragment() , ProductsAdapterListener {
 
     private lateinit var binding: FragmentFavoriteFargmentBinding
     private lateinit var adapter: ProductsAdapter
@@ -66,9 +67,13 @@ class FavoriteFragment : Fragment() {
         }
 
     }
+    override fun onListEmpty() {
+        binding.productsRv.hide()
+        binding.emptyText.show()
+    }
 
     private fun setAdapter() {
-        adapter = ProductsAdapter(listOf(), {}, {} , true)
+        adapter = ProductsAdapter(listOf(), {}, {} , this,true)
         adapter.onClickListener =
             {
                 val productDetails = ProductInnerBottomSheet()
@@ -98,6 +103,8 @@ class FavoriteFragment : Fragment() {
                     if (result.data.status == 200) {
                         HelperUtils.showMessage(requireContext(), result.data.data.toString())
                         viewModel.retrieveFavoriteProducts()
+
+
                     } else {
                         HelperUtils.showMessage(requireContext(), getString(R.string.Error))
                     }
@@ -121,8 +128,10 @@ class FavoriteFragment : Fragment() {
             when (result) {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
-                        adapter.list = result.data.data
+                        val productList = result.data.data
+                        adapter.list = productList
                         adapter.notifyDataSetChanged()
+                        updateListVisibility(productList.isNotEmpty())
                     } else {
                         HelperUtils.showMessage(requireContext(), getString(R.string.Error))
                     }
@@ -132,12 +141,23 @@ class FavoriteFragment : Fragment() {
                         requireContext(),
                         result.data?.message ?: getString(R.string.Error)
                     )
+                    updateListVisibility(false)
                 }
                 is NetworkResults.Error -> {
                     result.exception.printStackTrace()
                     HelperUtils.showMessage(requireContext(), getString(R.string.Error))
+                    updateListVisibility(false)
                 }
             }
+        }
+    }
+    private fun updateListVisibility(hasItems: Boolean) {
+        if (hasItems) {
+            binding.productsRv.show()
+            binding.emptyText.hide()
+        } else {
+            binding.productsRv.hide()
+            binding.emptyText.show()
         }
     }
 }

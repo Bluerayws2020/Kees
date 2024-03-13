@@ -13,11 +13,14 @@ import com.blueray.kees.databinding.ActivityLoadingBinding
 import com.blueray.kees.helpers.ViewUtils.hide
 import com.blueray.kees.helpers.ViewUtils.show
 import com.blueray.kees.helpers.ViewUtils.startAnimation
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class LoadingActivity : BaseActivity() {
 
-    private lateinit var binding :ActivityLoadingBinding
+    private lateinit var binding: ActivityLoadingBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +28,6 @@ class LoadingActivity : BaseActivity() {
         binding = ActivityLoadingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         Log.e("ayham", "loading Activity")
-
 
 
         val animation =
@@ -36,9 +38,9 @@ class LoadingActivity : BaseActivity() {
 
         val productsAnimation =
             AnimationUtils.loadAnimation(this, R.anim.product_animation).apply {
-            duration = 700
-            interpolator = AccelerateDecelerateInterpolator()
-        }
+                duration = 700
+                interpolator = AccelerateDecelerateInterpolator()
+            }
         val backgroundDisposeAnimation =
             AnimationUtils.loadAnimation(this, R.anim.background_despose_scale).apply {
                 duration = 700
@@ -53,13 +55,13 @@ class LoadingActivity : BaseActivity() {
         lifecycleScope.launch(Dispatchers.Main) {
             delay(2000)
             async {
-                binding.movingBackground.startAnimation(animation){
+                binding.movingBackground.startAnimation(animation) {
                     binding.movingBackground1.show()
                     binding.movingBackground.hide()
                 }
             }
             async {
-                binding.dinamicImage.startAnimation(productsAnimation){
+                binding.dinamicImage.startAnimation(productsAnimation) {
                     binding.dinamicImage.hide()
                     binding.dinamicImage2.show()
                     binding.imageView.hide()
@@ -82,7 +84,7 @@ class LoadingActivity : BaseActivity() {
             delay(2000)
 
             async {
-                binding.movingBackground1.startAnimation(backgroundDisposeAnimation){
+                binding.movingBackground1.startAnimation(backgroundDisposeAnimation) {
                     binding.movingBackground1.hide()
                 }
             }
@@ -90,7 +92,7 @@ class LoadingActivity : BaseActivity() {
                 binding.imageView2.visibility = View.INVISIBLE
                 binding.dinamicImage2.visibility = View.INVISIBLE
                 binding.progress.visibility = View.INVISIBLE
-                binding.logo2.startAnimation(rotationImageAnimation){
+                binding.logo2.startAnimation(rotationImageAnimation) {
                     binding.logo2.hide()
 
                 }
@@ -98,9 +100,8 @@ class LoadingActivity : BaseActivity() {
             delay(600)
             startActivity(Intent(this@LoadingActivity, ChooseLanguageActivity::class.java))
             overridePendingTransition(0, 0)
-
+            finish()
         }
-
 
 
     }

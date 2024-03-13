@@ -45,4 +45,8 @@
         android:name="com.blueray.kees.ui.activities.FinishedOrdersActivity"
         android:label="activity_finished_orders"
         tools:layout="@layout/activity_finished_orders" />
+    <fragment
+        android:id="@+id/finishedOrdersFragment"
+        android:name="com.blueray.kees.ui.fragments.FinishedOrdersFragment"
+        android:label="FinishedOrdersFragment" />
 </navigation>

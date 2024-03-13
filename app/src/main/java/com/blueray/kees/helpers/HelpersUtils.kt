@@ -51,6 +51,13 @@ const val PHONENUMEBR = "PHONE"
         return toRequestBody("multipart/form-data".toMediaTypeOrNull())
     }
 
+//    fun setLang(mContext:Context , lang:String) {
+//        val sharedPreferences = mContext.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+//        val editor = sharedPreferences.edit()
+//        editor.putString(LANG,lang)
+//        editor.apply()
+//    }
+
     fun saveUserData(mContext:Context , customerData: CustomerData) {
         val sharedPreferences = mContext.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -195,4 +202,5 @@ const val PHONENUMEBR = "PHONE"
     @SuppressLint("HardwareIds")
     fun getAndroidID(mContext: Context?): String =
         Settings.Secure.getString(mContext?.contentResolver, Settings.Secure.ANDROID_ID)
+
 }

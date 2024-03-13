@@ -70,9 +70,9 @@ class CartPageFragment : Fragment() {
     private var plusJob : Job? = null
     private val onPlusClick : (productId: Int, quantity: String, colorId: Int, sizeId: Int, unitId: Int, weight: Int, position: Int,itemCount:Int)->Unit = {
         productId,quantity,colorId,sizeId,unitId ,weight,position,itemCount ->
-        plusJob?.cancel()
+//        plusJob?.cancel()
         plusJob = MainScope().launch {
-            delay(2000L)
+            delay(50L)
             val addedQuantity = itemCount
             viewModel.retrieveAddToBasket(weekId,productId.toString(),addedQuantity.toString(),colorId.toString(),sizeId.toString(),unitId.toString(),weight.toString())
         }

@@ -4,14 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.blueray.kees.R
+import com.blueray.kees.api.ProductsAdapterListener
 import com.blueray.kees.databinding.ProductsItemBinding
 import com.blueray.kees.model.GetProductsData
 import com.bumptech.glide.Glide
 
-class ProductsAdapter (
+class ProductsAdapter(
     var list: List<GetProductsData>,
-    var onClickListener : (id :String) -> Unit,
-    var onLikeClickListener : (id : String) -> Unit,
+    var onClickListener: (id :String) -> Unit,
+    var onLikeClickListener: (id : String) -> Unit,
+    private val listener: ProductsAdapterListener?,
     var isWishList:Boolean
 ):RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
 
@@ -54,6 +56,13 @@ class ProductsAdapter (
             }
         }
 
+    }
+    fun updateList(newList: List<GetProductsData>) {
+        list = newList
+        notifyDataSetChanged()
+        if (newList.isEmpty()) {
+            listener?.onListEmpty()
+        }
     }
 
     private var addToCartClick : ((id :String) -> Unit)? = null

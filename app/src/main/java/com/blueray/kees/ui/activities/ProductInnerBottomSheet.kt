@@ -2,6 +2,7 @@ package com.blueray.kees.ui.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,7 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
     private lateinit var sizeId: String
     private lateinit var unitId: String
     private lateinit var weightId: String
-    private lateinit var weeklyBasketIds: String
+    private lateinit var weeklyBasketIds: MutableList<Int>
     private var isWishlist: Boolean = false
 
     override fun onCreateView(
@@ -84,9 +85,10 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
                 if (::weeklyBasketIds.isInitialized) {
 
                     quantity = binding.itemCount.text.toString()
+//                    weeklyBasketIds += weeklyBasketIds
 
                     viewModel.retrieveAddToBasket(
-                        listOf(weeklyBasketIds.toInt()),
+                        weeklyBasketIds,
                         productId!!,
                         quantity,
                         colorId,
@@ -126,18 +128,29 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
 
     private fun initAdapter() {
         adapter = WeeksAdapter(weeksList) { data, position ->
+            // Toggle the selected state of the clicked week
+            weeklyBasketIds = mutableListOf()
             weeksList[position].selected = !weeksList[position].selected
-            weeksList.forEach {
-                if (it != weeksList[position]) {
-                    it.selected = false
+
+            // Clear the list of selected weekly basket IDs
+            weeklyBasketIds.clear()
+
+            // Iterate through the weeks list
+            weeksList.forEach { week ->
+                // Check if the week is selected
+                if (week.selected) {
+                    // If selected, add its ID to the list of selected weekly basket IDs
+                    weeklyBasketIds.add(week.id)
                 }
             }
 
-            adapter.list = weeksList
+            // Notify the adapter of the data change
             adapter.notifyDataSetChanged()
-            weeklyBasketIds = data.id.toString()
 
+            // Log the selected weekly basket IDs
+            Log.d("WeEEEEWS", weeklyBasketIds.toString())
         }
+
         val lm = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.daysRv.adapter = adapter
         binding.daysRv.layoutManager = lm

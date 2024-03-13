@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purpleColor"
-    android:layoutDirection="ltr"
     tools:context=".ui.activities.LoginActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="40dp"
             android:fontFamily="@font/cairo_regular"
-            android:text="Welcome"
+            android:text="@string/welcome"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/cairo_bold"
-            android:text="Sign in"
+            android:text="@string/log_in"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/welcome"
@@ -73,7 +72,7 @@
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="45dp"
                     android:fontFamily="@font/cairo_bold"
-                    android:text="What Is Your Number"
+                    android:text="@string/what_is_your_number"
                     android:textColor="@color/purpleColor"
                     android:textSize="17sp" />
 
@@ -123,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/empty_edit_text"
                         android:fontFamily="@font/cairo_bold"
-                        android:hint="Phone Number"
+                        android:hint="@string/phone_number"
                         android:inputType="phone"
                         android:paddingStart="15sp"
                         android:paddingEnd="15sp"
@@ -154,7 +153,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/empty_edit_text"
                         android:fontFamily="@font/cairo_bold"
-                        android:hint="Password"
+                        android:hint="@string/password"
                         android:inputType="textPassword"
                         android:paddingStart="15sp"
                         android:paddingEnd="15sp"
@@ -178,14 +177,39 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/forgot_password"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/cairo_medium"
+                        android:textSize="12sp"/>
+                    <TextView
+                        android:id="@+id/resetPasswordTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reset_password"
+                        android:textColor="@color/purpleColor"
+                        android:fontFamily="@font/cairo_bold"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="30dp"
                     android:fontFamily="@font/cairo_bold"
-                    android:text="We Will Send You Code to Verify The Information"
+                    android:text="@string/we_will_send_you_code_to_verify_the_information"
                     android:textSize="11sp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -200,7 +224,7 @@
                         android:layout_margin="25dp"
                         android:backgroundTint="@color/darkPurple"
                         android:fontFamily="@font/cairo_bold"
-                        android:text="Continue"
+                        android:text="@string/Continue"
                         android:textAllCaps="false"
                         android:textSize="16sp"
                         app:cornerRadius="25dp"
@@ -229,7 +253,7 @@
                     android:layout_height="70dp"
                     android:layout_margin="25dp"
                     android:fontFamily="@font/cairo_bold"
-                    android:text="Login Using fingerprint"
+                    android:text="@string/login_using_fingerprint"
                     android:textAllCaps="false"
                     android:textSize="16sp"
                     app:cornerRadius="25dp"
@@ -251,7 +275,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:fontFamily="@font/cairo_bold"
-                        android:text="Don't Have Account"
+                        android:text="@string/dont_have_account"
                         android:textColor="@color/black_200"
                         android:textSize="15sp" />
 
@@ -261,7 +285,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/cairo_bold"
-                        android:text="Register new account"
+                        android:text="@string/register_new_account"
                         android:textColor="@color/darkPurple"
                         android:textSize="15sp" />
                 </LinearLayout>

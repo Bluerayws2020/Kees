@@ -7,7 +7,8 @@ import com.blueray.kees.databinding.FinishedOrdersItemBinding
 import com.blueray.kees.model.FinishedOrderData
 
 class FinishedOrdersAdapter(
-    var list: List<FinishedOrderData>
+    var list: List<FinishedOrderData>,
+    var onItemClick:(id:String ) -> Unit
 ) : RecyclerView.Adapter<FinishedOrdersAdapter.MyViewHolder>() {
     inner class MyViewHolder(var binding: FinishedOrdersItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -26,6 +27,9 @@ class FinishedOrdersAdapter(
             dateTv.text = data.date
             timeTv.text = data.time
             orderIdTv.text = "#" + data.id
+        }
+        holder.itemView.setOnClickListener {
+            onItemClick(data.id.toString())
         }
     }
 

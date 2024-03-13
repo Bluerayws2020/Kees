@@ -16,7 +16,7 @@ import com.blueray.kees.helpers.ViewUtils.hide
 import com.blueray.kees.helpers.ViewUtils.show
 import com.blueray.kees.helpers.ViewUtils.startAnimation
 
-class HomeActivity : BaseActivity() , DrawerOpener {
+class HomeActivity : BaseActivity(), DrawerOpener {
 
     private lateinit var binding: ActivityHomeBinding
     private var navController: NavController? = null
@@ -92,6 +92,14 @@ class HomeActivity : BaseActivity() , DrawerOpener {
                         // todo add extras
                     })
                     closeDrawer()
+                    true
+                }
+
+                R.id.pastOrders -> {
+                    navController!!.navigate(R.id.customerPastOrdersFragment)
+                    closeDrawer()
+                    animateHideBottomNav()
+
                     true
                 }
 
@@ -192,4 +200,9 @@ class HomeActivity : BaseActivity() , DrawerOpener {
     fun getIsBottomShowing(): Boolean {
         return this.isBottomShowing
     }
+
+    fun hideBottomNav() {
+        binding.bottomNavCard.hide()
+    }
+
 }

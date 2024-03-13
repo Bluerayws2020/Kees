@@ -7,14 +7,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.blueray.kees.helpers.ContextWrapper
 import com.blueray.kees.helpers.HelperUtils.getLang
+import com.blueray.kees.helpers.HelperUtils.setLang
 import java.util.Locale
 
 abstract class BaseActivity : AppCompatActivity() {
 
 
     // to save the context of the resources and save the language if destroyed
+    val deviceLocale = Locale.getDefault()
+    val languageCode = deviceLocale.language
     override fun attachBaseContext(newBase: Context?) {
-        val lang = getLang(newBase!!)
+        setLang(newBase!! , languageCode)
+        val lang = getLang(newBase)
         val local = Locale(lang)
         val newContext = ContextWrapper.wrap(newBase, local)
         super.attachBaseContext(newContext)

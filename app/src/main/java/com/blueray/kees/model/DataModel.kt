@@ -158,8 +158,8 @@ data class WeeklyBasketData(
     val start_time: String,
     val sup_total_price: Int,
     val total_price: Double,
-    val delivery_fees:Double,
-    val services_fees:Double,
+    val delivery_fees: Double,
+    val services_fees: Double,
     val total_tax: Double,
     val week_number: String,
     var weekly_basket_products: List<WeeklyBasketProduct>,
@@ -434,16 +434,16 @@ data class OrderData(
     val day: String,
     val end_time: String,
     val id: Int,
-    val note:String,
+    val note: String,
     val payment_status: String,
     val process_status: String,
     val start_time: String,
     val week_number: String,
-    val user_name:String,
-    val user_email:String,
-    val user_phone:String,
-    val latitude:String,
-    val longitude:String,
+    val user_name: String,
+    val user_email: String,
+    val user_phone: String,
+    val latitude: String,
+    val longitude: String,
     val weekly_basket_products: List<DriverWeeklyBasketProduct>
 )
 
@@ -477,7 +477,10 @@ data class Product(
     val name_en: String,
     val on_sale_price: String,
     val on_sale_price_status: String,
-    val sale_price: String
+    val sale_price: String,
+    val category_id: Int,
+    val sub_category_id: Int,
+    val category_name: String
 )
 
 data class Size(
@@ -527,9 +530,9 @@ data class FinishedOrderData(
     val sub_total: String,
     val updated_at: String,
     val user_id: Int,
-    val user_name:String,
-    val date:String,
-    val time:String
+    val user_name: String,
+    val date: String,
+    val time: String
 )
 
 data class NotificationsResponse(
@@ -541,11 +544,118 @@ data class NotificationsResponse(
 data class NotificationsData(
     val id: Int,
     val notification_text: String,
-    val date:String
+    val date: String
 )
 
 data class DeleteNotificationsResponse(
     val `data`: String,
     val status: Int,
     val success: Boolean
+)
+
+data class CustomerPastOrdersResponse(
+    val `data`: List<PastOrderData>,
+    val status: Int,
+    val success: Boolean,
+    val message: String
+)
+
+data class PastOrderData(
+    val address: String,
+    val area: String,
+    val city_id: Int,
+    val coupon_id: Any,
+    val date: String,
+    val delivery_total: String,
+    val end_total: String,
+    val id: Int,
+    val latitude: String,
+    val longitude: String,
+    val payment_method: String,
+    val product_quantity: Int,
+    val services_total: String,
+    val sub_total: String,
+    val time: String,
+    val user_id: Int,
+    val driver_name: String
+)
+
+data class FinishedOrderDetailsResponse(
+    val `data`: FinishedOrderDetailsData,
+    val status: Int,
+    val success: Boolean
+)
+
+data class FinishedOrderDetailsData(
+    val address: String,
+    val area: String,
+    val city_id: Int,
+    val coupon_id: Any,
+    val date: String,
+    val delivery_total: String,
+    val end_total: String,
+    val id: Int,
+    val latitude: String,
+    val longitude: String,
+    val payment_method: String,
+    val product_quantity: Int,
+    val sale_operations: List<SaleOperation>,
+    val services_total: String,
+    val sub_total: String,
+    val time: String,
+    val user_id: Int,
+    val user_name: String,
+    val user_phone: String,
+    val day: String,
+)
+
+data class SaleOperation(
+    val color: Color,
+    val color_id: Int,
+    val created_at: String,
+    val end_total: String,
+    val id: Int,
+    val product: Product,
+    val product_id: Int,
+    val quantity: Int,
+    val sale_id: Int,
+    val size: Size,
+    val size_id: Int,
+    val sub_total: String,
+    val unit: Unit,
+    val unit_id: Int,
+    val unit_price: String,
+    val updated_at: String,
+    val weight: Weight,
+    val weight_id: Int
+)
+
+data class PastOrderDetailsResponse(
+    val `data`: PastOrderDetailsData,
+    val status: Int,
+    val success: Boolean
+)
+
+data class PastOrderDetailsData(
+    val address: String,
+    val area: String,
+    val city_id: Int,
+    val coupon_id: Any,
+    val date: String,
+    val delivery_total: String,
+    val driver_name: String,
+    val end_total: String,
+    val id: Int,
+    val latitude: String,
+    val longitude: String,
+    val payment_method: String,
+    val product_quantity: Int,
+    val sale_operations: List<SaleOperation>,
+    val services_total: String,
+    val sub_total: String,
+    val time: String,
+    val user_id: Int,
+    val day: String,
+    val driver_phone: String
+
 )

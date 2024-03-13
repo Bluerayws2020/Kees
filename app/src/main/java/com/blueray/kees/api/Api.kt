@@ -64,6 +64,7 @@ Api {
         @Header("Authorization") auth: String,
         @Part("lang") lang: RequestBody,
         @Part("category_id") category_id: RequestBody?,
+        @Part("sub_category_id") sub_category_id: RequestBody?,
         @Part("text_search") text_search: RequestBody?
     ): Response<GetProductsModel>
 
@@ -277,15 +278,72 @@ Api {
         @Part("address") address: RequestBody,
         @Part("note") note: RequestBody
     ): Response<UpdateDeliveryStatusResponse>
+
     @Multipart
     @POST("frontend/deleteNotificationsById")
     suspend fun deleteNotificationsById(
         @Header("Authorization") auth: String,
         @Part("notification_id") notification_id: RequestBody
-        ):Response<DeleteNotificationsResponse>
+    ): Response<DeleteNotificationsResponse>
+
     @POST("frontend/deleteAllNotifications")
     suspend fun deleteAllNotifications(
         @Header("Authorization") auth: String,
-    ):Response<DeleteNotificationsResponse>
+    ): Response<DeleteNotificationsResponse>
+
+    @POST("customer/getPastOrders")
+    suspend fun customerPastOrders(
+        @Header("Authorization") auth: String,
+    ): Response<CustomerPastOrdersResponse>
+
+    @Multipart
+    @POST("driver/getFinishOrderDetails")
+    suspend fun driverFinishedOrderDetails(
+        @Header("Authorization") auth: String,
+        @Part("order_id") order_id: RequestBody
+    ): Response<FinishedOrderDetailsResponse>
+
+    @Multipart
+    @POST("customer/cancelWeeklyBasketPayment")
+    suspend fun cancelBasketPayment(
+        @Header("Authorization") auth: String,
+        @Part("lang") lang: RequestBody,
+        @Part("weekly_basket_id") weekly_basket_id: RequestBody
+    ): Response<ErrorResponse>
+
+    @Multipart
+    @POST("customer/getPastOrderDetails")
+    suspend fun pastOrderDetails(
+        @Header("Authorization") auth: String,
+        @Part("order_id") order_id: RequestBody
+    ): Response<PastOrderDetailsResponse>
+
+    @Multipart
+    @POST("customer/resetPassword")
+    suspend fun resetPassword(
+        @Header("Authorization") auth: String,
+        @Part("phone") phone: RequestBody
+    ): Response<ErrorResponse>
+
+    @Multipart
+    @POST("customer/resetPasswordRequest")
+    suspend fun resetPasswordRequest(
+        @Header("Authorization") auth: String,
+        @Part("phone") phone: RequestBody,
+        @Part("otp_code") otp_code: RequestBody,
+        @Part("password") password: RequestBody,
+        @Part("password_confirmation") password_confirmation: RequestBody,
+
+        ): Response<ErrorResponse>
+
+    @Multipart
+    @POST("customer/addWeeklyBasket")
+    suspend fun addWeeklyBasket(
+        @Header("Authorization") auth: String,
+        @Part("number_of_week") number_of_week: RequestBody,
+        @Part("start_time") start_time: RequestBody,
+        @Part("end_time") end_time: RequestBody,
+        @Part("day") day: RequestBody
+    ): Response<ErrorResponse>
 }
 

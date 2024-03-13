@@ -24,33 +24,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 />
 
-            <EditText
-                android:id="@+id/search"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:layout_constraintTop_toBottomOf="@id/included_tap"
-                android:hint="Search"
-                android:fontFamily="@font/cairo_medium"
-                android:paddingStart="30dp"
-                android:paddingEnd="30dp"
-                android:textColorHint="@color/black"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:textAlignment="viewStart"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/custom_city_et"
-                />
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="25dp"
-                android:src="@drawable/search"
-                app:layout_constraintEnd_toEndOf="@id/search"
-                app:layout_constraintTop_toTopOf="@id/search"
-                app:layout_constraintBottom_toBottomOf="@id/search"
-                android:layout_marginEnd="20dp"
-                />
+
             <!--
                 tab layout to choose the category
             -->
@@ -61,7 +35,7 @@
                 android:layout_marginTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/search"
+                app:layout_constraintTop_toBottomOf="@id/included_tap"
                 app:tabIndicatorHeight="0dp"
                 app:tabMode="scrollable"
                 app:tabRippleColor="@color/transparent"

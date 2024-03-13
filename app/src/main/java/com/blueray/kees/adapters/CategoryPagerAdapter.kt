@@ -7,14 +7,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.blueray.kees.ui.fragments.ProductsFragment
 
-class CategoryPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
+class CategoryPagerAdapter(
+    fragmentManager: FragmentManager,
+    lifecycle: Lifecycle,
+    private val categoriesList: List<String>,
+    private val subCategoriesList: List<String>
+) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
-    private val categoriesList: ArrayList<String> = ArrayList()
+//    private val categoriesList: ArrayList<String> = ArrayList()
+//    private val subCategoriesList: ArrayList<String> = ArrayList()
 
-    fun addCatList(categories: String) {
-        categoriesList.add(categories)
-    }
 
 
     override fun getItemCount(): Int {
@@ -22,12 +25,13 @@ class CategoryPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycl
     }
 
     override fun createFragment(position: Int): Fragment {
-        val productFragment = ProductsFragment()
-        val bundle = Bundle()
-
-        bundle.putString("category", categoriesList[position])
-        productFragment.arguments = bundle
-        return productFragment
+        val fragment = ProductsFragment()
+        val bundle = Bundle().apply {
+//            putString("category", categoriesList[position])
+            putString("subCategory", subCategoriesList[position])
+        }
+        fragment.arguments = bundle
+        return fragment
     }
 
 }

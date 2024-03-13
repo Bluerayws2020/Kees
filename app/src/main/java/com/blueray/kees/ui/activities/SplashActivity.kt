@@ -45,7 +45,9 @@ class SplashActivity : BaseActivity() {
             startActivity(
                 Intent(this@SplashActivity, LoadingActivity::class.java),
                 options.toBundle()
+
             )
+            finish()
         }
     }
 

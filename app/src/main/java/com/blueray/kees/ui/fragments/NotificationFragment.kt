@@ -4,19 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blueray.kees.R
 import com.blueray.kees.adapters.NotificationAdapter
 import com.blueray.kees.api.DrawerOpener
+import com.blueray.kees.api.ProductsAdapterListener
 import com.blueray.kees.databinding.FragmentNotificationBinding
 import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.helpers.ViewUtils.hide
+import com.blueray.kees.helpers.ViewUtils.show
 import com.blueray.kees.model.NetworkResults
 import com.blueray.kees.ui.AppViewModel
-import com.blueray.kees.ui.activities.HomeActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -61,7 +61,7 @@ class NotificationFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        adapter = NotificationAdapter(listOf(), {}, {message, date -> })
+        adapter = NotificationAdapter(listOf(), {}, { message, date -> })
         binding.notificationRv.adapter = adapter
         binding.notificationRv.layoutManager = LinearLayoutManager(requireContext())
     }
@@ -71,10 +71,11 @@ class NotificationFragment : Fragment() {
             when (result) {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
-                        adapter = NotificationAdapter(result.data.data, {}, {
-                            message, date ->
+                        adapter = NotificationAdapter(result.data.data, {}, { message, date ->
                         })
-                        adapter.onNotificationClick = { message , date ->
+                        adapter.notifyDataSetChanged()
+                        updateListVisibility(adapter.list.isEmpty())
+                        adapter.onNotificationClick = { message, date ->
                             val dialogFragment = NotificationPopUp.newInstance(message, date)
                             dialogFragment.show(childFragmentManager, "YourDialogFragmentTag")
                         }
@@ -94,12 +95,14 @@ class NotificationFragment : Fragment() {
                         requireContext(),
                         result.data?.message ?: getString(R.string.Error)
                     )
+                    updateListVisibility(false)
 
                 }
 
                 is NetworkResults.Error -> {
                     result.exception.printStackTrace()
                     HelperUtils.showMessage(requireContext(), getString(R.string.Error))
+                    updateListVisibility(false)
                 }
             }
         }
@@ -147,6 +150,7 @@ class NotificationFragment : Fragment() {
                         GlobalScope.launch {
                             delay(200)
                             viewModel.retrieveNotifications()
+
                         }
                         HelperUtils.showMessage(requireContext(), result.data.data)
                     } else {
@@ -160,14 +164,27 @@ class NotificationFragment : Fragment() {
                         requireContext(),
                         result.data?.message ?: getString(R.string.Error)
                     )
-
+                    updateListVisibility(false)
                 }
 
                 is NetworkResults.Error -> {
                     result.exception.printStackTrace()
                     HelperUtils.showMessage(requireContext(), getString(R.string.Error))
+                    updateListVisibility(false)
                 }
             }
+        }
+    }
+
+    private fun updateListVisibility(hasItems: Boolean) {
+        if (hasItems) {
+            binding.notificationRv.show()
+            binding.emptyList.hide()
+            binding.deleteAll.show()
+        } else {
+            binding.notificationRv.hide()
+            binding.emptyList.show()
+            binding.deleteAll.hide()
         }
     }
 

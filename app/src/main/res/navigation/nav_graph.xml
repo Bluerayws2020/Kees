@@ -15,6 +15,11 @@
             app:destination="@id/allCategoriesFragment" />
     </fragment>
     <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.blueray.kees.ui.driver.fragments.OrderDetailsFragment"
+        android:label="fragment_order_details2"
+        tools:layout="@layout/fragment_order_details2" />
+    <fragment
         android:id="@+id/allCategoriesFragment"
         android:name="com.blueray.kees.ui.fragments.AllCategoriesFragment"
         android:label="fragment_all_categroies"
@@ -37,4 +42,17 @@
         android:name="com.blueray.kees.ui.fragments.FavoriteFragment"
         android:label="fragment_favorite_fargment"
         tools:layout="@layout/fragment_favorite_fargment" />
+    <fragment
+        android:id="@+id/customerPastOrdersFragment"
+        android:name="com.blueray.kees.ui.fragments.CustomerPastOrdersFragment"
+        android:label="CustomerPastOrdersFragment" />
+    <fragment
+        android:id="@+id/pastOrderDetailsFragment"
+        android:name="com.blueray.kees.ui.fragments.PastOrderDetailsFragment"
+        android:label="PastOrderDetailsFragment" />
+    <fragment
+        android:id="@+id/orderProductsFragment2"
+        android:name="com.blueray.kees.ui.driver.fragments.OrderProductsFragment"
+        android:label="fragment_order_products"
+        tools:layout="@layout/fragment_order_products" />
 </navigation>
