@@ -20,12 +20,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class DriverOrdersFragment : Fragment() {
     private lateinit var binding: FragmentDriverOrdersBinding
-    var tabTitle = arrayOf("Delivering", "Waiting for delivery")
+   private lateinit var tabTitle: Array<String>
     private val viewModel: AppViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        tabTitle = arrayOf(getString(R.string.delivring), getString(R.string.waiting_for_delivery))
     }
 
     override fun onCreateView(

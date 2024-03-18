@@ -30,6 +30,7 @@ import com.blueray.kees.model.PrivacyPolicyModel
 import com.blueray.kees.model.RegistrationModel
 import com.blueray.kees.model.ShiftsModel
 import com.blueray.kees.model.UpdateDeliveryStatusResponse
+import com.blueray.kees.model.WalletTransactionResponse
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -502,13 +503,16 @@ object Repository {
 
     suspend fun driverFinishedOrderDetails(
         token: String,
-        orderId: String
+        orderId: String,
+        lang: String
     ): NetworkResults<FinishedOrderDetailsResponse> {
         val orderIdBody = orderId.toStringRequestBody()
+        val langBody = lang.toStringRequestBody()
         try {
             val result = ApiClient.retrofitService.driverFinishedOrderDetails(
                 "Bearer $token",
-                orderIdBody
+                orderIdBody,
+                langBody
             )
             return if (result.isSuccessful) {
                 NetworkResults.Success(result.body()!!)
@@ -611,13 +615,16 @@ object Repository {
     }
     suspend fun pastOrderDetails(
         token: String,
-        orderId: String
+        orderId: String,
+        lang: String
     ): NetworkResults<PastOrderDetailsResponse> {
         val orderIdBody = orderId.toStringRequestBody()
+        val langBody = lang.toStringRequestBody()
         try {
             val result = ApiClient.retrofitService.pastOrderDetails(
                 "Bearer $token",
-                orderIdBody
+                orderIdBody,
+                langBody
             )
             return if (result.isSuccessful) {
                 NetworkResults.Success(result.body()!!)
@@ -1244,13 +1251,16 @@ object Repository {
 
     suspend fun getDriverOrderDetails(
         token: String,
-        basket_id: String
+        basket_id: String,
+        lang: String
     ): NetworkResults<DriverOrderDetailsResponse> {
         val basketRequest = basket_id.toStringRequestBody()
+        val langRequest = lang.toStringRequestBody()
         try {
             val result = ApiClient.retrofitService.getDriverOrderDetails(
                 "Bearer $token",
-                basketRequest
+                basketRequest,
+                langRequest
             )
 
             return if (result.isSuccessful) {
@@ -1648,6 +1658,40 @@ object Repository {
                 end_timeBody,
                 dayBody
             )
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
+    suspend fun getMyWalletTransactions(
+        token: String,
+        lang: String
+    ): NetworkResults<WalletTransactionResponse> {
+        val langBody = lang.toStringRequestBody()
+        try {
+            val result = ApiClient.retrofitService.getMyWalletTransactions(
+                "Bearer $token",
+                langBody
+            )
+
             return if (result.isSuccessful) {
                 NetworkResults.Success(result.body()!!)
             } else {

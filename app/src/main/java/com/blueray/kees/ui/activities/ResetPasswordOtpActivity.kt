@@ -30,6 +30,7 @@ class ResetPasswordOtpActivity : AppCompatActivity() {
         phoneNumber = intent.getStringExtra("phoneNumber")
         setGif()
         getData()
+        prepareAppBar(getString(R.string.reset_password))
         binding.continueBtn.setOnClickListener {
             if (binding.otpView.otp.isNullOrEmpty()) {
                 HelperUtils.showMessage(this, "Please Enter Otp")
@@ -62,6 +63,13 @@ class ResetPasswordOtpActivity : AppCompatActivity() {
             binding.resend.hide()
             job.start()
         }
+    }
+
+    private fun prepareAppBar(title: String) {
+        binding.includedTap.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+        binding.includedTap.title.text = title
     }
 
     private fun setGif() {

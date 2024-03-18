@@ -32,7 +32,7 @@
             android:id="@+id/signInLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create New Account"
+            android:text="@string/create_accounttt"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/included_tap"
@@ -61,7 +61,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Personal Information"
+                    android:text="@string/personal_information"
                     android:textColor="@color/darkPurple"
                     android:textSize="19sp"
                     android:fontFamily="@font/cairo_bold"
@@ -71,7 +71,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Client Name"
+                    android:text="@string/client_name"
                     android:textColor="@color/purpleColor"
                     android:textSize="17sp"
                     android:fontFamily="@font/cairo_bold"
@@ -107,7 +107,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Birth Date"
+                    android:text="@string/birth_date"
                     android:textColor="@color/purpleColor"
                     android:textSize="17sp"
                     android:fontFamily="@font/cairo_bold"
@@ -154,7 +154,7 @@
                 <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gender"
+                android:text="@string/gender"
                 android:textColor="@color/purpleColor"
                 android:textSize="17sp"
                 android:fontFamily="@font/cairo_bold"
@@ -191,7 +191,7 @@
                 <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
+                android:text="@string/email"
                 android:textColor="@color/purpleColor"
                 android:textSize="17sp"
                 android:fontFamily="@font/cairo_bold"
@@ -228,7 +228,7 @@
                 <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phone"
+                android:text="@string/phone"
                 android:textColor="@color/purpleColor"
                 android:textSize="17sp"
                 android:fontFamily="@font/cairo_bold"
@@ -265,7 +265,7 @@
                 <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Password"
+                android:text="@string/password"
                 android:textColor="@color/purpleColor"
                 android:textSize="17sp"
                 android:fontFamily="@font/cairo_bold"
@@ -302,7 +302,7 @@
                 <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Confirm Password"
+                android:text="@string/confirm_password"
                 android:textColor="@color/purpleColor"
                 android:textSize="17sp"
                 android:fontFamily="@font/cairo_bold"
@@ -341,7 +341,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     app:cornerRadius="25dp"
-                    android:text="Send"
+                    android:text="@string/send"
                     android:backgroundTint="@color/darkPurple"
                     android:textSize="16sp"
                     android:fontFamily="@font/cairo_bold"

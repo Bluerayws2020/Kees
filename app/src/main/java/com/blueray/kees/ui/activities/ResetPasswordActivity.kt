@@ -23,13 +23,7 @@ class ResetPasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityResetPassword2Binding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.includedTap.title.text = getString(R.string.change_password)
-        binding.includedTap.menu.setImageResource(R.drawable.back_button)
-        binding.includedTap.menu.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-
-            //  Log.d("LKASSD", phoneNumber)
-        }
+        prepareAppBar(getString(R.string.change_password))
         phoneNumber = intent.getStringExtra("phoneNumber")
         otpCode = intent.getStringExtra("otpCode")
         binding.includedTap.back.hide()
@@ -58,7 +52,14 @@ class ResetPasswordActivity : AppCompatActivity() {
         }
         getData()
     }
-
+    private fun prepareAppBar(title: String) {
+        binding.includedTap.menu.setImageResource(R.drawable.back_button)
+        binding.includedTap.menu.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+        binding.includedTap.back.hide()
+        binding.includedTap.title.text = title
+    }
     private fun getData() {
         viewModel.getResetPasswordRequest().observe(this) { result ->
             when (result) {

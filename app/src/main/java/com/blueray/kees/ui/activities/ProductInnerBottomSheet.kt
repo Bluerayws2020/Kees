@@ -1,6 +1,7 @@
 package com.blueray.kees.ui.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blueray.kees.R
 import com.blueray.kees.adapters.ProductFeaturesAdapter
+import com.blueray.kees.adapters.ProductVariationsAdapter
 import com.blueray.kees.adapters.WeeksAdapter
 import com.blueray.kees.databinding.FragmentProductInnerBottomSheetBinding
 import com.blueray.kees.helpers.HelperUtils
@@ -28,6 +30,7 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentProductInnerBottomSheetBinding
     private lateinit var adapter: WeeksAdapter
+    private lateinit var variationsAdapter: ProductVariationsAdapter
     private lateinit var featureAdapter: ProductFeaturesAdapter
     private val viewModel: AppViewModel by viewModels()
     private var weeksList: List<WeeklyBasketData> = listOf()
@@ -58,6 +61,9 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
         binding.addItem.setOnClickListener {
             binding.itemCount.text = (binding.itemCount.text.toString().toInt() + 1).toString()
         }
+        binding.addBasketBtn.setOnClickListener {
+            startActivity(Intent(requireContext(), AddNewBasketActivity::class.java))
+        }
         binding.removeItem.setOnClickListener {
             if (binding.itemCount.text.toString().toInt() > 0) {
                 binding.itemCount.text = (binding.itemCount.text.toString().toInt() - 1).toString()
@@ -65,10 +71,10 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
         }
         binding.favouriteButton.setOnClickListener {
             productId?.let { it1 -> viewModel.retrieveAddRemoveWishlistProduct(it1) }
-            if (isWishlist == false){
+            if (isWishlist == false) {
                 binding.favouriteButton.setImageResource(R.drawable.heart)
                 isWishlist = true
-            }else{
+            } else {
                 binding.favouriteButton.setImageResource(R.drawable.ic_heart)
                 isWishlist = false
             }
@@ -165,13 +171,32 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
                         Glide.with(requireContext()).load(data.image).placeholder(R.drawable.tahini)
                             .into(binding.productImage)
                         binding.productName.text = data.name
-                        binding.price.text = data.sale_price
+                        if (result.data.data.variation_type == "Standard") {
+                            binding.price.text = data.sale_price
+                            colorId = data.color_id.toString()
+                            sizeId = data.size_id.toString()
+                            unitId = data.unit_id.toString()
+                            weightId = data.weight_id.toString()
+                        } else {
+                            binding.price.text = ""
+                            binding.variationsRv.show()
+                            variationsAdapter =
+                                ProductVariationsAdapter(result.data.data.variations_multiple) { color_id, size_id, weight_id, unit_id ->
+                                    colorId = color_id.toString()
+                                    sizeId = size_id.toString()
+                                    unitId = unit_id.toString()
+                                    weightId = weight_id.toString()
+                                }
+                            binding.variationsRv.adapter = variationsAdapter
+                            binding.variationsRv.layoutManager = LinearLayoutManager(
+                                requireContext(),
+                                LinearLayoutManager.HORIZONTAL,
+                                false
+                            )
+                        }
                         binding.productDescription.text = data.description
                         productId = data.id.toString()
-                        colorId = data.color_id.toString()
-                        sizeId = data.size_id.toString()
-                        unitId = data.unit_id.toString()
-                        weightId = data.weight_id.toString()
+
                         if (data.is_wishlist == true) {
                             binding.favouriteButton.setImageResource(R.drawable.heart)
                             isWishlist = true

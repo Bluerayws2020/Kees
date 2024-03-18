@@ -19,7 +19,13 @@ class NotesAndNotificationsAdapter(
         return MyViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = 3
+    override fun getItemCount(): Int {
+        if (list.size > 3){
+            return 3
+        }else{
+            return list.size
+        }
+    }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val data = list[position]

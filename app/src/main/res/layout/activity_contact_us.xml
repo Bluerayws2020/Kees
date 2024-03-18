@@ -68,7 +68,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/cairo_bold"
-                        android:text="Technical Support"
+                        android:text="@string/technical_support"
                         android:textColor="@color/darkPurple"
                         android:textSize="15dp" />
 
@@ -119,7 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/cairo_bold"
-                    android:text="Phone Number"
+                    android:text="@string/phone_number"
                     android:textColor="@color/darkPurple"
                     android:textSize="15sp" />
 
@@ -145,7 +145,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/cairo_bold"
-                    android:text="Establishment Name"
+                    android:text="@string/establishment_name"
                     android:textColor="@color/darkPurple"
                     android:textSize="15sp" />
 
@@ -170,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/cairo_bold"
-                    android:text="Your Notes"
+                    android:text="@string/your_notes"
                     android:textColor="@color/darkPurple"
                     android:textSize="15sp" />
 
@@ -197,7 +197,7 @@
                     android:layout_marginTop="20dp"
                     android:backgroundTint="@color/darkPurple"
                     android:fontFamily="@font/cairo_bold"
-                    android:text="Send"
+                    android:text="@string/send"
                     android:textAllCaps="false"
                     app:cornerRadius="25dp" />
 
@@ -224,7 +224,7 @@
                 android:paddingTop="10dp"
                 android:paddingEnd="40dp"
                 android:paddingBottom="10dp"
-                android:text="Contact us"
+                android:text="@string/contact_us"
                 android:textColor="@color/white" />
 
 

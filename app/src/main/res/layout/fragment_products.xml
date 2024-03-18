@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:layout_constraintTop_toTopOf="parent"
-        android:hint="Search"
+        android:hint="@string/search"
         android:fontFamily="@font/cairo_medium"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"

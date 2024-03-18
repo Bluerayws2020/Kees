@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/cairo_bold"
-            android:text="Dilevering"
+            android:text="@string/delivring"
             android:textColor="@color/darkPurple"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/truckImage"
@@ -95,7 +95,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/cairo_bold"
-                        android:text="total price"
+                        android:text="@string/total_price"
                         android:textColor="#5E5E5E"
                         android:textSize="14sp" />
 
@@ -121,7 +121,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/cairo_bold"
-                        android:text="Products count"
+                        android:text="@string/products_count"
                         android:textColor="#5E5E5E"
                         android:textSize="14sp" />
 

@@ -54,7 +54,7 @@
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="45dp"
                     android:fontFamily="@font/cairo_bold"
-                    android:text="Personal Information"
+                    android:text="@string/personal_information"
                     android:textColor="@color/darkPurple"
                     android:textSize="19sp" />
 
@@ -64,7 +64,7 @@
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/cairo_bold"
-                    android:text="Client Name"
+                    android:text="@string/client_name"
                     android:textColor="@color/purpleColor"
                     android:textSize="17sp" />
 
@@ -100,7 +100,7 @@
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/cairo_bold"
-                    android:text="Birth Date"
+                    android:text="@string/birth_date"
                     android:textColor="@color/purpleColor"
                     android:textSize="17sp" />
 
@@ -147,7 +147,7 @@
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/cairo_bold"
-                    android:text="Gender"
+                    android:text="@string/gender"
                     android:textColor="@color/purpleColor"
                     android:textSize="17sp" />
 
@@ -222,7 +222,7 @@
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/cairo_bold"
-                    android:text="Phone"
+                    android:text="@string/phone"
                     android:textColor="@color/purpleColor"
                     android:textSize="17sp" />
 
@@ -261,7 +261,7 @@
                     android:layout_margin="25dp"
                     android:backgroundTint="@color/darkPurple"
                     android:fontFamily="@font/cairo_bold"
-                    android:text="Change Password"
+                    android:text="@string/change_password"
                     android:textAllCaps="false"
                     android:textSize="16sp"
                     app:cornerRadius="25dp" />
@@ -272,7 +272,7 @@
                     android:layout_marginHorizontal="25dp"
                     android:backgroundTint="@color/darkPurple"
                     android:fontFamily="@font/cairo_bold"
-                    android:text="Change Phone Number"
+                    android:text="@string/changePhoneNumber"
                     android:textAllCaps="false"
                     android:textSize="16sp"
                     app:cornerRadius="25dp" />

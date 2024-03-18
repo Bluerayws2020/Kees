@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">كيس</string>
+    <array name="genders">
+        <item>
+            ذكر
+        </item>
+        <item>
+            انثى
+        </item>
+    </array>
+    <array name="cities">
+        <item>عمان</item>
+
+    </array>
+
     <string name="phone_number">رقم الهاتف</string>
     <string name="what_is_your_number">شو رقمك</string>
     <string name="log_in">تسجيل الدخول</string>
@@ -25,5 +39,117 @@
     <string name="customer_service">خدمة العملاء</string>
     <string name="change_language">تغيير لغة التطبيق</string>
     <string name="exit">خروج</string>
+    <string name="customer">زبون</string>
+    <string name="seller">تاجر</string>
+    <string name="create_accounttt">انشاء حساب جديد</string>
+    <string name="create_account">إنشاء حساب</string>
+    <string name="choose_account_type">اختر نوع الحساب</string>
+    <string name="have_account">هل لديك حساب؟</string>
+    <string name="need_any_help">هل تحتاج الى مساعدة؟</string>
+    <string name="contact_support">تواصل مع الدعم الفني</string>
+    <string name="address">العنوان</string>
+    <string name="choose_location_from_map">اختر الموقع من الخريطة</string>
+    <string name="continue_location_info">متابعة معلومات الموقع</string>
+    <string name="city">المحافظة</string>
+    <string name="area">المنطقة</string>
+    <string name="address_in_detail">العنوان بالتفصيل</string>
+    <string name="your_house_photo">صورة منزلك</string>
+    <string name="upload">رفع</string>
+    <string name="optional">* اختياري</string>
+    <string name="i_approve_on">أوافق على</string>
+    <string name="terms_and_conditions">الأحكام والشروط</string>
+    <string name="next">التالي</string>
+    <string name="previous">السابق</string>
+    <string name="personal_information">معلومات شخصية</string>
+    <string name="client_name">اسم العميل</string>
+    <string name="birth_date">تاريخ الميلاد</string>
+    <string name="gender">الجنس</string>
+    <string name="email">البريد إلكتروني</string>
+    <string name="phone">رقم الهاتف</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="send">إرسال</string>
+    <string name="welcome_to_our_store">مرحباً بك في متجرنا</string>
+    <string name="which_language_do_you_prefer">أي لغة تفضل؟</string>
+    <string name="skip">تخطي</string>
+    <string name="to_kees">في تطبيق كيس</string>
+    <string name="got_an_account">عندك حساب</string>
+    <string name="create_new_account">سجل حساب جديد</string>
+    <string name="enter_as_a_guest">الدخول كزئر</string>
+    <string name="drivers_portal">بوابة الموظفين</string>
+    <string name="send_otp_code">إرسال رمز التحقق</string>
+    <string name="verification_code">رمز التحقق</string>
+    <string name="we_have_sent_you_a_verification_code_via_your_phone_number">لقد أرسلنا لك رمز التحقق عبر رقم هاتفك</string>
+    <string name="resend">إعادة إرسال</string>
+    <string name="change_password">تغيير كلمة المرور</string>
+    <string name="your_wishlist_is_empty_go_shopping">قائمة المفضلة فارغة، اذهب للتسوق!</string>
+    <string name="you_dont_have_any_notifications">ليس لديك أي إشعارات</string>
+    <string name="delete_all">حذف الكل</string>
+    <string name="add_to_cart">إضافة إلى السلة</string>
+    <string name="description">الوصف</string>
+    <string name="choose_the_cart_of_the_week">اختر سلة الاسبوع</string>
+    <string name="choose_the_quantity">اختر الكمية</string>
+    <string name="week">الاسبوع</string>
+    <string name="wallet">المحفظة</string>
+    <string name="personal_data">البيانات الشخصية</string>
+    <string name="addresses">العناوين</string>
+    <string name="update">تحديث</string>
+    <string name="changePhoneNumber">تغيير رقم الهاتف</string>
+    <string name="MyLocations">عناويني</string>
+    <string name="add_new_location">إضافة عنوان جديد</string>
+    <string name="delivery_time">وقت التسليم:</string>
+    <string name="date">التاريخ:</string>
+    <string name="order_details">تفاصيل الطلب</string>
+    <string name="number_of_products">عدد المنتجات</string>
+    <string name="notes">الملاحظات</string>
+    <string name="view_products">عرض المنتجات</string>
+    <string name="delivery_info">معلومات التوصيل</string>
+    <string name="day">اليوم:</string>
+    <string name="driver_name">اسم السائق</string>
+    <string name="driver_number">رقم السائق</string>
+    <string name="complete_order">إكمال الطلب</string>
+    <string name="vision">الرؤية</string>
+    <string name="mission">المهمة</string>
+    <string name="values">القيم</string>
+    <string name="contact_us">تواصل معنا</string>
+    <string name="establishment_name">اسم المؤسسة</string>
+    <string name="your_notes">ملاحظاتك</string>
+    <string name="technical_support">الدعم الفني</string>
+    <string name="weeklyCart">السلة الاسبوعية</string>
+    <string name="continue_to_payment">الاستمرار الى الدفع</string>
+    <string name="sunday">الاحد</string>
+    <string name="monday">الاثنين</string>
+    <string name="tuesday">الثلاثاء</string>
+    <string name="wednesday">الاربعاء</string>
+    <string name="Thursday">الخميس</string>
+    <string name="friday">الجمعة</string>
+    <string name="saturday">السبت</string>
+    <string name="add_new_basket">إضافة سلة جديدة</string>
+    <string name="choose_shift">اختر الوقت</string>
+    <string name="choose_day">اختر اليوم</string>
+    <string name="choose_week">اختر الاسبوع</string>
+    <string name="checkOut">الدفع</string>
+    <string name="your_weekly_orders_report">تقرير طلباتك الأسبوعية</string>
+    <string name="total_price">السعر الكلي</string>
+    <string name="total">المجموع</string>
+    <string name="day_to_arrive">يوم الوصول</string>
+    <string name="time_to_arrive">وقت الوصول</string>
+    <string name="delivery_fees">رسوم التوصيل</string>
+    <string name="services_fees">رسوم الخدمات</string>
+    <string name="total_tax">مجموع الضريبة</string>
+    <string name="online_pay">الدفع عبر الإنترنت</string>
+    <string name="cancel_payment">الغاء الدفع</string>
+    <string name="my_wallet">محفظتي</string>
+    <string name="start_working_now">ابدأ العمل الآن</string>
+    <string name="when_you_click_on_start_working_now_you_will_be_available_to_receive_immediate_requests_from_customers">عندما تضغط على ابدأ العمل الآن، ستكون متاحًا لتلقي الطلبات الفورية من العملاء</string>
+    <string name="orders">الطلبات</string>
+    <string name="previous_orders">الطلبات السابقة</string>
+    <string name="delivring">قيد التوصيل</string>
+    <string name="waiting_for_delivery">بانتظار التوصيل</string>
+    <string name="products_count">عدد المنتجات</string>
+    <string name="start_delivering">ابدأ التوصيل</string>
+    <string name="clint_number">رقم العميل</string>
+    <string name="products">منتجات</string>
+    <string name="product">منتج</string>
+    <string name="change_app_language">تغيير لغة التطبيق</string>
 
 </resources>

@@ -223,7 +223,8 @@ Api {
     @POST("driver/getDriverOrderDetails")
     suspend fun getDriverOrderDetails(
         @Header("Authorization") auth: String,
-        @Part("weekly_basket_id") weekly_basket_id: RequestBody
+        @Part("weekly_basket_id") weekly_basket_id: RequestBody,
+        @Part("lang") lang: RequestBody
     ): Response<DriverOrderDetailsResponse>
 
     @Multipart
@@ -300,7 +301,8 @@ Api {
     @POST("driver/getFinishOrderDetails")
     suspend fun driverFinishedOrderDetails(
         @Header("Authorization") auth: String,
-        @Part("order_id") order_id: RequestBody
+        @Part("order_id") order_id: RequestBody,
+        @Part("lang")lang: RequestBody
     ): Response<FinishedOrderDetailsResponse>
 
     @Multipart
@@ -315,7 +317,8 @@ Api {
     @POST("customer/getPastOrderDetails")
     suspend fun pastOrderDetails(
         @Header("Authorization") auth: String,
-        @Part("order_id") order_id: RequestBody
+        @Part("order_id") order_id: RequestBody,
+        @Part("lang") lang: RequestBody
     ): Response<PastOrderDetailsResponse>
 
     @Multipart
@@ -345,5 +348,12 @@ Api {
         @Part("end_time") end_time: RequestBody,
         @Part("day") day: RequestBody
     ): Response<ErrorResponse>
+
+    @Multipart
+    @POST("customer/getMyWalletTransactions")
+    suspend fun getMyWalletTransactions(
+        @Header("Authorization") auth: String,
+        @Part("lang") lang: RequestBody
+    ): Response<WalletTransactionResponse>
 }
 

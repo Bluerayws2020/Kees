@@ -52,7 +52,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentOrderDetails2Binding.inflate(layoutInflater)
-        prepareAppBar(getString(R.string.orderdetails))
+        prepareAppBar(getString(R.string.order_details))
         val orderId = arguments?.getString("orderId")
         val flag = arguments?.getString("fromWaiting")
         val isFinished = arguments?.getString("fromFinished")
@@ -122,7 +122,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback {
                         productsList = result.data.data.weekly_basket_products
                         basket_id = result.data.data.id.toString()
                         note = result.data.data.note
-
+                        productsCount = result.data.data.weekly_basket_products.size
                         //variables for map
                         lat = result.data.data.latitude.toDouble()
                         lng = result.data.data.longitude.toDouble()

@@ -24,7 +24,7 @@
             app:cornerRadius="30dp"
             android:backgroundTint="@color/darkPurple"
             app:icon="@drawable/add_plus"
-            android:text="Add New Location"
+            android:text="@string/add_new_location"
             app:iconGravity="textEnd"
             android:fontFamily="@font/cairo_medium"
             />

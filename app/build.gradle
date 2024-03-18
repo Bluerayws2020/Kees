@@ -131,4 +131,6 @@ dependencies {
     // ONE Signal
     implementation 'com.onesignal:OneSignal:[5.0.0, 5.99.99]'
 
+    def lottieVersion = "3.4.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 }

@@ -209,7 +209,23 @@ data class GetProductDetailsData(
     val weight_id: Int,
     val weight_name: String,
     val features: List<Features>? = null,
-    val is_wishlist: Boolean
+    val is_wishlist: Boolean,
+    val variations_multiple: List<VariationsMultiple>,
+)
+
+data class VariationsMultiple(
+    val color_name: String,
+    val on_sale_price: String,
+    val on_sale_price_status: String,
+    val sale_price: String,
+    val size_name: String,
+    val unit_name: String,
+    var selected: Boolean = false,
+    val weight_name: String,
+    val color_id: Int,
+    val size_id: Int,
+    val weight_id: Int,
+    val unit_id: Int,
 )
 
 data class Features(
@@ -658,4 +674,20 @@ data class PastOrderDetailsData(
     val day: String,
     val driver_phone: String
 
+)
+
+data class WalletTransactionResponse(
+    val `data`: List<WalletData>,
+    val status: Int,
+    val success: Boolean
+)
+
+data class WalletData(
+    val amount: String,
+    val id: Int,
+    val sale_id: Any,
+    val user_id: Int,
+    val wallet_balance_after: String,
+    val wallet_balance_before: String,
+    val wallet_transaction_type: String
 )

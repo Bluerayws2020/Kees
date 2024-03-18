@@ -32,7 +32,7 @@ class WeeksAdapter (
             onClickListener(data,position)
         }
         holder.apply {
-            binding.dayText.text = binding.root.context.getString(R.string.week) +list[position].week_number
+            binding.dayText.text = binding.root.context.getString(R.string.week) +" "+list[position].week_number
 
             if (list[position].selected) {
                 (binding.root as CardView).background.setTint(

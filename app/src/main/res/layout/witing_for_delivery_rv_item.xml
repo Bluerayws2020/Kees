@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/cairo_bold"
-                android:text="Waiting For Dilevery"
+                android:text="@string/waiting_for_delivery"
                 android:textColor="@color/purpleColor"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/truckImage"
@@ -96,7 +96,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/cairo_bold"
-                            android:text="Products count"
+                            android:text="@string/products_count"
                             android:textColor="#5E5E5E"
                             android:textSize="12sp" />
 
@@ -121,7 +121,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/cairo_bold"
-                            android:text="total price"
+                            android:text="@string/total_price"
                             android:textColor="#5E5E5E"
                             android:textSize="12sp" />
 
@@ -148,7 +148,7 @@
                 android:layout_marginBottom="15dp"
                 android:backgroundTint="@color/darkPurple"
                 android:fontFamily="@font/cairo_medium"
-                android:text="start Delivering"
+                android:text="@string/start_delivering"
                 android:textAllCaps="false"
                 android:textSize="14sp"
                 app:cornerRadius="25dp"

@@ -51,7 +51,7 @@ class PastOrderDetailsFragment : Fragment() , OnMapReadyCallback {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPastOrderDetailsBinding.inflate(layoutInflater)
-        prepareAppBar(getString(R.string.orderdetails))
+        prepareAppBar(getString(R.string.order_details))
         val orderId = arguments?.getString("orderId")
         val isFinished = arguments?.getString("fromFinished")
         if (isFinished == "1") {

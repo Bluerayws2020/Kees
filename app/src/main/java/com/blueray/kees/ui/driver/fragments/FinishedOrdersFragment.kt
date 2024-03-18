@@ -37,7 +37,7 @@ class FinishedOrdersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        prepareAppBar("Finished Orders")
+        prepareAppBar(getString(R.string.previous_orders))
         viewModel.retrieveFinishedOrders()
         getFinishedOrdersData()
     }

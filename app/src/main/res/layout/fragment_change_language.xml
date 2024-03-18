@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="25dp"
+
+    tools:context=".ui.fragments.ChangeLanguageFragment">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change_app_language"
+        android:textSize="22sp"
+        android:textColor="@color/darkPurple"
+        android:fontFamily="@font/cairo_bold"/>
+    <FrameLayout
+        android:id="@+id/arabicCard"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/custom_edit_text"
+        android:backgroundTint="@color/purpleColor"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="35dp"
+        >
+
+        <CheckBox
+            android:id="@+id/arCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:buttonTint="@color/white"
+            android:visibility="gone"
+            android:checked="false" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/jordan"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="العربية"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="80dp"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/cairo_regular"
+            />
+
+
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/englishCard"
+        app:layout_constraintTop_toBottomOf="@id/ar_language_btn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/custom_edit_text"
+        android:backgroundTint="@color/purpleColor"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="35dp"
+        >
+
+        <CheckBox
+            android:id="@+id/enCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="end|center_vertical"
+            android:buttonTint="@color/white"
+            />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/united_states"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="English"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="80dp"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/cairo_regular"
+            />
+
+
+    </FrameLayout>
+</LinearLayout>
+
+</androidx.cardview.widget.CardView>

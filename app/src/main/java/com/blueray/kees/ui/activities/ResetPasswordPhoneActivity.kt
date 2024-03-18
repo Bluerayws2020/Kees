@@ -18,7 +18,7 @@ class ResetPasswordPhoneActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityResetPasswordPhoneBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        prepareAppBar("Reset Password")
+        prepareAppBar(getString(R.string.reset_password))
         binding.continueBtn.setOnClickListener {
             viewModel.retrieveResetPassword(
                 binding.phoneNumberET.text.toString()

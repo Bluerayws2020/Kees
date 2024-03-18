@@ -20,7 +20,7 @@
         android:id="@+id/tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to Our Store"
+        android:text="@string/welcome_to_our_store"
         app:layout_constraintTop_toBottomOf="@id/logo"
         app:layout_constraintStart_toStartOf="@id/logo"
         app:layout_constraintEnd_toEndOf="@id/logo"
@@ -34,7 +34,7 @@
         android:id="@+id/tv2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Which Language Do You Prefer"
+        android:text="@string/which_language_do_you_prefer"
         app:layout_constraintTop_toBottomOf="@id/tv1"
         app:layout_constraintStart_toStartOf="@id/logo"
         app:layout_constraintEnd_toEndOf="@id/logo"
@@ -61,6 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
             android:buttonTint="@color/white"
+            android:visibility="gone"
             android:checked="false" />
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="30dp"
@@ -100,9 +101,10 @@
             android:id="@+id/enCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_gravity="end|center_vertical"
             android:buttonTint="@color/white"
-            android:checked="true"/>
+            />
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -132,7 +134,7 @@
         app:layout_constraintVertical_bias="1"
         android:layout_marginBottom="40dp"
         android:fontFamily="@font/cairo_semibold"
-        android:text="Continue"
+        android:text="@string/Continue"
         android:textAllCaps="false"
         android:textSize="16sp"
         android:backgroundTint="@color/darkPurple"

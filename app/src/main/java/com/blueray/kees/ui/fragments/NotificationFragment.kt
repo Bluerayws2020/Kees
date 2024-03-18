@@ -74,7 +74,7 @@ class NotificationFragment : Fragment() {
                         adapter = NotificationAdapter(result.data.data, {}, { message, date ->
                         })
                         adapter.notifyDataSetChanged()
-                        updateListVisibility(adapter.list.isEmpty())
+                        updateListVisibility(adapter.list.isNotEmpty())
                         adapter.onNotificationClick = { message, date ->
                             val dialogFragment = NotificationPopUp.newInstance(message, date)
                             dialogFragment.show(childFragmentManager, "YourDialogFragmentTag")
@@ -147,10 +147,11 @@ class NotificationFragment : Fragment() {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
                         adapter.notifyDataSetChanged()
+
                         GlobalScope.launch {
                             delay(200)
                             viewModel.retrieveNotifications()
-
+                            updateListVisibility(false)
                         }
                         HelperUtils.showMessage(requireContext(), result.data.data)
                     } else {

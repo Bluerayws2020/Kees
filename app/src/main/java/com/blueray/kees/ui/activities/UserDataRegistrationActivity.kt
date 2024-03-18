@@ -50,7 +50,7 @@ class UserDataRegistrationActivity : BaseActivity() {
         binding.includedTap.back.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
-        binding.includedTap.title.text = getString(R.string.create_accounttt)
+        binding.includedTap.title.text = getString(R.string.create_account)
 
 
         binding.continueBtn.setOnClickListener {

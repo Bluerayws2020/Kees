@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.blueray.kees.helpers.ContextWrapper
+import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.helpers.HelperUtils.getLang
 import com.blueray.kees.helpers.HelperUtils.setLang
 import java.util.Locale
@@ -17,8 +18,7 @@ abstract class BaseActivity : AppCompatActivity() {
     val deviceLocale = Locale.getDefault()
     val languageCode = deviceLocale.language
     override fun attachBaseContext(newBase: Context?) {
-        setLang(newBase!! , languageCode)
-        val lang = getLang(newBase)
+        val lang = HelperUtils.getLang(newBase!!)
         val local = Locale(lang)
         val newContext = ContextWrapper.wrap(newBase, local)
         super.attachBaseContext(newContext)
@@ -31,7 +31,7 @@ abstract class BaseActivity : AppCompatActivity() {
         supportActionBar?.hide()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
-        switchLanguage(getLang(this))
+//        switchLanguage(getLang(this))
     }
     fun switchLanguage(language: String) {
         val locale = Locale(language)

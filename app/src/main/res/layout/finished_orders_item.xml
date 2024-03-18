@@ -82,7 +82,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/cairo_bold"
-                            android:text="Date:"
+                            android:text="@string/date"
                             android:textColor="#5E5E5E"
                             android:textSize="12sp" />
 
@@ -107,7 +107,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/cairo_bold"
-                            android:text="Delivery Time:"
+                            android:text="@string/delivery_time"
                             android:textColor="#5E5E5E"
                             android:textSize="12sp" />
 

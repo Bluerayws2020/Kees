@@ -45,7 +45,9 @@ class MyProfileActivity : BaseActivity() {
         binding.walletBalence.setOnClickListener{
             startActivity(Intent(this ,WalletActivity::class.java))
         }
-
+        binding.walletBtn.setOnClickListener{
+            startActivity(Intent(this ,WalletActivity::class.java).putExtra("wallet" , binding.walletBalence.text))
+        }
     }
 
     private fun observeToLiveData() {

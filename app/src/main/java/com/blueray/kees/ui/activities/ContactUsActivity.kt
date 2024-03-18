@@ -19,7 +19,7 @@ class ContactUsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityContactUsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        prepareAppBar("Contact Us")
+        prepareAppBar(getString(R.string.contact_us))
         binding.sendButton.setOnClickListener {
             viewModel.retrieveContactUs(
                 binding.phoneNumberET.text.toString(),

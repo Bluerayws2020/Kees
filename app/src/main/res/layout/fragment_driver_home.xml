@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cairo_bold"
-                android:text="Start working now"
+                android:text="@string/start_working_now"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cairo_regular"
-                android:text="When you click on Start Working Now, you will be available to receive immediate requests from customers"
+                android:text="@string/when_you_click_on_start_working_now_you_will_be_available_to_receive_immediate_requests_from_customers"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
@@ -96,7 +96,7 @@
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/cairo_medium"
-                android:text="Start Working Now"
+                android:text="@string/start_working_now"
                 android:textAllCaps="false"
                 android:textColor="@color/purpleColor"
                 android:textSize="16sp"
@@ -121,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/cairo_bold"
-                    android:text="Notifications"
+                    android:text="@string/notifications"
                     android:textColor="@color/darkPurple"
                     android:textSize="16sp" />
 

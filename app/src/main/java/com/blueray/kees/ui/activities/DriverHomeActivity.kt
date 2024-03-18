@@ -51,6 +51,13 @@ class DriverHomeActivity : AppCompatActivity() , DrawerOpener {
                     binding.drawerlayout.closeDrawer(GravityCompat.START)
                     true
                 }
+                R.id.aboutUs ->{
+                    startActivity(Intent(this, AboutUsActivity::class.java).apply {
+                        // todo add extras
+                    })
+                    closeDrawer()
+                    true
+                }
                 R.id.exit ->{
                     val intent = Intent(this, UserTypeLoginActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

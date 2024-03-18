@@ -120,7 +120,7 @@ const val PHONENUMEBR = "PHONE"
 
     fun getLang(mContext: Context?): String {
         val sharedPreferences = mContext?.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
-        return sharedPreferences?.getString("lang", "en")!!
+        return sharedPreferences?.getString("lang", LANG)!!
     }
 
     fun setLang(mContext: Context?,lang: String){

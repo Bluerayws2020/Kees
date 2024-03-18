@@ -9,6 +9,7 @@ import com.blueray.kees.R
 import com.blueray.kees.databinding.ActivityDriverLoginBinding
 import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.helpers.HelperUtils.saveDriverStatus
+import com.blueray.kees.helpers.ViewUtils.show
 import com.blueray.kees.model.NetworkResults
 import com.blueray.kees.ui.AppViewModel
 
@@ -23,7 +24,7 @@ class DriverLoginActivity : AppCompatActivity() {
 //        HelperUtils.setDefaultLanguage(this, "ar")
 //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding.includedTap.title.text = "Driver Portal"
+        binding.includedTap.title.text = getString(R.string.drivers_portal)
         binding.includedTap.back.setOnClickListener {
             onBackPressed()
         }

@@ -42,7 +42,7 @@ class AddNewBasketActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddNewBasketBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        prepareAppBar("Add New Basket")
+        prepareAppBar(getString(R.string.add_new_basket))
         //api calls
         viewModel.retrieveShifts()
         viewModel.retrieveWeeklyCart()
@@ -237,10 +237,10 @@ class AddNewBasketActivity : AppCompatActivity() {
                         val apiWeeksList = mutableListOf<Int>()
                         result.data.data.forEach { weeklyCart ->
                             when (weeklyCart.week_number) {
-                                "First" -> apiWeeksList.add(1)
-                                "Second" -> apiWeeksList.add(2)
-                                "Third" -> apiWeeksList.add(3)
-                                "Fourth" -> apiWeeksList.add(4)
+                                "First" , "الاول" -> apiWeeksList.add(1)
+                                "Second" , "الثاني"-> apiWeeksList.add(2)
+                                "Third" , "الثالث"-> apiWeeksList.add(3)
+                                "Fourth" , "الرابع"-> apiWeeksList.add(4)
                             }
                         }
 
@@ -248,7 +248,7 @@ class AddNewBasketActivity : AppCompatActivity() {
                         Log.d("misasas", missingWeeksList.toString())
 
                         weeksList = missingWeeksList.map { weekNumber ->
-                            Days(Day("week $weekNumber", weekNumber.toString()))
+                            Days(Day(getString(R.string.week) + weekNumber.toString(), weekNumber.toString()))
                         }
 
                         // Notify the adapter about the dataset change

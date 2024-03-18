@@ -42,7 +42,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Wallet"
+                android:text="@string/wallet"
                 android:layout_gravity="bottom|start"
                 android:layout_margin="30dp"
                 android:textColor="@color/white"
@@ -210,7 +210,7 @@
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="90dp"
                 android:fontFamily="@font/cairo_bold"
-                android:text="Personal Data"
+                android:text="@string/personal_data"
                 android:textColor="@color/textGrey47" />
 
             <ImageView
@@ -301,7 +301,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="90dp"
-                android:text="Address"
+                android:text="@string/addresses"
                 android:textColor="@color/textGrey47"
                 android:fontFamily="@font/cairo_bold"
                 />
@@ -349,7 +349,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="90dp"
-                android:text="Wallet"
+                android:text="@string/wallet"
                 android:textColor="@color/textGrey47"
                 android:fontFamily="@font/cairo_bold"
                 />

@@ -59,10 +59,10 @@ class CartActivity : BaseActivity() {
 
         for (i in list.indices) {
             val item = list[i]
-            if (item.week_number == "First") {
+            if (item.week_number == "First" || item.week_number == "الاول") {
                 weeksList.add(1)
             }
-            if (item.week_number == "Second") {
+            if (item.week_number == "Second" || item.week_number == "الثاني") {
                 weeksList.add(2)
             }
             // send products to the fragments
@@ -74,7 +74,7 @@ class CartActivity : BaseActivity() {
             adapter.addWeekId(item.id, i)
 
             // send category name to the tab layout
-            tabListTitle.add(item.week_number + getString(R.string.week))
+            tabListTitle.add(getString(R.string.week) + " "+item.week_number  )
         }
 
         binding.viewPager.adapter = adapter

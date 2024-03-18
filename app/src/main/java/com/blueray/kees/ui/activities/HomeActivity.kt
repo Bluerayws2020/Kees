@@ -1,5 +1,6 @@
 package com.blueray.kees.ui.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -11,10 +12,14 @@ import androidx.navigation.ui.NavigationUI
 import com.blueray.kees.R
 import com.blueray.kees.api.DrawerOpener
 import com.blueray.kees.databinding.ActivityHomeBinding
+import com.blueray.kees.helpers.ContextWrapper
 import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.helpers.ViewUtils.hide
 import com.blueray.kees.helpers.ViewUtils.show
 import com.blueray.kees.helpers.ViewUtils.startAnimation
+import com.blueray.kees.ui.fragments.ChangeLanguageFragment
+import com.blueray.kees.ui.fragments.ChoseLocationDialog
+import java.util.Locale
 
 class HomeActivity : BaseActivity(), DrawerOpener {
 
@@ -126,13 +131,8 @@ class HomeActivity : BaseActivity(), DrawerOpener {
                 }
 
                 R.id.changeLanguage -> {
-                    startActivity(
-                        Intent(
-                            this@HomeActivity,
-                            ChooseLanguageActivity::class.java
-                        ).apply {
-                            putExtra("fromHome", true)
-                        })
+                    val dialogFragment = ChangeLanguageFragment()
+                    dialogFragment.show(supportFragmentManager, "TAG")
                     closeDrawer()
                     true
                 }
@@ -153,6 +153,12 @@ class HomeActivity : BaseActivity(), DrawerOpener {
         }
 
 
+    }
+    override fun attachBaseContext(newBase: Context?) {
+        val lang = HelperUtils.getLang(newBase!!)
+        val local = Locale(lang)
+        val newContext = ContextWrapper.wrap(newBase, local)
+        super.attachBaseContext(newContext)
     }
 
     override fun openDrawer() {

@@ -4,6 +4,7 @@
     android:layout_height="60dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <ImageView
+        android:id="@+id/back"
         android:layout_width="30dp"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="1:1"
@@ -15,6 +16,7 @@
         android:background="@drawable/otp_back_background"
         />
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="log in"

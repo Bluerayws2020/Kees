@@ -34,7 +34,7 @@ class OrderProductsFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentOrderProductsBinding.inflate(layoutInflater)
         binding.notesTv.text = note
-        binding.numberOfProductsTv.text = productCount.toString() + " Product"
+        binding.numberOfProductsTv.text = productCount.toString() + getString(R.string.product)
         // Prepare App bar
         prepareAppBar(getString(R.string.products))
         return binding.root

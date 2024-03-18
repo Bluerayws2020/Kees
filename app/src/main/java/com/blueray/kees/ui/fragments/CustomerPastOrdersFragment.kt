@@ -35,7 +35,7 @@ class CustomerPastOrdersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        prepareAppBar("Past Orders")
+        prepareAppBar(getString(R.string.past_orders))
 
         viewModel.retrieveCustomerPastOrders()
         getPastOrdersData()

@@ -1,6 +1,7 @@
 package com.blueray.kees.ui.activities
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -15,21 +16,24 @@ import com.blueray.kees.databinding.SpinnerItemBinding
 class CreateAccountActivity : BaseActivity() {
 
     companion object {
-        val ACCOUNTS_TYPES_LIST = listOf<String>(
-            "Customer",
-            "Seller"
-        )
+        fun getAccountTypesList(context: Context): List<String> {
+            return listOf(
+                context.getString(R.string.customer),
+                context.getString(R.string.seller),
+
+            )
+        }
     }
 
     var selectedAccountType = ""
-
+    var ACCOUNTS_TYPES_LIST :List<String> = listOf()
     private lateinit var binding: ActivityCreateAccountBinding
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        ACCOUNTS_TYPES_LIST  = getAccountTypesList(this)
         binding.includedTap.back.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }

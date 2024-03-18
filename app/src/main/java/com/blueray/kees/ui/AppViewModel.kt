@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.blueray.kees.helpers.HelperUtils.LANG
 import com.blueray.kees.helpers.HelperUtils.getEmail
+import com.blueray.kees.helpers.HelperUtils.getLang
 import com.blueray.kees.helpers.HelperUtils.getName
 import com.blueray.kees.helpers.HelperUtils.getToken
 import com.blueray.kees.model.AboutUsModel
@@ -33,6 +34,7 @@ import com.blueray.kees.model.PrivacyPolicyModel
 import com.blueray.kees.model.RegistrationModel
 import com.blueray.kees.model.ShiftsModel
 import com.blueray.kees.model.UpdateDeliveryStatusResponse
+import com.blueray.kees.model.WalletTransactionResponse
 import com.blueray.kees.repository.Repository
 import kotlinx.coroutines.launch
 import java.io.File
@@ -94,7 +96,8 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     private val resetPasswordLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
     private val resetPasswordRequestLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
     private val addWeeklyBasketLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
-
+    private val walletTransactionLiveData =
+        MutableLiveData<NetworkResults<WalletTransactionResponse>>()
 
     fun retrieveRegistration(
         fullName: String,
@@ -114,7 +117,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     ) {
         viewModelScope.launch {
             registrationLiveData.value = repo.register(
-                LANG,
+                getLang(context),
                 fullName,
                 gender,
                 date_of_birth,
@@ -142,7 +145,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             sendOtpLiveData.postValue(
                 repo.sendOtpRequest(
-                    lang = LANG,
+                    lang = getLang(context),
                     otp = otp_code,
                     phone = phone
                 )
@@ -158,7 +161,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             loginLiveData.postValue(
                 repo.login(
-                    LANG, username, password
+                    getLang(context), username, password
                 )
             )
         }
@@ -170,7 +173,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             getMainCategoriesLiveData.postValue(
                 repo.getMainCategories(
-                    LANG
+                    getLang(context)
                 )
             )
         }
@@ -184,7 +187,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             getSubCategoriesLiveData.postValue(
                 repo.getSubCategories(
-                    LANG, categoryId
+                    getLang(context), categoryId
                 )
             )
         }
@@ -201,7 +204,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             getProductsLiveData.postValue(
                 repo.getProducts(
                     getToken(context),
-                    LANG, categoryId, subCategoryId, textSearch
+                    getLang(context), categoryId, subCategoryId, textSearch
                 )
             )
         }
@@ -213,7 +216,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             shiftsLiveData.postValue(
                 repo.getShifts(
-                    LANG
+                    getLang(context)
                 )
             )
         }
@@ -229,7 +232,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             weeksAfterRegistrationLiveData.postValue(
                 repo.numberOfWeeksRegistration(
-                    LANG, weeks, endTime, startTime, day, getToken(context)
+                    getLang(context), weeks, endTime, startTime, day, getToken(context)
                 )
             )
         }
@@ -241,7 +244,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             getWeeklyCartLiveData.postValue(
                 repo.getWeeklyCart(
-                    LANG,
+                    getLang(context),
                     getToken(context)
                 )
             )
@@ -262,8 +265,16 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             addToCartLiveData.postValue(
                 repo.addProductToWeeklyBaskets(
-                    LANG, weeks, productId, quantity, color_id, size_id, unit_id, weight_id,
-                    getToken(context), feature_ids
+                    getLang(context),
+                    weeks,
+                    productId,
+                    quantity,
+                    color_id,
+                    size_id,
+                    unit_id,
+                    weight_id,
+                    getToken(context),
+                    feature_ids
                 )
             )
         }
@@ -278,7 +289,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             getProductDetailsLiveData.postValue(
                 repo.getProductDetails(
                     getToken(context),
-                    LANG,
+                    getLang(context),
                     productId
                 )
             )
@@ -356,7 +367,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             customerUpdateAddressLiveData.postValue(
                 repo.customerUpdateMyAddress(
                     getToken(context),
-                    LANG,
+                    getLang(context),
                     addressId,
                     title,
                     lat,
@@ -383,7 +394,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             customerAddNewAddressLiveData.postValue(
                 repo.customerAddNewAddress(
                     getToken(context),
-                    LANG,
+                    getLang(context),
                     title,
                     lat,
                     long,
@@ -403,7 +414,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             customerDeleteAddressLiveData.postValue(
                 repo.customerDeleteMyAddress(
                     getToken(context),
-                    LANG, addressId
+                    getLang(context), addressId
                 )
             )
         }
@@ -416,7 +427,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             getAboutUsLiveData.postValue(
                 repo.getAboutUs(
-                    LANG
+                    getLang(context)
                 )
             )
         }
@@ -428,7 +439,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             getPrivacyPoliciesLiveData.postValue(
                 repo.getPrivacyPolicies(
-                    LANG
+                    getLang(context)
                 )
             )
         }
@@ -441,7 +452,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             retrieveMyProfileLiveData.postValue(
                 repo.getMyProfile(
                     getToken(context),
-                    LANG
+                    getLang(context)
                 )
             )
         }
@@ -457,7 +468,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             changePasswordLiveData.postValue(
                 repo.changePassword(
                     getToken(context),
-                    LANG,
+                    getLang(context),
                     old, new, confirm
                 )
             )
@@ -473,7 +484,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             driverLoginLiveData.postValue(
                 repo.driverLogin(
-                    LANG,
+                    getLang(context),
                     email,
                     password
                 )
@@ -513,7 +524,8 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             driverOrderDetailsLiveData.postValue(
                 repo.getDriverOrderDetails(
                     getToken(context),
-                    basket_id
+                    basket_id,
+                    getLang(context)
                 )
             )
         }
@@ -571,7 +583,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             contactUsLiveData.postValue(
                 repo.contactUsRequest(
-                    LANG,
+                    getLang(context),
                     getName(context), getEmail(context), phone, subject, message
                 )
             )
@@ -608,7 +620,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             checkOutSingleBasketLiveData.postValue(
                 repo.checkOutSingleBasket(
                     token = getToken(context),
-                    lang = LANG,
+                    lang = getLang(context),
                     weekly_basket_id = weekly_basket_id,
                     coupon_code = coupon_code,
                     address_id = address_id,
@@ -673,7 +685,8 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             driverFinishedOrderDetailsLiveData.postValue(
                 repo.driverFinishedOrderDetails(
                     getToken(context),
-                    orderId
+                    orderId,
+                    getLang(context)
                 )
             )
         }
@@ -688,7 +701,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             cancelBasketPaymentLiveData.postValue(
                 repo.cancelBasketPayment(
                     getToken(context),
-                    LANG,
+                    getLang(context),
                     weekly_basket_id
                 )
             )
@@ -704,7 +717,8 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             pastOrderDetailsLiveData.postValue(
                 repo.pastOrderDetails(
                     getToken(context),
-                    orderId
+                    orderId,
+                    getLang(context)
                 )
             )
         }
@@ -763,4 +777,17 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getAddWeeklyBasket() = addWeeklyBasketLiveData
+
+    fun retrieveWalletTransaction() {
+        viewModelScope.launch {
+            walletTransactionLiveData.postValue(
+                repo.getMyWalletTransactions(
+                    getToken(context),
+                    getLang(context)
+                )
+            )
+        }
+    }
+
+    fun getWalletTransaction() = walletTransactionLiveData
 }
