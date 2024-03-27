@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "320355181027",
-    "project_id": "kees-notifications",
-    "storage_bucket": "kees-notifications.appspot.com"
+    "project_number": "84026613597",
+    "project_id": "kees-902e9",
+    "storage_bucket": "kees-902e9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:320355181027:android:491bbc748d9873178e00d6",
+        "mobilesdk_app_id": "1:84026613597:android:bddb49098609ca4b6f12b4",
         "android_client_info": {
           "package_name": "com.blueray.kees"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBcJkBfjBQqWj7UTw_QrIDE86L-mUBeKFY"
+          "current_key": "AIzaSyCaf3BsywVQG3QC8udGAd5ksUfRdoFPOkQ"
         }
       ],
       "services": {

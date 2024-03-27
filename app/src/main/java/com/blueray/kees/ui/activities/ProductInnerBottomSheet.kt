@@ -172,7 +172,11 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
                             .into(binding.productImage)
                         binding.productName.text = data.name
                         if (result.data.data.variation_type == "Standard") {
-                            binding.price.text = data.sale_price
+                            if (data.on_sale_price_status == "Active"){
+                                binding.price.text = data.on_sale_price
+                            }else{
+                                binding.price.text = data.sale_price
+                            }
                             colorId = data.color_id.toString()
                             sizeId = data.size_id.toString()
                             unitId = data.unit_id.toString()
@@ -213,7 +217,7 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
                         }
 
                     } else {
-                        showMessage(requireContext(), getString(R.string.Error))
+                        showMessage(requireContext(), result.data.message)
                     }
                 }
 
@@ -242,14 +246,14 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
                         adapter.notifyDataSetChanged()
 
                     } else {
-                        showMessage(requireContext(), getString(R.string.Error))
+                        showMessage(requireContext(), result.data.message)
                     }
                 }
 
                 is NetworkResults.ErrorMessage -> {
                     showMessage(
                         requireContext(),
-                        result.data?.message ?: getString(R.string.Error)
+                         getString(R.string.Error)
                     )
                 }
 
@@ -269,7 +273,7 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
                         showMessage(requireContext(), getString(R.string.addedToCartSuccessfully))
                         this.dismiss()
                     } else {
-                        showMessage(requireContext(), getString(R.string.Error))
+                        showMessage(requireContext(), result.data.message)
                     }
                 }
 
@@ -293,9 +297,13 @@ class ProductInnerBottomSheet : BottomSheetDialogFragment() {
             when (result) {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
-                        HelperUtils.showMessage(requireContext(), result.data.data.toString())
+                            if (result.data.data.is_wishlist == true){
+                                HelperUtils.showMessage(requireContext(), "Added Successfully")
+                            }else{
+                                HelperUtils.showMessage(requireContext(), "Removed Successfully")
+                            }
                     } else {
-                        HelperUtils.showMessage(requireContext(), getString(R.string.Error))
+                        HelperUtils.showMessage(requireContext(), result.data.error)
                     }
                 }
 

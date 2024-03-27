@@ -125,7 +125,8 @@ data class Day(
 data class GetWeeklyCartModel(
     val `data`: List<WeeklyBasketData>,
     val status: Int,
-    val success: Boolean
+    val success: Boolean,
+    @SerializedName("error") val message: String,
 )
 
 @Parcelize
@@ -156,7 +157,7 @@ data class WeeklyBasketData(
     val payment_status: String,
     val process_status: String,
     val start_time: String,
-    val sup_total_price: Int,
+    val sub_total_price: Int,
     val total_price: Double,
     val delivery_fees: Double,
     val services_fees: Double,
@@ -178,10 +179,28 @@ data class AddToBasketRequestBody(
     @SerializedName("feature_ids") val feature_ids: List<String>? = null
 )
 
+data class checkOutMultiBasketRequestBody(
+    val lang: String,
+    val weekly_basket_ids: List<Int>,
+    val address_id: String
+)
+
+data class AddRemoveWishListResponse(
+    val `data`: WishListData,
+    val status: Int,
+    val success: Boolean,
+    val error: String
+)
+
+data class WishListData(
+    val is_wishlist: Boolean
+)
+
 data class GetProductDetailsResponse(
     val `data`: GetProductDetailsData,
     val status: Int,
-    val success: Boolean
+    val success: Boolean,
+    val message: String
 )
 
 data class GetProductDetailsData(
@@ -520,7 +539,8 @@ data class Weight(
 data class UpdateDeliveryStatusResponse(
     val message: String,
     val status: Int,
-    val success: Boolean
+    val success: Boolean,
+    val data: String,
 )
 
 data class FinishedOrdersRespose(
@@ -690,4 +710,28 @@ data class WalletData(
     val wallet_balance_after: String,
     val wallet_balance_before: String,
     val wallet_transaction_type: String
+)
+
+
+data class ContactUsInfo(
+    val `data`: ContactUsData,
+    val status: Int,
+    val success: Boolean
+)
+
+data class ContactUsData(
+    val address: String,
+    val business_hours: String,
+    val email: String,
+    val facebook_url: String,
+    val instagram_url: String,
+    val linkedin_url: String,
+    val phone: String,
+    val phone_2: String,
+    val snapchat_url: String,
+    val telegram_url: String,
+    val tiktok_url: String,
+    val twitter_url: String,
+    val whatsapp_phone: String,
+    val youtube_url: String
 )

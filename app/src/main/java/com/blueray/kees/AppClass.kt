@@ -7,7 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-const val ONE_SIGNAL_ID = "1a5d3e82-fc19-48c0-a9a5-b44678d0eece"
+const val ONE_SIGNAL_ID = "b5e21d15-9565-4079-a50a-39f8e4362af6"
 class AppClass : Application() {
     override fun onCreate() {
         super.onCreate()
@@ -22,6 +22,6 @@ class AppClass : Application() {
         CoroutineScope(Dispatchers.IO).launch {
             OneSignal.Notifications.requestPermission(true)
         }
-    }
 
+    }
 }

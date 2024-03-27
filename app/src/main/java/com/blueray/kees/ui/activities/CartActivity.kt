@@ -32,6 +32,8 @@ class CartActivity : BaseActivity() {
             onBackPressed()
         }
         binding.includedTap.back.setImageResource(R.drawable.add_ic)
+        val color = ContextCompat.getColor(this, R.color.white)
+        binding.includedTap.back.setColorFilter(color)
         binding.includedTap.title.text = getString(R.string.weeklyCart)
         binding.includedTap.back.setOnClickListener {
             val apiResponseWeeks = weeksList // Assuming the API response returns these weeks

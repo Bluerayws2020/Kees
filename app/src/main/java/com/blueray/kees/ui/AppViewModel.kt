@@ -10,6 +10,8 @@ import com.blueray.kees.helpers.HelperUtils.getLang
 import com.blueray.kees.helpers.HelperUtils.getName
 import com.blueray.kees.helpers.HelperUtils.getToken
 import com.blueray.kees.model.AboutUsModel
+import com.blueray.kees.model.AddRemoveWishListResponse
+import com.blueray.kees.model.ContactUsInfo
 import com.blueray.kees.model.CustomerGetAddressesModel
 import com.blueray.kees.model.CustomerPastOrdersResponse
 import com.blueray.kees.model.CustomerProfileModel
@@ -55,7 +57,8 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     private val addToCartLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
     private val getProductDetailsLiveData =
         MutableLiveData<NetworkResults<GetProductDetailsResponse>>()
-    private val addRemoveWishlistProductLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
+    private val addRemoveWishlistProductLiveData =
+        MutableLiveData<NetworkResults<AddRemoveWishListResponse>>()
     private val getFavoriteProductsLiveData = MutableLiveData<NetworkResults<GetProductsModel>>()
     private val getCustomerProfileLiveData = MutableLiveData<NetworkResults<CustomerProfileModel>>()
     private val changePhoneNumberLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
@@ -98,7 +101,9 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     private val addWeeklyBasketLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
     private val walletTransactionLiveData =
         MutableLiveData<NetworkResults<WalletTransactionResponse>>()
-
+    private val checkOutMultiBasketsLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
+    private val weeklyBasketProductUpdateLiveData = MutableLiveData<NetworkResults<ErrorResponse>>()
+    private val contactUsInfoLiveData = MutableLiveData<NetworkResults<ContactUsInfo>>()
     fun retrieveRegistration(
         fullName: String,
         gender: String,//1 if male 2 if female
@@ -790,4 +795,55 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getWalletTransaction() = walletTransactionLiveData
+
+    fun retrieveCheckOutMultiBaskets(
+        weekly_baskets_ids: List<Int>,
+        address_id: String
+    ) {
+        viewModelScope.launch {
+            checkOutMultiBasketsLiveData.postValue(
+                repo.checkOutMultiBaskets(
+                    lang = getLang(context),
+                    weekly_basket_ids = weekly_baskets_ids,
+                    token = getToken(context),
+                    address_id = address_id
+                )
+            )
+        }
+    }
+
+    fun getCheckOutMultiBaskets() = checkOutMultiBasketsLiveData
+
+    fun retrieveWeeklyBasketUpdateProduct(
+        weekly_basket_id: String,
+        weekly_basket_product_id: String,
+        quantity: String
+    ) {
+        viewModelScope.launch {
+            weeklyBasketProductUpdateLiveData.postValue(
+                repo.weeklyBasketUpdateProduct(
+                    getToken(context),
+                    getLang(context),
+                    weekly_basket_id,
+                    weekly_basket_product_id,
+                    quantity
+                )
+            )
+        }
+    }
+
+    fun getWeeklyBasketUpdateProduct() = weeklyBasketProductUpdateLiveData
+
+    fun retrieveContactUsInfo() {
+        viewModelScope.launch {
+            contactUsInfoLiveData.postValue(
+                repo.getContactUs(
+                    getLang(context)
+                )
+            )
+
+        }
+    }
+
+    fun getContactUsInfo() = contactUsInfoLiveData
 }

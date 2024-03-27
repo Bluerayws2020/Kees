@@ -73,14 +73,16 @@
                         android:textSize="15dp" />
 
                     <TextView
+                        android:id="@+id/numberTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/cairo_semibold"
-                        android:text="0796575645"
+                        android:text="0790883000"
                         android:textColor="@color/black_200" />
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/whatsAppBtn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="7dp"

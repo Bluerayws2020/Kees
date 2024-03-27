@@ -106,10 +106,15 @@ class ProductsActivity : BaseActivity() {
             when (result) {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
-                        val subIds = result.data.data.map { it.id.toString() } // Extract subIds from result
-                        subId = subIds.firstOrNull() ?: ""
-                        Log.d("SubIds", subIds.toString())// Assign the first subId to subId
-                        setUpViewPagerWithTapLayout(result.data.data, subIds)
+                        if (result.data.data != null){
+                            val subIds = result.data.data.map { it.id.toString() }
+                            subId = subIds.firstOrNull() ?: ""
+                            Log.d("SubIds", subIds.toString())// Assign the first subId to subId
+                            setUpViewPagerWithTapLayout(result.data.data, subIds)
+                        }else{
+                            HelperUtils.showMessage(this , "No Data")
+                        }
+
                     } else {
                         HelperUtils.showMessage(this, getString(R.string.Error))
                     }

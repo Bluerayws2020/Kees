@@ -34,7 +34,12 @@ class ProductsAdapter(
         holder.apply {
             Glide.with(holder.itemView.context).load(data.image).placeholder(R.drawable.tahini).into(binding.productImage)
             binding.productName.text = data.name
-            binding.price.text = data.sale_price
+            if (data.on_sale_price_status == "Active"){
+                binding.price.text = data.on_sale_price
+            }else{
+                binding.price.text = data.sale_price
+            }
+
             if (data.is_wishlist == true || isWishList == true){
                 binding.likeBtn.isChecked = true
             }
@@ -49,7 +54,7 @@ class ProductsAdapter(
         holder.apply {
         // button click listener to add to cart
             binding.addToCart.setOnClickListener {
-                addToCartClick?.invoke(data.id.toString())
+                onClickListener(data.id.toString())
             }
             binding.likeBtn.setOnClickListener{
                 onLikeClickListener(data.id.toString())

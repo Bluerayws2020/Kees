@@ -95,6 +95,13 @@ Api {
         @Body data: AddToBasketRequestBody
     ): Response<ErrorResponse>
 
+    @POST("customer/checkoutMultiWeeklyBasket")
+    @Headers("Content-Type: application/json", "Accept: application/json")
+    suspend fun checkOutMultiBaskets(
+        @Header("Authorization") auth: String,
+        @Body data: checkOutMultiBasketRequestBody
+    ): Response<ErrorResponse>
+
     @Multipart
     @POST("frontend/getProductDetails")
     suspend fun getProductDetails(
@@ -109,7 +116,7 @@ Api {
         @Header("Authorization") auth: String,
         @Part("product_id") productId: RequestBody,
         @Part("lang") lang: RequestBody,
-    ): Response<ErrorResponse>
+    ): Response<AddRemoveWishListResponse>
 
     @POST("customer/getWishlistProducts")
     suspend fun getWishlistProducts(
@@ -302,7 +309,7 @@ Api {
     suspend fun driverFinishedOrderDetails(
         @Header("Authorization") auth: String,
         @Part("order_id") order_id: RequestBody,
-        @Part("lang")lang: RequestBody
+        @Part("lang") lang: RequestBody
     ): Response<FinishedOrderDetailsResponse>
 
     @Multipart
@@ -355,5 +362,21 @@ Api {
         @Header("Authorization") auth: String,
         @Part("lang") lang: RequestBody
     ): Response<WalletTransactionResponse>
+
+    @Multipart
+    @POST("customer/updateProductWeeklyBasket")
+    suspend fun weeklyBasketUpdateProduct(
+        @Header("Authorization") auth: String,
+        @Part("lang") lang: RequestBody,
+        @Part("weekly_basket_id") weekly_basket_id: RequestBody,
+        @Part("weekly_basket_product_id") weekly_basket_product_id: RequestBody,
+        @Part("quantity") quantity: RequestBody
+    ): Response<ErrorResponse>
+
+    @Multipart
+    @POST("frontend/getContactUs")
+    suspend fun getContactUs(
+        @Part("lang")lang: RequestBody
+    ): Response<ContactUsInfo>
 }
 

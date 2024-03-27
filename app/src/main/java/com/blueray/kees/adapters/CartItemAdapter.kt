@@ -11,7 +11,7 @@ import com.blueray.kees.model.WeeklyBasketProduct
 import com.bumptech.glide.Glide
 
 class CartItemAdapter(
-    var onPlusClickListener: (productId: Int, quantity: String, colorId: Int, sizeId: Int, unitId: Int, weight: Int, position: Int, quantityShow: Int) -> Unit,
+    var onPlusClickListener: (productId: Int, quantity: String, weeklyBasketId:String ) -> Unit,
 ) : RecyclerView.Adapter<CartItemAdapter.MyViewHolder>() {
 
 
@@ -62,14 +62,9 @@ class CartItemAdapter(
             holder.binding.itemCount.text =
                 (holder.binding.itemCount.text.toString().toInt() + 1).toString()
             onPlusClickListener(
-                data.product_id,
+                data.id,
                 data.quantity.toString(),
-                data.color_id,
-                data.size_id,
-                data.unit_id,
-                data.weight_id,
-                position,
-                holder.binding.itemCount.text.toString().toInt()
+                data.weekly_basket_id.toString()
             )
         }
         holder.binding.removeItem.setOnClickListener {
@@ -79,14 +74,9 @@ class CartItemAdapter(
                     (holder.binding.itemCount.text.toString().toInt() - 1).toString()
             }
             onPlusClickListener(
-                data.product_id,
+                data.id,
                 data.quantity.toString(),
-                data.color_id,
-                data.size_id,
-                data.unit_id,
-                data.weight_id,
-                position,
-                holder.binding.itemCount.text.toString().toInt()
+                data.weekly_basket_id.toString()
             )
         }
 

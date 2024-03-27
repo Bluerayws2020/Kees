@@ -101,7 +101,11 @@ class FavoriteFragment : Fragment() , ProductsAdapterListener {
             when (result) {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
-                        HelperUtils.showMessage(requireContext(), result.data.data.toString())
+                        if (result.data.data.is_wishlist == true){
+                            HelperUtils.showMessage(requireContext(), "Added Successfully")
+                        }else{
+                            HelperUtils.showMessage(requireContext(), "Removed Successfully")
+                        }
                         viewModel.retrieveFavoriteProducts()
 
 

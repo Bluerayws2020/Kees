@@ -16,14 +16,29 @@
         android:orientation="vertical"
         android:padding="20dp"
         >
-        <TextView
-            android:id="@+id/weekNameTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/cairo_bold"
-            android:text="First Week"
-            android:textColor="@color/darkPurple"
-            android:textSize="18sp" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/weekNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cairo_bold"
+                android:text="First Week"
+                android:textColor="@color/darkPurple"
+                android:textSize="18sp"
+                android:gravity="start"/>
+            <TextView
+                android:id="@+id/paidTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Paid"
+                android:fontFamily="@font/cairo_bold"
+                android:textColor="@color/purpleColor"
+                android:textSize="18sp"/>
+        </FrameLayout>
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

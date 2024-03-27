@@ -16,6 +16,7 @@ import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.model.NetworkResults
 import com.blueray.kees.model.WeeklyBasketProduct
 import com.blueray.kees.ui.AppViewModel
+import com.blueray.kees.ui.activities.ProductInnerBottomSheet
 import com.blueray.kees.ui.driver.fragments.DoneDialogFragment
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -57,6 +58,7 @@ class CartPageFragment : Fragment() {
         // observe to observers
         addToCart()
         getCarts()
+        updateProduct()
     }
 
     private fun setUpRecyclerView() {
@@ -68,13 +70,13 @@ class CartPageFragment : Fragment() {
 
     }
     private var plusJob : Job? = null
-    private val onPlusClick : (productId: Int, quantity: String, colorId: Int, sizeId: Int, unitId: Int, weight: Int, position: Int,itemCount:Int)->Unit = {
-        productId,quantity,colorId,sizeId,unitId ,weight,position,itemCount ->
+    private val onPlusClick : (productId: Int, quantity: String, weeklyBasketId:String)->Unit = {
+        productId,quantity, weeklyBasketId ->
 //        plusJob?.cancel()
         plusJob = MainScope().launch {
             delay(50L)
-            val addedQuantity = itemCount
-            viewModel.retrieveAddToBasket(weekId,productId.toString(),addedQuantity.toString(),colorId.toString(),sizeId.toString(),unitId.toString(),weight.toString())
+            val addedQuantity = quantity
+            viewModel.retrieveWeeklyBasketUpdateProduct(weeklyBasketId ,productId.toString() , addedQuantity)
         }
     }
 
@@ -88,6 +90,31 @@ class CartPageFragment : Fragment() {
                         viewModel.retrieveWeeklyCart()
                     } else {
                         HelperUtils.showMessage(requireContext(), getString(R.string.Error))
+                    }
+                }
+                is NetworkResults.ErrorMessage -> {
+                    HelperUtils.showMessage(
+                        requireContext(),
+                        result.data?.message ?: getString(R.string.Error)
+                    )
+                }
+                is NetworkResults.Error -> {
+                    result.exception.printStackTrace()
+                    HelperUtils.showMessage(requireContext(), getString(R.string.Error))
+                }
+            }
+        }
+    }
+
+    private fun updateProduct(){
+        viewModel.getWeeklyBasketUpdateProduct().observe(viewLifecycleOwner){
+                result ->
+            when (result) {
+                is NetworkResults.Success -> {
+                    if (result.data.status == 200) {
+                        HelperUtils.showMessage(requireContext(), result.data.data.toString())
+                    } else {
+                        HelperUtils.showMessage(requireContext(), result.data.message)
                     }
                 }
                 is NetworkResults.ErrorMessage -> {

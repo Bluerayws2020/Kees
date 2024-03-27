@@ -4,7 +4,9 @@ import android.util.Log.e
 import com.blueray.kees.api.ApiClient
 import com.blueray.kees.helpers.HelperUtils.toStringRequestBody
 import com.blueray.kees.model.AboutUsModel
+import com.blueray.kees.model.AddRemoveWishListResponse
 import com.blueray.kees.model.AddToBasketRequestBody
+import com.blueray.kees.model.ContactUsInfo
 import com.blueray.kees.model.CustomerGetAddressesModel
 import com.blueray.kees.model.CustomerPastOrdersResponse
 import com.blueray.kees.model.CustomerProfileModel
@@ -31,6 +33,7 @@ import com.blueray.kees.model.RegistrationModel
 import com.blueray.kees.model.ShiftsModel
 import com.blueray.kees.model.UpdateDeliveryStatusResponse
 import com.blueray.kees.model.WalletTransactionResponse
+import com.blueray.kees.model.checkOutMultiBasketRequestBody
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -464,6 +467,49 @@ object Repository {
         }
     }
 
+
+    suspend fun checkOutMultiBaskets(
+        lang: String,
+        weekly_basket_ids: List<Int>,
+        address_id: String,
+        token: String,
+
+
+        ): NetworkResults<ErrorResponse> {
+        val body = checkOutMultiBasketRequestBody(
+            lang = lang,
+            weekly_basket_ids = weekly_basket_ids,
+            address_id = address_id
+        )
+        try {
+            val result = ApiClient.retrofitService.checkOutMultiBaskets(
+                "Bearer $token",
+                body
+            )
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
+
     suspend fun getProductDetails(
         token: String,
         lang: String,
@@ -571,12 +617,13 @@ object Repository {
             return NetworkResults.Error(e)
         }
     }
+
     suspend fun resetPasswordRequest(
         token: String,
         phone: String,
-        otp_code:String,
+        otp_code: String,
         password: String,
-        password_confirmation:String
+        password_confirmation: String
     ): NetworkResults<ErrorResponse> {
         val otpCodeBody = otp_code.toStringRequestBody()
         val phoneBody = phone.toStringRequestBody()
@@ -613,6 +660,7 @@ object Repository {
             return NetworkResults.Error(e)
         }
     }
+
     suspend fun pastOrderDetails(
         token: String,
         orderId: String,
@@ -692,7 +740,7 @@ object Repository {
         lang: String,
         token: String,
         productId: String
-    ): NetworkResults<ErrorResponse> {
+    ): NetworkResults<AddRemoveWishListResponse> {
         val langRequest = lang.toStringRequestBody()
         val productIdRequest = productId.toStringRequestBody()
         try {
@@ -1639,12 +1687,13 @@ object Repository {
             return NetworkResults.Error(e)
         }
     }
+
     suspend fun addWeeklyBasket(
         token: String,
         number_of_week: String,
-        start_time:String,
-        end_time:String,
-        day:String
+        start_time: String,
+        end_time: String,
+        day: String
     ): NetworkResults<ErrorResponse> {
         val number_of_weekBody = number_of_week.toStringRequestBody()
         val start_timeBody = start_time.toStringRequestBody()
@@ -1681,6 +1730,7 @@ object Repository {
             return NetworkResults.Error(e)
         }
     }
+
     suspend fun getMyWalletTransactions(
         token: String,
         lang: String
@@ -1689,6 +1739,83 @@ object Repository {
         try {
             val result = ApiClient.retrofitService.getMyWalletTransactions(
                 "Bearer $token",
+                langBody
+            )
+
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
+    suspend fun weeklyBasketUpdateProduct(
+        token: String,
+        lang: String,
+        weekly_basket_id:String,
+        weekly_basket_product_id:String,
+        quantity:String
+    ): NetworkResults<ErrorResponse>{
+        val langBody = lang.toStringRequestBody()
+        val weekly_basket_idBody = weekly_basket_id.toStringRequestBody()
+        val weekly_basket_product_idBody = weekly_basket_product_id.toStringRequestBody()
+        val quantityBody = quantity.toStringRequestBody()
+        try {
+            val result = ApiClient.retrofitService.weeklyBasketUpdateProduct(
+                "Bearer $token",
+                langBody,
+                weekly_basket_idBody,
+                weekly_basket_product_idBody,
+                quantityBody
+            )
+
+            return if (result.isSuccessful) {
+                NetworkResults.Success(result.body()!!)
+            } else {
+                val errorBody = result.errorBody()?.string()
+
+                errorBody?.let {
+                    e("Repository Error Message", it)
+
+                    try {
+                        // Convert the error response JSON to a common Error Model
+                        val apiResponse: ErrorResponse =
+                            Gson().fromJson(it, ErrorResponse::class.java)
+                        NetworkResults.ErrorMessage(apiResponse)
+                    } catch (e: JsonSyntaxException) {
+                        // Handle the case where the error response is not a valid JSON
+                        NetworkResults.Error(e)
+                    }
+                } ?: NetworkResults.Error(Exception("Error body is null"))
+            }
+        } catch (e: Exception) {
+            return NetworkResults.Error(e)
+        }
+    }
+
+    suspend fun getContactUs(
+
+        lang: String
+    ): NetworkResults<ContactUsInfo> {
+        val langBody = lang.toStringRequestBody()
+        try {
+            val result = ApiClient.retrofitService.getContactUs(
                 langBody
             )
 

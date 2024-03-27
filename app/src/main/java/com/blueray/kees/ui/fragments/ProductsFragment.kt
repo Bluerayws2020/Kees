@@ -66,10 +66,10 @@ class ProductsFragment : Fragment() {
     private fun setAdapter() {
         adapter = ProductsAdapter(listOf(), {}, {}, null,false)
         adapter.onClickListener = { productId ->
-            val productDetails = ProductInnerBottomSheet().apply {
-                this.productId = productId
-            }
-            productDetails.show(parentFragmentManager, "bottomSheet")
+                val addToCart = ProductInnerBottomSheet()
+                addToCart.productId = productId
+                addToCart.show(parentFragmentManager, "bottomShow")
+
         }
         adapter.onLikeClickListener = { productId ->
             viewModel.retrieveAddRemoveWishlistProduct(productId)
@@ -117,7 +117,11 @@ class ProductsFragment : Fragment() {
             when (result) {
                 is NetworkResults.Success -> {
                     if (result.data.status == 200) {
-                        HelperUtils.showMessage(requireContext(), result.data.data.toString())
+                        if (result.data.data.is_wishlist == true){
+                            HelperUtils.showMessage(requireContext(), "Added Successfully")
+                        }else{
+                            HelperUtils.showMessage(requireContext(), "Removed Successfully")
+                        }
                     } else {
                         HelperUtils.showMessage(requireContext(), getString(R.string.Error))
                     }

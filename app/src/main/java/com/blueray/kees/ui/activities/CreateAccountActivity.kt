@@ -21,36 +21,40 @@ class CreateAccountActivity : BaseActivity() {
                 context.getString(R.string.customer),
                 context.getString(R.string.seller),
 
-            )
+                )
         }
     }
 
     var selectedAccountType = ""
-    var ACCOUNTS_TYPES_LIST :List<String> = listOf()
+    var ACCOUNTS_TYPES_LIST: List<String> = listOf()
     private lateinit var binding: ActivityCreateAccountBinding
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ACCOUNTS_TYPES_LIST  = getAccountTypesList(this)
+        ACCOUNTS_TYPES_LIST = getAccountTypesList(this)
         binding.includedTap.back.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
-        binding.includedTap.title.text= getString(R.string.create_accounttt)
+        binding.includedTap.title.text = getString(R.string.create_accounttt)
 
         setupSpinner()
+        binding.logInBtn.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
 
         binding.continueBtn.setOnClickListener {
-            if(selectedAccountType == ACCOUNTS_TYPES_LIST[0] ){
+            if (selectedAccountType == ACCOUNTS_TYPES_LIST[0]) {
                 startActivity(Intent(this, ChooseLocationActivity::class.java))
-            }else{
+            } else {
                 startActivity(Intent(this, ChooseLocationActivity::class.java))
             }
 
         }
-        binding.contactSupport.setOnClickListener{
-            startActivity(Intent(this,ContactUsActivity::class.java))
+        binding.contactSupport.setOnClickListener {
+            startActivity(Intent(this, ContactUsActivity::class.java))
         }
     }
 
@@ -65,7 +69,7 @@ class CreateAccountActivity : BaseActivity() {
                 parent: ViewGroup
             ): View {
 
-                val view =SpinnerItemBinding.inflate(layoutInflater)
+                val view = SpinnerItemBinding.inflate(layoutInflater)
                 val item = getItem(position)
 
 //                view.icon.hide()
@@ -76,7 +80,7 @@ class CreateAccountActivity : BaseActivity() {
 
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
-                val view =SpinnerItemBinding.inflate(layoutInflater)
+                val view = SpinnerItemBinding.inflate(layoutInflater)
                 val item = getItem(position)
 
 //                view.icon.hide()
@@ -87,7 +91,7 @@ class CreateAccountActivity : BaseActivity() {
             }
         }
 
-        binding.accountTypeSpinner.onItemSelectedListener = object :OnItemSelectedListener{
+        binding.accountTypeSpinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,

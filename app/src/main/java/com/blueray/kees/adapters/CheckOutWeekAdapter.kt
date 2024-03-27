@@ -1,15 +1,19 @@
 package com.blueray.kees.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.blueray.kees.R
 import com.blueray.kees.databinding.CheckOutItemBinding
+import com.blueray.kees.helpers.HelperUtils
 import com.blueray.kees.model.WeeklyBasketData
 
 class CheckOutWeekAdapter(
     var list: List<WeeklyBasketData>,
-    var onClick: (data: WeeklyBasketData) -> Unit
+    var onClick: (data: WeeklyBasketData , position: Int) -> Unit
 ) : RecyclerView.Adapter<CheckOutWeekAdapter.MyViewHolder>() {
 
     private var filteredList: List<WeeklyBasketData> =
@@ -26,15 +30,27 @@ class CheckOutWeekAdapter(
 
     override fun getItemCount(): Int = filteredList.size
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val data = filteredList[position]
         holder.apply {
             binding.weekNameTv.text =
                 binding.root.context.getString(R.string.week) + " " + data.week_number
-            binding.price.text = data.total_price.toString()
+            binding.price.text = data.total_price.toString() + " JOD"
+            binding.paidTv.text = data.payment_status
+            if (list[position].selected && data.payment_status != "Paid") {
+                (binding.root as CardView).setBackgroundResource(R.drawable.card_view_background)
+
+            } else {
+                (binding.root as CardView).setBackgroundResource(R.drawable.unselected_card_view_background)
+
+            }
         }
         holder.itemView.setOnClickListener {
-            onClick(data)
+            if (data.payment_status != "Paid" && data.payment_status != "مدفوع"){
+                onClick(data , position)
+            }
+
         }
     }
 
